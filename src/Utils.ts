@@ -2,13 +2,18 @@ import { eventPropTypes, IEventPropTypes } from "./components/EditorPropTypes";
 import { IAllProps } from "./components/EditorPropTypes";
 import { Editor as TinyMCEEditor, EditorEvent } from "tinymce";
 
-export const isFunction = (x: unknown): x is Function => typeof x === "function";
+export const isFunction = (x: unknown): x is Function =>
+  typeof x === "function";
 
-const isEventProp = (name: string): name is keyof IEventPropTypes => name in eventPropTypes;
+const isEventProp = (name: string): name is keyof IEventPropTypes =>
+  name in eventPropTypes;
 
-const eventAttrToEventName = <T extends string>(attrName: `on${T}`): T => attrName.substr(2) as T;
+const eventAttrToEventName = <T extends string>(attrName: `on${T}`): T =>
+  attrName.substr(2) as T;
 
-type PropLookup = <K extends keyof IAllProps>(key: K) => IAllProps[K] | undefined;
+type PropLookup = <K extends keyof IAllProps>(
+  key: K,
+) => IAllProps[K] | undefined;
 
 export const configHandlers2 = <H>(
   handlerLookup: PropLookup,
@@ -22,10 +27,10 @@ export const configHandlers2 = <H>(
   const prevEventKeys = Object.keys(prevProps).filter(isEventProp);
   const currEventKeys = Object.keys(props).filter(isEventProp);
 
-  const removedKeys = prevEventKeys.filter(key => props[key] === undefined);
-  const addedKeys = currEventKeys.filter(key => prevProps[key] === undefined);
+  const removedKeys = prevEventKeys.filter((key) => props[key] === undefined);
+  const addedKeys = currEventKeys.filter((key) => prevProps[key] === undefined);
 
-  removedKeys.forEach(key => {
+  removedKeys.forEach((key) => {
     // remove event handler
     const eventName = eventAttrToEventName(key);
     const wrappedHandler = boundHandlers[eventName];
@@ -33,7 +38,7 @@ export const configHandlers2 = <H>(
     delete boundHandlers[eventName];
   });
 
-  addedKeys.forEach(key => {
+  addedKeys.forEach((key) => {
     const wrappedHandler = adapter(handlerLookup, key);
     const eventName = eventAttrToEventName(key);
     boundHandlers[eventName] = wrappedHandler;
@@ -53,7 +58,7 @@ export const configHandlers = (
     editor.on.bind(editor),
     editor.off.bind(editor),
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    (handlerLookup, key) => e => handlerLookup(key)?.(e, editor),
+    (handlerLookup, key) => (e) => handlerLookup(key)?.(e, editor),
     prevProps,
     props,
     boundHandlers,
@@ -70,8 +75,12 @@ export const uuid = (prefix: string): string => {
   return prefix + "_" + random + unique + String(time);
 };
 
-export const isTextareaOrInput = (element: Element | null): element is HTMLTextAreaElement | HTMLInputElement =>
-  element !== null && (element.tagName.toLowerCase() === "textarea" || element.tagName.toLowerCase() === "input");
+export const isTextareaOrInput = (
+  element: Element | null,
+): element is HTMLTextAreaElement | HTMLInputElement =>
+  element !== null &&
+  (element.tagName.toLowerCase() === "textarea" ||
+    element.tagName.toLowerCase() === "input");
 
 const normalizePluginArray = (plugins?: string | string[]): string[] => {
   if (typeof plugins === "undefined" || plugins === "") {
@@ -85,10 +94,12 @@ const normalizePluginArray = (plugins?: string | string[]): string[] => {
 export const mergePlugins = (
   initPlugins: string | string[] | undefined,
   inputPlugins: string | string[] | undefined,
-): string[] => normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));
+): string[] =>
+  normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));
 
 export const isBeforeInputEventAvailable = () =>
-  window.InputEvent && typeof (InputEvent.prototype as any).getTargetRanges === "function";
+  window.InputEvent &&
+  typeof (InputEvent.prototype as any).getTargetRanges === "function";
 
 export const isInDoc = (elem: Node) => {
   if (!("isConnected" in Node.prototype)) {
@@ -105,9 +116,16 @@ export const isInDoc = (elem: Node) => {
   return elem.isConnected;
 };
 
-export const setMode = (editor: TinyMCEEditor | undefined, mode: "readonly" | "design") => {
+export const setMode = (
+  editor: TinyMCEEditor | undefined,
+  mode: "readonly" | "design",
+) => {
   if (editor !== undefined) {
-    if (editor.mode != null && typeof editor.mode === "object" && typeof editor.mode.set === "function") {
+    if (
+      editor.mode != null &&
+      typeof editor.mode === "object" &&
+      typeof editor.mode.set === "function"
+    ) {
       editor.mode.set(mode);
     } else {
       // support TinyMCE 4

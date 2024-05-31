@@ -12,7 +12,9 @@ dist
 
 # dependencies
 /node_modules
-dist
+/demo/node_modules
+/demo/.output
+/demo/.vinxi
 experiments
 coverage
 *.local

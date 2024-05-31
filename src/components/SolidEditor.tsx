@@ -1,4 +1,4 @@
-import tinymceSrc from "tinymce?url";
+import tinymceURL from "../tinymceURL";
 import { createSignal, onCleanup, onMount } from "solid-js";
 import { type ScriptItem, ScriptLoader } from "../ScriptLoader2";
 import { getTinymce } from "../TinyMCE";
@@ -16,7 +16,7 @@ import { EditorPropTypes, IAllProps, Version, EditorOptions, InitOptions, Omitte
 import { Bookmark, Editor as TinyMCEEditor, EditorEvent } from "tinymce";
 
 export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
-  const props = { ...tinyProps, tinymceScriptSrc: tinymceSrc };
+  const props = { ...tinyProps, tinymceScriptSrc: tinymceURL };
   const [editor, setEditor] = createSignal<TinyMCEEditor>();
   const [currentContent, setCurrentContent] = createSignal<string>();
   const [rollbackTimer, setRollbackTimer] = createSignal<number>();
@@ -200,65 +200,6 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
       );
     }
   });
-
-  // const componentDidUpdate = (prevProps: Partial<IAllProps>) => {
-  //   if (rollbackTimer()) {
-  //     clearTimeout(rollbackTimer());
-  //     setRollbackTimer(undefined);
-  //   }
-  //   const tinyEditor = editor()!;
-  //   if (tinyEditor !== undefined) {
-  //     bindHandlers(prevProps);
-  //     if (tinyEditor.initialized) {
-  //       const newCurrentValue = currentContent() ?? tinyEditor.getContent();
-  //       setCurrentContent(newCurrentValue);
-  //       // this.currentContent = this.currentContent ?? tinyEditor.getContent();
-  //       if (typeof props.initialValue === "string" && props.initialValue !== prevProps.initialValue) {
-  //         // same as resetContent in TinyMCE 5
-  //         tinyEditor.setContent(props.initialValue);
-  //         tinyEditor.undoManager.clear();
-  //         tinyEditor.undoManager.add();
-  //         tinyEditor.setDirty(false);
-  //       } else if (typeof props.value === "string" && props.value !== newCurrentValue) {
-  //         const localEditor = editor()!;
-  //         localEditor.undoManager.transact(() => {
-  //           // inline editors grab focus when restoring selection
-  //           // so we don't try to keep their selection unless they are currently focused
-  //           let cursor: Bookmark | undefined;
-  //           if (!props.inline || localEditor.hasFocus()) {
-  //             try {
-  //               // getBookmark throws exceptions when the editor has not been focused
-  //               // possibly only in inline mode but I'm not taking chances
-  //               cursor = localEditor.selection.getBookmark(3);
-  //             } catch (e) {
-  //               /* ignore */
-  //             }
-  //           }
-  //           const valueCursor1 = valueCursor();
-  //           localEditor.setContent(props.value as string);
-  //           if (!props.inline || localEditor.hasFocus()) {
-  //             for (const bookmark of [cursor, valueCursor1]) {
-  //               if (bookmark) {
-  //                 try {
-  //                   localEditor.selection.moveToBookmark(bookmark);
-  //                   // this.valueCursor = bookmark;
-  //                   setValueCursor(bookmark);
-  //                   break;
-  //                 } catch (e) {
-  //                   /* ignore */
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         });
-  //       }
-  //       if (props.disabled !== prevProps.disabled) {
-  //         const disabled = props.disabled ?? false;
-  //         setMode(editor()!, disabled ? "readonly" : "design");
-  //       }
-  //     }
-  //   }
-  // };
 
   onCleanup(() => {
     const tinyEditor = editor()!;

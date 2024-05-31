@@ -9,6 +9,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
+  server: {
+    output: { dir: "../docs" },
+  },
   vite: {
     envDir: monorepoRoot,
     plugins: [tsconfigPaths({ root: "." }), compress()],
@@ -18,11 +21,8 @@ export default defineConfig({
         "@": path.resolve(__dirname, ".."),
       },
     },
-    routeDir: "../docs",
     build: {
-      outDir: path.join(__dirname, "..", "docs"),
       target: "es2020",
-      // outDir: "../docs",
     },
     server: {
       fs: {

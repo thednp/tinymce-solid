@@ -1,0 +1,8 @@
+import { ssr, ssrHydrationKey, escape, createComponent, isServer } from 'solid-js/web';
+import { k } from './index22.mjs';
+import { createSignal, splitProps, sharedConfig, onMount, createMemo, untrack } from 'solid-js';
+
+function C(i){if(isServer)return e=>e.fallback;const[o,n]=createSignal();return i().then(e=>n(()=>e.default)),e=>{let t,r;const[,a]=splitProps(e,["fallback"]);if((t=o())&&!sharedConfig.context)return t(a);const[d,u]=createSignal(!sharedConfig.context);return onMount(()=>u(!0)),createMemo(()=>(t=o(),r=d(),untrack(()=>t&&r?t(a):e.fallback)))}}var S=["<main","><!--$-->","<!--/--><h1>TinyMCE Solid component</h1><!--$-->",'<!--/--><p>Visit <a href="https://start.solidjs.com" target="_blank">start.solidjs.com</a> to learn how to build SolidStart apps.</p></main>'];const E=C(()=>import('./index3.mjs'));function j(){const[i,o]=createSignal("");return ssr(S,ssrHydrationKey(),escape(createComponent(k,{children:"TinyMCE Solid component"})),escape(createComponent(E,{licenseKey:"gpl",inline:!1,get value(){return i()},init:{menubar:!1,placeholder:"Type an email content here...",file_picker_types:"image",automatic_uploads:!0,plugins:"advlist advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount",toolbar:"undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code | removeformat | help"},onEditorChange:(n,e)=>{o(n),console.log("onEditorChange",n);}})))}
+
+export { j as default };
+//# sourceMappingURL=index.mjs.map

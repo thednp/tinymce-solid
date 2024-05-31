@@ -3,24 +3,34 @@ import { IEvents } from "../Events";
 import { Editor as TinyMCEEditor, TinyMCE } from "tinymce";
 import { ScriptItem } from "../ScriptLoader2";
 
-export type OmitStringIndexSignature<T> = { [K in keyof T as string extends K ? never : K]: T[K] };
+export type OmitStringIndexSignature<T> = {
+  [K in keyof T as string extends K ? never : K]: T[K];
+};
 
 interface DoNotUse<T extends string> {
   __brand: T;
 }
 
-export type OmittedInitProps = "selector" | "target" | "readonly" | "license_key";
+export type OmittedInitProps =
+  | "selector"
+  | "target"
+  | "readonly"
+  | "license_key";
 
 export type EditorOptions = Parameters<TinyMCE["init"]>[0];
 
-export type InitOptions = Omit<OmitStringIndexSignature<EditorOptions>, OmittedInitProps> & {
+export type InitOptions = Omit<
+  OmitStringIndexSignature<EditorOptions>,
+  OmittedInitProps
+> & {
   selector?: DoNotUse<"selector prop is handled internally by the component">;
   target?: DoNotUse<"target prop is handled internally by the component">;
   readonly?: DoNotUse<"readonly prop is overridden by the component, use the `disabled` prop instead">;
   license_key?: DoNotUse<"license_key prop is overridden by the integration, use the `licenseKey` prop instead">;
 } & { [key: string]: unknown };
 
-export type Version = `${"4" | "5" | "6" | "7"}${"" | "-dev" | "-testing" | `.${number}` | `.${number}.${number}`}`;
+export type Version =
+  `${"4" | "5" | "6" | "7"}${"" | "-dev" | "-testing" | `.${number}` | `.${number}.${number}`}`;
 
 export interface IProps {
   propTypes: IEditorPropTypes;
@@ -42,7 +52,13 @@ export interface IProps {
   tinymceScriptSrc: string | string[] | ScriptItem[];
   rollback: number | false;
   skin: "oxide" | "oxide-dark" | "tinymce-5" | "tinymce-5-dark";
-  contentCss: "default" | "dark" | "document" | "tinymce-5" | "tinymce-5-dark" | "writer";
+  contentCss:
+    | "default"
+    | "dark"
+    | "document"
+    | "tinymce-5"
+    | "tinymce-5-dark"
+    | "writer";
   scriptLoading: {
     async?: boolean;
     defer?: boolean;

@@ -1,0 +1,77 @@
+{
+  "../src/index.tsx": {
+    "file": "assets/index-DiDzTRSd.js",
+    "name": "index",
+    "src": "../src/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-B6plH8Gl.js"
+    ]
+  },
+  "_HttpStatusCode-DjTx85av.js": {
+    "file": "assets/HttpStatusCode-DjTx85av.js",
+    "name": "HttpStatusCode"
+  },
+  "_index-B6plH8Gl.js": {
+    "file": "assets/index-B6plH8Gl.js",
+    "name": "index"
+  },
+  "_preload-helper-N37mDRhq.js": {
+    "file": "assets/preload-helper-N37mDRhq.js",
+    "name": "preload-helper"
+  },
+  "src/routes/[...404].tsx?pick=default&pick=$css": {
+    "file": "assets/_...404_-BPS_jq3J.js",
+    "name": "_...404_",
+    "src": "src/routes/[...404].tsx?pick=default&pick=$css",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-B6plH8Gl.js",
+      "_HttpStatusCode-DjTx85av.js"
+    ]
+  },
+  "src/routes/about.tsx?pick=default&pick=$css": {
+    "file": "assets/about-BUlHOCGf.js",
+    "name": "about",
+    "src": "src/routes/about.tsx?pick=default&pick=$css",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-B6plH8Gl.js"
+    ]
+  },
+  "src/routes/index.tsx?pick=default&pick=$css": {
+    "file": "assets/index-BmrqxaVr.js",
+    "name": "index",
+    "src": "src/routes/index.tsx?pick=default&pick=$css",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_preload-helper-N37mDRhq.js",
+      "_index-B6plH8Gl.js"
+    ],
+    "dynamicImports": [
+      "../src/index.tsx"
+    ]
+  },
+  "virtual:#vinxi/handler/client": {
+    "file": "assets/client-CutxkF0b.js",
+    "name": "client",
+    "src": "virtual:#vinxi/handler/client",
+    "isEntry": true,
+    "imports": [
+      "_index-B6plH8Gl.js",
+      "_preload-helper-N37mDRhq.js",
+      "_HttpStatusCode-DjTx85av.js"
+    ],
+    "dynamicImports": [
+      "src/routes/[...404].tsx?pick=default&pick=$css",
+      "src/routes/about.tsx?pick=default&pick=$css",
+      "src/routes/index.tsx?pick=default&pick=$css"
+    ],
+    "css": [
+      "assets/client-CGBVm5b1.css"
+    ]
+  }
+}

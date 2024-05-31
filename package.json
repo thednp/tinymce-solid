@@ -16,20 +16,20 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "dev-": "vinxi dev --config demo/app.config.ts",
     "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\" \"demo/**/*.{js,ts,json,css,tsx,jsx}\"",
     "build": "tsup",
     "build:docs-": "pnpm format && vite build demo --config demo/vite.config.docs.ts",
-    "build:all": "pnpm build && pnpm docs",
+    "build:all": "pnpm build && pnpm build:docs",
     "dev": "pnpm --filter tinymce-solid-demo dev",
-    "build:docs": "pnpm --filter tinymce-solid-demo build:docs",
+    "build:docs": "pnpm --filter tinymce-solid-demo build:docs && pnpm copy:tiny",
+    "copy:tiny": "cp -R './node_modules/.pnpm/tinymce@7.1.1/node_modules/tinymce' './docs/public/assets'",
     "serve:docs": "pnpm --filter tinymce-solid-demo start",
     "prepublishOnly": "pnpm up && npm update && pnpm format && pnpm lint && pnpm build",
     "lint": "pnpm lint:types && pnpm lint:code",
     "lint:code": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0",
-    "lint:types": "tsc --noEmit",
+    "lint:types": "tsc --noEmit src/**/* --jsx preserve",
     "fix:ts": "eslint --fix",
-    "start": "vinxi start",
+    "start": "pnpm serve:docs",
     "version": "vinxi version"
   },
   "dependencies": {

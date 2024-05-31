@@ -5,7 +5,9 @@ import { Component, createSignal } from "solid-js";
 import { Editor } from "tinymce";
 import { IAllProps } from "@/src/index";
 
-const SolidEditor = clientOnly<Component<IAllProps>>(() => import("../../../src/index"));
+const SolidEditor = clientOnly<Component<IAllProps>>(
+  () => import("../../../src/index"),
+);
 
 export default function Home() {
   // let editorRef!: Editor;
