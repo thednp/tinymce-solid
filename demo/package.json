@@ -1,0 +1,32 @@
+{
+  "name": "tinymce-solid-demo",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "dev": "vinxi dev",
+    "build:docs": "vinxi build",
+    "start": "vinxi start"
+  },
+  "dependencies": {
+    "@solidjs/meta": "^0.29.4",
+    "@solidjs/router": "^0.13.4",
+    "@solidjs/start": "^1.0.1",
+    "@types/node": "^20.12.13",
+    "@types/prop-types": "^15.7.12",
+    "prop-types": "^15.8.1",
+    "solid-js": "^1.8.17",
+    "tinymce": "^7.1.1",
+    "vinxi": "^0.3.11",
+    "vite": "^5.2.12"
+  },
+  "devDependencies": {
+    "vite-plugin-compression2": "^1.1.1",
+    "vite-tsconfig-paths": "^4.3.2"
+  },
+  "packageManager": "pnpm@8.6.12",
+  "engines": {
+    "node": ">=18"
+  }
+}

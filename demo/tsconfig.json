@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../docs",
+    "paths": {
+      "@/*": ["../*"],
+      "~/*": ["./src/*"],
+    },
+  },
+  "include": ["src", "../src"],
+  "exclude": ["node_modules", "dist"],
+  // "references": [{ "path": "../src/index" }]
+}

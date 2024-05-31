@@ -1,0 +1,1 @@
+import{n as a,B as i,t as l,h as o,x as s,T as m}from"./index-B6plH8Gl.js";var u=s("<main><!$><!/><h1>About");function $(){return(()=>{var e=a(u),n=e.firstChild,[t,r]=i(n.nextSibling);return t.nextSibling,l(e,o(m,{children:"About"}),t,r),e})()}export{$ as default};

@@ -1,0 +1,59 @@
+{
+  "name": "tinymce-solid",
+  "version": "0.0.1",
+  "description": "TinyMCE for SolidJS",
+  "type": "module",
+  "workspaces": [
+    "demo/",
+    "/"
+  ],
+  "homepage": "https://thednp.github.io/tinymce-solid",
+  "bugs": {
+    "url": "https://github.com/thednp/tinymce-solid/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "dev-": "vinxi dev --config demo/app.config.ts",
+    "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\" \"demo/**/*.{js,ts,json,css,tsx,jsx}\"",
+    "build": "tsup",
+    "build:docs-": "pnpm format && vite build demo --config demo/vite.config.docs.ts",
+    "build:all": "pnpm build && pnpm docs",
+    "dev": "pnpm --filter tinymce-solid-demo dev",
+    "build:docs": "pnpm --filter tinymce-solid-demo build:docs",
+    "serve:docs": "pnpm --filter tinymce-solid-demo start",
+    "prepublishOnly": "pnpm up && npm update && pnpm format && pnpm lint && pnpm build",
+    "lint": "pnpm lint:types && pnpm lint:code",
+    "lint:code": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0",
+    "lint:types": "tsc --noEmit",
+    "fix:ts": "eslint --fix",
+    "start": "vinxi start",
+    "version": "vinxi version"
+  },
+  "dependencies": {
+    "@solidjs/meta": "^0.29.4",
+    "@solidjs/router": "^0.13.4",
+    "@solidjs/start": "^1.0.1",
+    "@types/node": "^20.12.13",
+    "@types/prop-types": "^15.7.12",
+    "prop-types": "^15.8.1",
+    "solid-js": "^1.8.17",
+    "tinymce": "^7.1.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "vinxi": "^0.3.11"
+  },
+  "devDependencies": {
+    "eslint": "^9.3.0",
+    "prettier": "^3.2.5",
+    "tsup-preset-solid": "^2.2.0",
+    "typescript-eslint": "^7.11.0",
+    "vite-plugin-compression2": "^1.1.1"
+  },
+  "packageManager": "pnpm@8.6.12",
+  "engines": {
+    "node": ">=18"
+  }
+}
