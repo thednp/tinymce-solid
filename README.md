@@ -14,15 +14,21 @@ This package is a wrapper around [TinyMCE](https://github.com/tinymce/tinymce) t
 
 **npm**
 
-`npm install tinymce-solid`
+```
+npm install tinymce-solid
+```
 
 **pnpm**
 
-`pnpm install tinymce-solid`
+```
+pnpm install tinymce-solid
+```
 
 **yarn**
 
-`yarn add tinymce-solid`
+```
+yarn add tinymce-solid
+```
 
 ### Basic Usage
 
@@ -103,7 +109,7 @@ export default function App() {
 
 ### Some notes
 
-- This package will automatically load the tinymce library and its dependencies by the use of the `tinymceScriptSrc`
+- This package will automatically load the tinymce library and its dependencies by the use of the `tinymceScriptSrc` property
 - You can make use of the dark mode via TinyMCE skins:<br />`<SolidEditor skin="oxide-dark" contentCss="dark" {...props} />`
 - The component, like the original, allows you to hook into the TinyMCE instance via an `editorRef` reference.
 
