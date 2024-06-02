@@ -55,7 +55,7 @@ jobs:
   # Deployment job
   deploy:
     # Add a dependency to the build job
-    needs: build:docs
+    needs: build
 
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
@@ -73,4 +73,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-        
