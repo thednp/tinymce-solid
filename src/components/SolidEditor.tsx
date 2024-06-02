@@ -1,4 +1,4 @@
-import { createEffect, createSignal, on, onCleanup, onMount, startTransition } from "solid-js";
+import { createEffect, createSignal, on, onCleanup, onMount } from "solid-js";
 import { type ScriptItem, ScriptLoader } from "../ScriptLoader2";
 import { getTinymce } from "../TinyMCE";
 import {
