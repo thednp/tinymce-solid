@@ -1,43 +1,26 @@
-name: CI & Test
+# https://github.com/actions/deploy-pages#usage
+name: Deploy to GitHub Pages
 
-on: [push]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
-    runs-on: ${{ matrix.operating-system }}
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-        operating-system: [ubuntu-latest]
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - run: corepack enable
+      - uses: actions/setup-node@v3
         with:
-          fetch-depth: 2
+          node-version: "18"
 
-      - uses: pnpm/action-setup@v2.2.2
-
-      - name: Setup Node.js environment ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Typecheck & ESLint
-        run: pnpm lint
-
-      - name: Build
-        run: pnpm build
-
-      - name: Build Docs
-        run: pnpm build:docs
-        # env:
-        #   NITRO_PRESET: github_pages
+      - run: npx nypm install
+      - run: npm run build:docs
+        env:
+          NITRO_PRESET: github_pages
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
@@ -45,32 +28,24 @@ jobs:
           # path: ./.output/public
           path: ./docs
 
-      - name: Deploy pages
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
-        with:
-          branch: gh-pages
-          node-version: 18.x
-          folder: docs
-
-
   # Deployment job
-  # deploy:
-  #   # Add a dependency to the build job
-  #   needs: build
+  deploy:
+    # Add a dependency to the build job
+    needs: build
 
-  #   # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-  #   permissions:
-  #     pages: write      # to deploy to Pages
-  #     id-token: write   # to verify the deployment originates from an appropriate source
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
 
-  #   # Deploy to the github_pages environment
-  #   environment:
-  #     name: github_pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
+    # Deploy to the github_pages environment
+    environment:
+      name: github_pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
-  #   # Specify runner + deployment step
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v1
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
