@@ -18,7 +18,6 @@
   "scripts": {
     "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\" \"demo/**/*.{js,ts,json,css,tsx,jsx}\"",
     "build": "tsup",
-    "build:docs-": "pnpm format && vite build demo --config demo/vite.config.docs.ts",
     "build:all": "pnpm build && pnpm build:docs",
     "dev": "pnpm --filter tinymce-solid-demo dev",
     "build:docs": "pnpm --filter tinymce-solid-demo build:docs",
