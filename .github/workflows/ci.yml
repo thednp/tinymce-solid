@@ -52,6 +52,7 @@ jobs:
           node-version: 18.x
           folder: docs
 
+
   # Deployment job
   # deploy:
   #   # Add a dependency to the build job
