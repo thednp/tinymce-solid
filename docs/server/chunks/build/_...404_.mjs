@@ -2,7 +2,7 @@ import { ssr, ssrHydrationKey, escape, createComponent, isServer, getRequestEven
 import { k } from './index22.mjs';
 import { onCleanup } from 'solid-js';
 
-const u=isServer?e=>{const t=getRequestEvent();return t.response.status=e.code,t.response.statusText=e.text,onCleanup(()=>!t.nativeEvent.handled&&!t.complete&&(t.response.status=200)),null}:e=>null;var d=["<main","><!--$-->","<!--/--><!--$-->",'<!--/--><h1>Page Not Found</h1><p>Visit <a href="https://start.solidjs.com" target="_blank">start.solidjs.com</a> to learn how to build SolidStart apps.</p></main>'];function f(){return ssr(d,ssrHydrationKey(),escape(createComponent(k,{children:"Not Found"})),escape(createComponent(u,{code:404})))}
+const c=isServer?t=>{const e=getRequestEvent();return e.response.status=t.code,e.response.statusText=t.text,onCleanup(()=>!e.nativeEvent.handled&&!e.complete&&(e.response.status=200)),null}:t=>null;var i=["<main",' class="container mx-auto"><!--$-->',"<!--/--><!--$-->",'<!--/--><h1 class="text-5xl">Page Not Found</h1><p>Please <a href="/">click here</a> to return to the homepage.</p></main>'];function f(){return ssr(i,ssrHydrationKey(),escape(createComponent(k,{children:"Not Found"})),escape(createComponent(c,{code:404})))}
 
 export { f as default };
 //# sourceMappingURL=_...404_.mjs.map

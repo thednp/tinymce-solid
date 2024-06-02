@@ -1,5 +1,3 @@
-
-dist
 .solid
 .output
 .vercel
@@ -16,6 +14,7 @@ dist
 /demo/.output
 /demo/.vinxi
 experiments
+docs
 coverage
 *.local
 
@@ -32,3 +31,4 @@ gitignore
 # System Files
 .DS_Store
 Thumbs.db
+.npmignore

@@ -37,9 +37,10 @@ export interface IProps {
   elementRef: HTMLDivElement | HTMLTextAreaElement;
   apiKey: string;
   id: string;
+  testid: string; // testing-library attribute
   inline: boolean;
   initialValue: string;
-  onEditorChange: (a: string, editor: TinyMCEEditor) => void;
+  onEditorChange: (content: string, editor: TinyMCEEditor) => void;
   value: string;
   init: InitOptions;
   tagName: string;

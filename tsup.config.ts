@@ -18,11 +18,11 @@ const preset_options: preset.PresetOptions = {
   // cjs: true,
 };
 
-// const CI =
-//   process.env['CI'] === 'true' ||
-//   process.env['GITHUB_ACTIONS'] === 'true' ||
-//   process.env['CI'] === '"1"' ||
-//   process.env['GITHUB_ACTIONS'] === '"1"'
+const CI =
+  process.env['CI'] === 'true' ||
+  process.env['GITHUB_ACTIONS'] === 'true' ||
+  process.env['CI'] === '"1"' ||
+  process.env['GITHUB_ACTIONS'] === '"1"'
 
 export default defineConfig(config => {
   const watching = !!config.watch;
@@ -30,14 +30,13 @@ export default defineConfig(config => {
   const parsed_options = preset.parsePresetOptions(preset_options, watching);
 
   // DON'T OVERRIDE MY PACKAGE.JSON PLEASE!
-  // if (!watching && !CI) {
-  //   const package_fields = preset.generatePackageExports(parsed_options)
+  if (!watching && !CI) {
+    const package_fields = preset.generatePackageExports(parsed_options)
+    // console.log(`package.json: \n\n${JSON.stringify(package_fields, null, 2)}\n\n`)
 
-  //   console.log(`package.json: \n\n${JSON.stringify(package_fields, null, 2)}\n\n`)
-
-  //   // will update ./package.json with the correct export fields
-  //   preset.writePackageJson(package_fields)
-  // }
+    // will update ./package.json with the correct export fields
+    preset.writePackageJson(package_fields)
+  }
 
   return preset.generateTsupOptions(parsed_options);
 });

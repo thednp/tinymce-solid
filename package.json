@@ -21,39 +21,61 @@
     "build:docs-": "pnpm format && vite build demo --config demo/vite.config.docs.ts",
     "build:all": "pnpm build && pnpm build:docs",
     "dev": "pnpm --filter tinymce-solid-demo dev",
-    "build:docs": "pnpm --filter tinymce-solid-demo build:docs && pnpm copy:tiny",
-    "copy:tiny": "cp -R './node_modules/.pnpm/tinymce@7.1.1/node_modules/tinymce' './docs/public/assets'",
+    "build:docs": "pnpm --filter tinymce-solid-demo build:docs",
+    "copy:tiny": "cp -a './node_modules/.pnpm/tinymce@7.1.1/node_modules/tinymce' './demo/public'",
     "serve:docs": "pnpm --filter tinymce-solid-demo start",
     "prepublishOnly": "pnpm up && npm update && pnpm format && pnpm lint && pnpm build",
     "lint": "pnpm lint:types && pnpm lint:code",
     "lint:code": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0",
     "lint:types": "tsc --noEmit src/**/* --jsx preserve",
-    "fix:ts": "eslint --fix",
+    "fix:ts": "eslint 'src/**/*.{ts,tsx}' --fix",
     "start": "pnpm serve:docs",
     "version": "vinxi version"
   },
   "dependencies": {
     "@solidjs/meta": "^0.29.4",
-    "@solidjs/router": "^0.13.4",
+    "@solidjs/router": "^0.13.5",
     "@solidjs/start": "^1.0.1",
-    "@types/node": "^20.12.13",
+    "@types/node": "^20.14.0",
     "@types/prop-types": "^15.7.12",
     "prop-types": "^15.8.1",
     "solid-js": "^1.8.17",
-    "tinymce": "^7.1.1",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.5",
-    "vinxi": "^0.3.11"
+    "tinymce": "^7.1.1"
   },
   "devDependencies": {
-    "eslint": "^9.3.0",
-    "prettier": "^3.2.5",
+    "@tailwindcss/typography": "^0.5.13",
+    "prettier": "^3.3.0",
+    "tsup": "^8.0.2",
     "tsup-preset-solid": "^2.2.0",
+    "typescript": "^5.4.5",
     "typescript-eslint": "^7.11.0",
-    "vite-plugin-compression2": "^1.1.1"
+    "vinxi": "^0.3.11",
+    "vite-plugin-compression2": "^1.1.1",
+    "vite-plugin-solid": "^2.10.2"
   },
-  "packageManager": "pnpm@8.6.12",
+  "packageManager": "pnpm@9.1.4",
   "engines": {
     "node": ">=18"
-  }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "browser": {},
+  "exports": {
+    "solid": {
+      "development": "./dist/dev.jsx",
+      "import": "./dist/index.jsx"
+    },
+    "development": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/dev.js"
+      }
+    },
+    "import": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "typesVersions": {}
 }

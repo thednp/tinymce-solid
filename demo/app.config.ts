@@ -10,9 +10,15 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   server: {
-    output: { dir: "../docs" },
+    output: { dir: "../docs", /*publicDir: "../docs/public"*/ },
   },
   vite: {
+    // ssr: {
+    //   external: ["tinymce"],
+    // },
+    // optimizeDeps: {
+    //   include: ['tinymce'],
+    // },
     envDir: monorepoRoot,
     plugins: [tsconfigPaths({ root: "." }), compress()],
     resolve: {
@@ -26,8 +32,9 @@ export default defineConfig({
     },
     server: {
       fs: {
-        allow: ["../node_modules"],
+        allow: ["../node_modules"/*, "../../node_modules"*/],
       },
     },
+
   },
 });

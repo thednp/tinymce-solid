@@ -17,4 +17,7 @@ import 'vinxi/lib/path';
 import 'solid-js';
 import 'solid-js/web';
 import 'solid-js/web/storage';
+import 'clsx';
+import 'tailwind-merge';
+import 'class-variance-authority';
 //# sourceMappingURL=index.mjs.map

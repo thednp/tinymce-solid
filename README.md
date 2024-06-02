@@ -50,7 +50,7 @@ export default function App() {
       <SolidEditor
         apiKey="your-api-key"
         value={content()}
-        onInit={(_: any, editor: Editor) => (editorRef = editor)}
+        onInit={(_content: string, editor: Editor) => (editorRef = editor)}
         init={{
           menubar: false,
           placeholder: "Write an epic story here...",

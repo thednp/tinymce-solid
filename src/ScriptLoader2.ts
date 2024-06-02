@@ -70,7 +70,6 @@ const createDocumentScriptLoader = (doc: Document) => {
     success: () => void,
     failure?: (err: unknown) => void,
   ) => {
-    // eslint-disable-next-line no-console
     const failureOrLog = (err: unknown) =>
       failure !== undefined ? failure(err) : console.error(err);
     if (items.length === 0) {

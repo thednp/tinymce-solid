@@ -2,7 +2,7 @@ import { eventPropTypes, IEventPropTypes } from "./components/EditorPropTypes";
 import { IAllProps } from "./components/EditorPropTypes";
 import { Editor as TinyMCEEditor, EditorEvent } from "tinymce";
 
-export const isFunction = (x: unknown): x is Function =>
+export const isFunction = (x: unknown): x is typeof Function =>
   typeof x === "function";
 
 const isEventProp = (name: string): name is keyof IEventPropTypes =>
@@ -50,14 +50,14 @@ export const configHandlers = (
   editor: TinyMCEEditor,
   prevProps: Partial<IAllProps>,
   props: Partial<IAllProps>,
-  boundHandlers: Record<string, (event: EditorEvent<any>) => unknown>,
+  boundHandlers: Record<string, (event: EditorEvent<unknown>) => unknown>,
   lookup: PropLookup,
 ): void =>
   configHandlers2(
     lookup,
     editor.on.bind(editor),
     editor.off.bind(editor),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    // @ts-expect-error: typescript cannot infer the type of the lookup function
     (handlerLookup, key) => (e) => handlerLookup(key)?.(e, editor),
     prevProps,
     props,
@@ -90,7 +90,7 @@ const normalizePluginArray = (plugins?: string | string[]): string[] => {
   return Array.isArray(plugins) ? plugins : plugins.split(" ");
 };
 
-// eslint-disable-next-line max-len
+ 
 export const mergePlugins = (
   initPlugins: string | string[] | undefined,
   inputPlugins: string | string[] | undefined,
@@ -99,7 +99,7 @@ export const mergePlugins = (
 
 export const isBeforeInputEventAvailable = () =>
   window.InputEvent &&
-  typeof (InputEvent.prototype as any).getTargetRanges === "function";
+  typeof (InputEvent.prototype).getTargetRanges === "function";
 
 export const isInDoc = (elem: Node) => {
   if (!("isConnected" in Node.prototype)) {
@@ -129,7 +129,8 @@ export const setMode = (
       editor.mode.set(mode);
     } else {
       // support TinyMCE 4
-      (editor as any).setMode(mode);
+      // @ts-expect-error: no point in explaining this to IE
+      (editor).setMode(mode);
     }
   }
 };

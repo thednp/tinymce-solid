@@ -17,10 +17,13 @@ import 'vinxi/lib/invariant';
 import 'vinxi/lib/path';
 import 'solid-js';
 import 'solid-js/web/storage';
+import 'clsx';
+import 'tailwind-merge';
+import 'class-variance-authority';
 
-var i = ["<main", "><!--$-->", "<!--/--><!--$-->", '<!--/--><h1>Page Not Found</h1><p>Visit <a href="https://start.solidjs.com" target="_blank">start.solidjs.com</a> to learn how to build SolidStart apps.</p></main>'];
+var s = ["<main", ' class="container mx-auto"><!--$-->', "<!--/--><!--$-->", '<!--/--><h1 class="text-5xl">Page Not Found</h1><p>Please <a href="/">click here</a> to return to the homepage.</p></main>'];
 function l() {
-  return ssr(i, ssrHydrationKey(), escape(createComponent(k, { children: "Not Found" })), escape(createComponent(u, { code: 404 })));
+  return ssr(s, ssrHydrationKey(), escape(createComponent(k, { children: "Not Found" })), escape(createComponent(u, { code: 404 })));
 }
 
 export { l as default };

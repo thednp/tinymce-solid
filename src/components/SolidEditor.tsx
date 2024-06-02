@@ -1,5 +1,4 @@
-import tinymceURL from "../tinymceURL";
-import { createSignal, onCleanup, onMount } from "solid-js";
+import { createEffect, createSignal, on, onCleanup, onMount, startTransition } from "solid-js";
 import { type ScriptItem, ScriptLoader } from "../ScriptLoader2";
 import { getTinymce } from "../TinyMCE";
 import {
@@ -12,23 +11,27 @@ import {
   isInDoc,
   setMode,
 } from "../Utils";
-import { EditorPropTypes, IAllProps, Version, EditorOptions, InitOptions, OmittedInitProps } from "./EditorPropTypes";
+import { IAllProps, Version, EditorOptions, InitOptions, OmittedInitProps } from "./EditorPropTypes";
 import { Bookmark, Editor as TinyMCEEditor, EditorEvent } from "tinymce";
 
-export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
-  const props = { ...tinyProps, tinymceScriptSrc: tinymceURL };
+export const SolidEditor = (props: Partial<IAllProps>) => {
+  const [id] = createSignal(props.id || uuid("solid-tinymce-editor"));
+  const initialValue = () => props.initialValue;
+  const value = () => props.value || '';
+  const skin = () => props.skin ||'oxide';
+  const contentCss = () => props.contentCss || 'default';
   const [editor, setEditor] = createSignal<TinyMCEEditor>();
-  const [currentContent, setCurrentContent] = createSignal<string>();
+  const [currentContent, setCurrentContent] = createSignal<string>(value());
   const [rollbackTimer, setRollbackTimer] = createSignal<number>();
   const [valueCursor, setValueCursor] = createSignal<Bookmark>();
   const [boundHandlers, setBoundHandlers] = createSignal<Record<string, (event: EditorEvent<unknown>) => unknown>>({});
   const view = () => props?.elementRef?.ownerDocument.defaultView ?? window;
 
   const getInitialValue = () => {
-    if (typeof props.initialValue === "string") {
-      return props.initialValue;
-    } else if (typeof props.value === "string") {
-      return props.value;
+    if (typeof initialValue() === "string") {
+      return initialValue() as string;
+    } else if (typeof value() === "string") {
+      return value();
     } else {
       return "";
     }
@@ -51,6 +54,7 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
         }
       });
     }
+
     // fallback to the cloud when the tinymceScriptSrc is not specified
     const channel = (props.cloudChannel || "7") as Version; // `cloudChannel` is in `defaultProps`, so it's always defined.
     const apiKey = props.apiKey ? props.apiKey : "no-api-key";
@@ -61,7 +65,8 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
   const bindHandlers = (prevProps: Partial<IAllProps>) => {
     if (editor() !== undefined) {
       const tinyEditor = editor()!;
-      // @ts-ignore: typescript chokes trying to understand the type of the lookup function
+
+      // @ts-expect-error: typescript chokes trying to understand the type of the lookup function
       configHandlers(tinyEditor, prevProps, props, boundHandlers(), key => props[key as keyof IProps]);
       // check if we should monitor editor changes
       const isValueControlled = (p: Partial<IAllProps>) => p.onEditorChange !== undefined || p.value !== undefined;
@@ -114,8 +119,8 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
       ...(props.init as Omit<InitOptions, OmittedInitProps>),
       selector: undefined,
       target,
-      skin: props.skin || "oxide",
-      content_css: props.contentCss || "default",
+      skin: skin(),
+      content_css: contentCss(),
       readonly: props.disabled,
       inline: props.inline,
       plugins: mergePlugins(props.init?.plugins, props.plugins),
@@ -133,7 +138,7 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
         // "official" setContent and using TinyMCE to do the sanitization.
         if (props.inline && !isTextareaOrInput(target)) {
           editor.once("PostRender", _evt => {
-            editor.setContent(getInitialValue(), { no_events: true });
+            editor.setContent(getInitialValue(), { no_events: true, event_name: _evt.type });
           });
         }
 
@@ -171,9 +176,8 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
 
     tinymce.init(finalInit);
   };
-
-  onMount(() => {
-    if (getTinymce(view()) !== null) {
+  const mountCallback = () => {
+    if (getTinymce(view()) !== null) {    
       initialise();
     } else if (Array.isArray(props.tinymceScriptSrc) && props.tinymceScriptSrc.length === 0) {
       // props.onScriptsLoadError?.(
@@ -191,6 +195,7 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
         // props.onScriptsLoadError?.(err);
         throw new Error(err as string);
       };
+
       ScriptLoader.loadList(
         props.elementRef.ownerDocument,
         getScriptSources(),
@@ -199,9 +204,8 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
         errorHandler,
       );
     }
-  });
-
-  onCleanup(() => {
+  };
+  const cleanUpCallback = () => {
     const tinyEditor = editor()!;
     if (typeof tinyEditor !== "undefined") {
       tinyEditor.off(changeEvents(), handleEditorChange);
@@ -213,10 +217,58 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
         tinyEditor.off(eventName, boundHandlers()[eventName]);
       });
       setBoundHandlers({});
+      tinyEditor.destroy();
       tinyEditor.remove();
-      setEditor(undefined);
+      setEditor();
+    }
+  };
+
+  createEffect(() => {
+    if (value() !== currentContent()) {
+      setCurrentContent(value());
+      editor()?.setContent(value(), { no_events: true, event_name: 'input' });
     }
   });
+
+  createEffect(on(skin, () => {
+    // console.log("\nskin", skin(), '\nv1', props.skin);
+    // console.log("\n\ncontentCss", contentCss(), '\nv2', props.contentCss);
+    // console.log(editor())
+    // editor()?.remove();
+    cleanUpCallback();
+    setTimeout(() => {
+      mountCallback();
+    }, 34);
+    // if (v1 !== skin() || v2 !== contentCss()) {
+    //   cleanUpCallback(); 
+    //   setTimeout(mountCallback, 17);
+    //   // ScriptLoader.loadList(
+    //   //   props?.elementRef?.ownerDocument,
+    //   //   getScriptSources(),
+    //   //   props.scriptLoading?.delay ?? 0,
+    //   //   successHandler,
+    //   //   errorHandler,
+    //   // );
+    // }
+  }));
+  // createEffect(() => {
+  //   console.log("skin", skin(),);
+  //   console.log("contentCss", contentCss(),);
+  //   // if (v1 !== skin() || v2 !== contentCss()) {
+  //     cleanUpCallback();
+  //     setTimeout(mountCallback, 17);
+  //     // ScriptLoader.loadList(
+  //     //   props?.elementRef?.ownerDocument,
+  //     //   getScriptSources(),
+  //     //   props.scriptLoading?.delay ?? 0,
+  //     //   successHandler,
+  //     //   errorHandler,
+  //     // );
+  //   // }
+  // });
+
+  onMount(mountCallback);
+  onCleanup(cleanUpCallback);
 
   const changeEvents = () => {
     const isIE = getTinymce(view())?.Env?.browser?.isIE();
@@ -229,9 +281,9 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
     return isBeforeInputEventAvailable() ? "beforeinput SelectionChange" : "SelectionChange";
   };
 
-  const handleEditorChange = (_event: EditorEvent<unknown>) => {
+  const handleEditorChange = (event: EditorEvent<unknown>) => {
     const tinyEditor = editor();
-    if (tinyEditor && tinyEditor.initialized) {
+    if (tinyEditor && tinyEditor.initialized && !event.isDefaultPrevented()) {
       const newContent = tinyEditor.getContent();
       if (props.value !== undefined && props.value !== newContent && props.rollback !== false) {
         // start a timer and revert to the value if not applied in time
@@ -271,9 +323,9 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
     setRollbackTimer(undefined);
   };
 
-  const handleBeforeInput = (_event: EditorEvent<unknown>) => {
+  const handleBeforeInput = (event: EditorEvent<unknown>) => {
     const tinyEditor = editor()!;
-    if (props.value !== undefined && props.value === currentContent() && tinyEditor) {
+    if (props.value !== undefined && props.value === currentContent() && tinyEditor && !event.isDefaultPrevented()) {
       if (!props.inline || tinyEditor.hasFocus()) {
         try {
           // getBookmark throws exceptions when the editor has not been focused
@@ -301,19 +353,19 @@ export const SolidEditor = (tinyProps: Partial<IAllProps>) => {
 
   return props.inline ? (
     <div
-      style={{ display: editor() ? "" : "none" }}
+      style={{ display: editor() ? '' : "none" }}
       ref={props.elementRef as HTMLDivElement}
-      id={props.id || uuid("solid-tinymce-editor")}
+      id={id()}
+      data-testid={props.testid}
       tabIndex={props.tabIndex}
     />
   ) : (
     <textarea
-      style={{ display: editor() ? "" : "none" }}
+      style={{ display: editor() ? '' : "none" }}
       ref={props.elementRef as HTMLTextAreaElement}
-      id={props.id || uuid("solid-tinymce-editor")}
+      id={id()}
+      data-testid={props.testid}
       tabIndex={props.tabIndex}
     />
   );
 };
-
-SolidEditor.EditorPropTypes = EditorPropTypes;

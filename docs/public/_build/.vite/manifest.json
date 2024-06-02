@@ -1,77 +1,96 @@
 {
-  "../src/index.tsx": {
-    "file": "assets/index-DiDzTRSd.js",
-    "name": "index",
-    "src": "../src/index.tsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "_index-B6plH8Gl.js"
-    ]
-  },
   "_HttpStatusCode-DjTx85av.js": {
     "file": "assets/HttpStatusCode-DjTx85av.js",
     "name": "HttpStatusCode"
   },
-  "_index-B6plH8Gl.js": {
-    "file": "assets/index-B6plH8Gl.js",
+  "_OPHDMVQK-CnzAiVch.js": {
+    "file": "assets/OPHDMVQK-CnzAiVch.js",
+    "name": "OPHDMVQK",
+    "imports": [
+      "_index-HFKVSYc5.js"
+    ]
+  },
+  "_index-HFKVSYc5.js": {
+    "file": "assets/index-HFKVSYc5.js",
     "name": "index"
   },
   "_preload-helper-N37mDRhq.js": {
     "file": "assets/preload-helper-N37mDRhq.js",
     "name": "preload-helper"
   },
+  "_store-OrF9LL7R.js": {
+    "file": "assets/store-OrF9LL7R.js",
+    "name": "store",
+    "imports": [
+      "_index-HFKVSYc5.js"
+    ]
+  },
+  "src/components/TinyEditor.tsx": {
+    "file": "assets/TinyEditor-Cg4XO2Nh.js",
+    "name": "TinyEditor",
+    "src": "src/components/TinyEditor.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-HFKVSYc5.js",
+      "_store-OrF9LL7R.js",
+      "_OPHDMVQK-CnzAiVch.js"
+    ]
+  },
   "src/routes/[...404].tsx?pick=default&pick=$css": {
-    "file": "assets/_...404_-BPS_jq3J.js",
+    "file": "assets/_...404_-2IajlwS6.js",
     "name": "_...404_",
     "src": "src/routes/[...404].tsx?pick=default&pick=$css",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-B6plH8Gl.js",
+      "_index-HFKVSYc5.js",
       "_HttpStatusCode-DjTx85av.js"
     ]
   },
-  "src/routes/about.tsx?pick=default&pick=$css": {
-    "file": "assets/about-BUlHOCGf.js",
-    "name": "about",
-    "src": "src/routes/about.tsx?pick=default&pick=$css",
-    "isEntry": true,
-    "isDynamicEntry": true,
-    "imports": [
-      "_index-B6plH8Gl.js"
-    ]
-  },
   "src/routes/index.tsx?pick=default&pick=$css": {
-    "file": "assets/index-BmrqxaVr.js",
+    "file": "assets/index-BqTxL4-O.js",
     "name": "index",
     "src": "src/routes/index.tsx?pick=default&pick=$css",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
+      "_index-HFKVSYc5.js",
+      "_store-OrF9LL7R.js"
+    ]
+  },
+  "src/routes/tinymce.tsx?pick=default&pick=$css": {
+    "file": "assets/tinymce-BPgaxtZ0.js",
+    "name": "tinymce",
+    "src": "src/routes/tinymce.tsx?pick=default&pick=$css",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
       "_preload-helper-N37mDRhq.js",
-      "_index-B6plH8Gl.js"
+      "_index-HFKVSYc5.js"
     ],
     "dynamicImports": [
-      "../src/index.tsx"
+      "src/components/TinyEditor.tsx"
     ]
   },
   "virtual:#vinxi/handler/client": {
-    "file": "assets/client-CutxkF0b.js",
+    "file": "assets/client-B6tt7GYn.js",
     "name": "client",
     "src": "virtual:#vinxi/handler/client",
     "isEntry": true,
     "imports": [
-      "_index-B6plH8Gl.js",
+      "_index-HFKVSYc5.js",
       "_preload-helper-N37mDRhq.js",
+      "_OPHDMVQK-CnzAiVch.js",
+      "_store-OrF9LL7R.js",
       "_HttpStatusCode-DjTx85av.js"
     ],
     "dynamicImports": [
       "src/routes/[...404].tsx?pick=default&pick=$css",
-      "src/routes/about.tsx?pick=default&pick=$css",
-      "src/routes/index.tsx?pick=default&pick=$css"
+      "src/routes/index.tsx?pick=default&pick=$css",
+      "src/routes/tinymce.tsx?pick=default&pick=$css"
     ],
     "css": [
-      "assets/client-CGBVm5b1.css"
+      "assets/client-BfJRJP5K.css"
     ]
   }
 }
