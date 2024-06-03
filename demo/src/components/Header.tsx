@@ -1,11 +1,17 @@
-import { RouteSectionProps } from "@solidjs/router";
-import { Button } from "~/components/ui/button";
-import ModeToggle from "~/components/ModeToggle";
-import useState from "~/store";
-import { Show } from "solid-js";
+import { useLocation } from "@solidjs/router";
+import { Button } from "../components/ui/button";
+import ModeToggle from "../components/ModeToggle";
+import useState from "../store";
+import { Show, createEffect, createSignal, on } from "solid-js";
 
-const Header = (props: RouteSectionProps) => {
+const Header = () => {
+  const getPath = () => useLocation().pathname;
+  const [currentPath, setCurrentPath] = createSignal(getPath());
   const [,,clear] = useState();
+  createEffect(on(getPath, (v) => {
+    setCurrentPath(v);
+  }))
+
   return (
     <header class="container mx-auto mb-5 border-b">
       <nav class="flex flex-row items-center py-4">
@@ -13,10 +19,10 @@ const Header = (props: RouteSectionProps) => {
           TinyMCE Solid Component
         </h1>
 
-        <Show when={!props.location.pathname.startsWith('/tinymce')}>
+        <Show when={!currentPath().startsWith('/tinymce')}>
           <Button as='a' variant="ghost" href="/tinymce">Edit</Button>
         </Show>
-        <Show when={props.location.pathname != '/'}>
+        <Show when={currentPath() != '/'}>
           <Button as='a'variant="ghost" href="/">Preview</Button>
         </Show>
         <Button onclick={() => clear()} variant="ghost">Clear</Button>

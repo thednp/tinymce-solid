@@ -1,4 +1,4 @@
-/// <reference types="@solidjs/start/env" />
+/// <reference types="vite/client" />
 
 interface ImportMetaEnv {
   MODE: 'development' | 'production' | string;

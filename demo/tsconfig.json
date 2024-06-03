@@ -1,12 +1,8 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../docs",
-    "paths": {
-      "@/*": ["../*"],
-      "~/*": ["./src/*"]
-    }
+    "types": ["vite/client"]
   },
-  "include": ["src", "../src"],
+  "include": ["./**/*"],
   "exclude": ["node_modules", "dist"]
 }

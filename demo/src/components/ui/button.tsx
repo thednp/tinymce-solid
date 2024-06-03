@@ -1,4 +1,4 @@
-import { cn } from "~/libs/cn";
+import { cn } from "../../libs/cn";
 import * as ButtonPrimitive from "@kobalte/core/button";
 import type { PolymorphicProps } from "@kobalte/core/polymorphic";
 import type { VariantProps } from "class-variance-authority";

@@ -223,49 +223,19 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
     }
   };
 
-  createEffect(() => {
+  createEffect(on(value, () => {
     if (value() !== currentContent()) {
       setCurrentContent(value());
       editor()?.setContent(value(), { no_events: true, event_name: 'input' });
     }
-  });
+  }));
 
   createEffect(on(skin, () => {
-    // console.log("\nskin", skin(), '\nv1', props.skin);
-    // console.log("\n\ncontentCss", contentCss(), '\nv2', props.contentCss);
-    // console.log(editor())
-    // editor()?.remove();
     cleanUpCallback();
     setTimeout(() => {
       mountCallback();
     }, 34);
-    // if (v1 !== skin() || v2 !== contentCss()) {
-    //   cleanUpCallback(); 
-    //   setTimeout(mountCallback, 17);
-    //   // ScriptLoader.loadList(
-    //   //   props?.elementRef?.ownerDocument,
-    //   //   getScriptSources(),
-    //   //   props.scriptLoading?.delay ?? 0,
-    //   //   successHandler,
-    //   //   errorHandler,
-    //   // );
-    // }
   }));
-  // createEffect(() => {
-  //   console.log("skin", skin(),);
-  //   console.log("contentCss", contentCss(),);
-  //   // if (v1 !== skin() || v2 !== contentCss()) {
-  //     cleanUpCallback();
-  //     setTimeout(mountCallback, 17);
-  //     // ScriptLoader.loadList(
-  //     //   props?.elementRef?.ownerDocument,
-  //     //   getScriptSources(),
-  //     //   props.scriptLoading?.delay ?? 0,
-  //     //   successHandler,
-  //     //   errorHandler,
-  //     // );
-  //   // }
-  // });
 
   onMount(mountCallback);
   onCleanup(cleanUpCallback);

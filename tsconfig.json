@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "es2020",
+    "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -10,7 +10,14 @@
     "allowJs": true,
     "strict": true,
     "noEmit": true,
-    "types": ["vinxi/types/client", "node"],
+    "types": ["vite/client", "node"],
     "isolatedModules": true,
-  }
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"],
+      "@/*": ["./*"],
+    }
+  },
+  "include": ["./src"],
+  "exclude": ["node_modules", "dist"]
 }

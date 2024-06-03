@@ -1,6 +1,6 @@
 import { type Editor } from "tinymce";
-import SolidEditor, { type IAllProps} from "@/src/index";
-import useState from "~/store";
+import SolidEditor, { type IAllProps} from "../../../src/index";
+import useState from "../store";
 import { useColorMode } from "@kobalte/core";
 import { createEffect, createSignal } from "solid-js";
 

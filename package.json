@@ -3,10 +3,6 @@
   "version": "0.0.1",
   "description": "TinyMCE for SolidJS",
   "type": "module",
-  "workspaces": [
-    "demo/",
-    "/"
-  ],
   "homepage": "https://thednp.github.io/tinymce-solid",
   "bugs": {
     "url": "https://github.com/thednp/tinymce-solid/issues"
@@ -19,10 +15,10 @@
     "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\" \"demo/**/*.{js,ts,json,css,tsx,jsx}\"",
     "build": "tsup",
     "build:all": "pnpm build && pnpm build:docs",
-    "dev": "pnpm --filter tinymce-solid-demo dev",
-    "build:docs": "pnpm --filter tinymce-solid-demo build:docs",
+    "dev": "vite serve demo",
+    "build:docs": "vite build demo --config demo/vite.config.docs.ts",
     "copy:tiny": "cp -a './node_modules/.pnpm/tinymce@7.1.1/node_modules/tinymce' './demo/public'",
-    "serve:docs": "pnpm --filter tinymce-solid-demo start",
+    "serve:docs": "vite serve docs --port 3000",
     "prepublishOnly": "pnpm up && npm update && pnpm format && pnpm lint && pnpm build",
     "lint": "pnpm lint:types && pnpm lint:code",
     "lint:code": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0",
@@ -34,23 +30,30 @@
   "dependencies": {
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.13.5",
-    "@solidjs/start": "^1.0.1",
-    "@types/node": "^20.14.0",
-    "@types/prop-types": "^15.7.12",
-    "prop-types": "^15.8.1",
     "solid-js": "^1.8.17",
     "tinymce": "^7.1.1"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.13",
+    "@kobalte/core": "^0.13.2",
+    "@kobalte/utils": "^0.9.0",
+    "@types/node": "^20.14.0",
+    "@types/prop-types": "^15.7.12",
+    "autoprefixer": "^10.4.19",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "postcss": "^8.4.38",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss": "^3.4.3",
+    "tailwindcss-animate": "^1.0.7",
+    "vite-plugin-compression2": "^1.1.1",
+    "prop-types": "^15.8.1",
     "prettier": "^3.3.0",
     "tsup": "^8.1.0",
     "tsup-preset-solid": "^2.2.0",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.11.0",
-    "vinxi": "^0.3.11",
-    "vite-plugin-compression2": "^1.1.1",
-    "vite-plugin-solid": "^2.10.2"
+    "vite-plugin-solid": "^2.10.2",
+    "vite": "^5.2.12"
   },
   "packageManager": "pnpm@9.1.4",
   "engines": {

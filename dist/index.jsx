@@ -484,12 +484,12 @@ var SolidEditor = (props) => {
       setEditor();
     }
   };
-  createEffect(() => {
+  createEffect(on(value, () => {
     if (value() !== currentContent()) {
       setCurrentContent(value());
       editor()?.setContent(value(), { no_events: true, event_name: "input" });
     }
-  });
+  }));
   createEffect(on(skin, () => {
     cleanUpCallback();
     setTimeout(() => {

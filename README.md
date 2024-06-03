@@ -1,5 +1,7 @@
 # TinyMCE SolidJS component
 
+[<img width="100%" src="banner.svg" alt="TinyMCE Component for SolidJS">](https://thednp.github.io/tinymce-solid)
+
 ## About
 
 This package is a wrapper around [TinyMCE](https://github.com/tinymce/tinymce) to make it easier to use in a Solid application.
@@ -121,4 +123,4 @@ _Note: For issues concerning TinyMCE please visit the [TinyMCE repository](https
 
 ## License
 
-tinymce-solid is released under the MIT License.
+**tinymce-solid** is released under the [MIT License](https://github.com/thednp/tinymce-solid/blob/master/LICENSE).

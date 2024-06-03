@@ -3,14 +3,14 @@
   "tailwind": {
     "config": "tailwind.config.js",
     "css": {
-      "path": "src/app.css",
+      "path": "demo/src/app.css",
       "variable": true
     },
     "color": "slate",
     "prefix": ""
   },
   "alias": {
-    "component": "~/components",
-    "cn": "~/libs/cn"
+    "component": "@/demo/src/components",
+    "cn": "@/demo/src/libs/cn"
   }
 }

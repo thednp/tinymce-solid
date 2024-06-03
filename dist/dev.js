@@ -497,7 +497,7 @@ var SolidEditor = (props) => {
       setEditor();
     }
   };
-  createEffect(() => {
+  createEffect(on(value, () => {
     if (value() !== currentContent()) {
       setCurrentContent(value());
       editor()?.setContent(value(), {
@@ -505,7 +505,7 @@ var SolidEditor = (props) => {
         event_name: "input"
       });
     }
-  });
+  }));
   createEffect(on(skin, () => {
     cleanUpCallback();
     setTimeout(() => {

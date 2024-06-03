@@ -1,4 +1,4 @@
-import { cn } from "~/libs/cn";
+import { cn } from "../../libs/cn";
 import * as DropdownMenuPrimitive from "@kobalte/core/dropdown-menu";
 import type { PolymorphicProps } from "@kobalte/core/polymorphic";
 import { mergeDefaultProps } from "@kobalte/utils";
@@ -88,6 +88,7 @@ export const DropdownMenuItemLabel = <T extends ValidComponent = "div">(
   const [local, rest] = splitProps(props as DropdownMenuItemLabelProps, ["class"]);
 
   return (
+    // @ts-expect-error: some stupid crap
     <DropdownMenuPrimitive.ItemLabel
       as="div"
       class={cn("px-2 py-1.5 text-sm font-semibold", local.class)}

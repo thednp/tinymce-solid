@@ -1,10 +1,5 @@
 import { Title } from "@solidjs/meta";
-import { clientOnly } from "@solidjs/start";
-import { Component } from "solid-js";
-
-const TinyEditor = clientOnly<Component>(
-  () => import("~/components/TinyEditor"),
-);
+import TinyEditor from "../components/TinyEditor";
 
 export default function TinyMCE() {
   return (
