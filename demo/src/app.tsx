@@ -26,9 +26,7 @@ const App = (props: { children: JSX.Element }) => {
 }
 
 render(() => (
-  <Router
-    root={App as any}
-    base={import.meta.env.SERVER_BASE_URL}>
+  <Router root={App as any}>
     <Route path="/" component={Home} />
     <Route path="/tinymce" component={TinyMCE} />
     <Route path="**" component={NotFound} />

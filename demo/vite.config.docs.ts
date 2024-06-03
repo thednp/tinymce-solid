@@ -3,7 +3,7 @@ import solidPlugin from 'vite-plugin-solid';
 import compression from 'vite-plugin-compression2';
 
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [
     compression(),
     solidPlugin(),
