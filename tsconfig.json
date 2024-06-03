@@ -14,7 +14,7 @@
     "noEmit": true,
     "types": ["vite/client", "node"],
     "isolatedModules": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*",],
       "@/*": ["./demo/assets"],

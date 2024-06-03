@@ -37,7 +37,7 @@ const TinyEditor = () => {
       }}
       onEditorChange={(newContent: string, editor: Editor) => {
         // const newContent = editor.getContent();
-        console.log("onEditorChange", newContent);
+        // console.log("onEditorChange", newContent);
         setContent(newContent);
       }}
     />
