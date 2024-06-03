@@ -15,6 +15,7 @@
 /demo/.vinxi
 experiments
 docs
+example
 coverage
 *.local
 
