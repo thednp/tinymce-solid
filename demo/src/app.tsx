@@ -1,5 +1,5 @@
 import { MetaProvider, Title } from "@solidjs/meta";
-import { Suspense, type JSX } from "solid-js";
+import { Suspense } from "solid-js";
 import { render } from "solid-js/web";
 import { Router, Route, RouteProps } from "@solidjs/router";
 import { ColorModeProvider, ColorModeScript } from "@kobalte/core";
