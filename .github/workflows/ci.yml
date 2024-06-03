@@ -20,9 +20,9 @@ jobs:
       - uses: pnpm/action-setup@v2.2.2
 
       - run: pnpm install
-      - run: pnpm build:docs
-        # env:
-        #   NITRO_PRESET: github_pages
+      - run: BASE_URL="/tinymce-solid" pnpm run build:docs
+        env:
+           NITRO_PRESET: github_pages
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
