@@ -1,4 +1,4 @@
-import { useLocation } from "@solidjs/router";
+import { A, useLocation } from "@solidjs/router";
 import { Button } from "../components/ui/button";
 import ModeToggle from "../components/ModeToggle";
 import useState from "../store";
@@ -20,10 +20,10 @@ const Header = () => {
         </h1>
 
         <Show when={!currentPath().startsWith('/tinymce')}>
-          <Button as='a' variant="ghost" href="/tinymce">Edit</Button>
+          <Button as={A} variant="ghost" href="/tinymce">Edit</Button>
         </Show>
         <Show when={currentPath() != '/'}>
-          <Button as='a'variant="ghost" href="/">Preview</Button>
+          <Button as={A} variant="ghost" href="/">Preview</Button>
         </Show>
         <Button onclick={() => clear()} variant="ghost">Clear</Button>
 
