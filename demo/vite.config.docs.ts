@@ -5,7 +5,7 @@ import path from "node:path";
 
 
 export default defineConfig({
-  // base: './',
+  base: '/',
   plugins: [
     compression({ include: /\.(html|xml|css|json|js|mjs|svg|woff|woff2)$/ }),
     solidPlugin(),
