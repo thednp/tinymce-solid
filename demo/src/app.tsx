@@ -26,9 +26,11 @@ const App = (props: RouteProps<'root'>) => {
 }
 
 render(() => (
-  <Router root={App}>
-    <Route path="/" component={Home} />
-    <Route path="/tinymce" component={TinyMCE} />
-    <Route path="**" component={NotFound} />
+  <Router>
+    <Route path="/*" component={App}>
+      <Route path="/" component={Home} />
+      <Route path="/tinymce" component={TinyMCE} />
+      <Route path="**" component={NotFound} />
+    </Route>
   </Router>
 ), document.getElementById("app")!);
