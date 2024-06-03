@@ -25,7 +25,8 @@
     "lint:types": "tsc --noEmit src/**/* --jsx preserve",
     "fix:ts": "eslint 'src/**/*.{ts,tsx}' --fix",
     "start": "pnpm serve:docs",
-    "version": "vinxi version"
+    "serve": "vite preview docs",
+    "version": "vite version"
   },
   "dependencies": {
     "@solidjs/meta": "^0.29.4",

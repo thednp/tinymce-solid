@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
+import compression from 'vite-plugin-compression2';
 
 export default defineConfig({
   base: './',
   plugins: [
+    compression(),
     solidPlugin(),
     {
       name: 'Replace env variables',
