@@ -10,7 +10,7 @@
 
 # dependencies
 /node_modules
-# /demo/node_modules
+/demo/node_modules
 /demo/.output
 /demo/.vinxi
 experiments

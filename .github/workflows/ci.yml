@@ -2,7 +2,6 @@
 name: Deploy to GitHub Pages
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -16,9 +15,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
+          fetch-depth: 3
 
-      - run: npx nypm install
-      - run: npm run build:docs
+      - uses: pnpm/action-setup@v2.2.2
+
+      - run: pnpm install
+      - run: pnpm build:docs
         env:
           NITRO_PRESET: github_pages
 
