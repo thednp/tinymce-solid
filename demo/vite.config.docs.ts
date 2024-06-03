@@ -1,11 +1,13 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import compression from 'vite-plugin-compression2';
+import path from "node:path";
+
 
 export default defineConfig({
-  base: '/',
+  base: './',
   plugins: [
-    compression(),
+    compression({ include: /\.(html|xml|css|json|js|mjs|svg|woff|woff2)$/ }),
     solidPlugin(),
     {
       name: 'Replace env variables',
@@ -32,5 +34,11 @@ export default defineConfig({
     target: 'esnext',
     outDir: '../docs',
     emptyOutDir: true,
+  },
+  resolve: {
+    alias: {
+      "~": path.resolve(__dirname, "..", "src"),
+      "@": path.resolve(__dirname, "assets"),
+    },
   },
 });

@@ -1,7 +1,7 @@
 import { MetaProvider, Title } from "@solidjs/meta";
 import { Suspense, type JSX } from "solid-js";
 import { render } from "solid-js/web";
-import { Router, Route } from "@solidjs/router";
+import { Router, Route, RouteProps } from "@solidjs/router";
 import { ColorModeProvider, ColorModeScript } from "@kobalte/core";
 
 import Header from "./components/Header";
@@ -11,7 +11,7 @@ import TinyMCE from "./pages/TinyMCE";
 import NotFound from "./pages/NotFound";
 import "./app.css";
 
-const App = (props: { children: JSX.Element }) => {
+const App = (props: RouteProps<'root'>) => {
   return (
     <MetaProvider>
       <Title>SolidStart - Basic</Title>
@@ -26,7 +26,7 @@ const App = (props: { children: JSX.Element }) => {
 }
 
 render(() => (
-  <Router root={App as any}>
+  <Router root={App}>
     <Route path="/" component={Home} />
     <Route path="/tinymce" component={TinyMCE} />
     <Route path="**" component={NotFound} />
