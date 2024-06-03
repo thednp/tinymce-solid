@@ -20,7 +20,7 @@ jobs:
       - uses: pnpm/action-setup@v2.2.2
 
       - run: pnpm install
-      - run: BASE_URL="/demo" pnpm run build:docs
+      - run: BASE_URL="/demo" pnpm vinxi build --config demo/app.config.ts
         env:
            NITRO_PRESET: github_pages
 
