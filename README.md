@@ -70,8 +70,9 @@ export default function App() {
             "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code | removeformat | help",
         }}
         onEditorChange={(content: string, editor: Editor) => {
-          const newContent = editor.getContent();
-          setContent(newContent);
+          // you can also access the editor's content via its own accessor
+          // const newContent = editor.getContent();
+          setContent(content);
         }}
       />
     </main>
