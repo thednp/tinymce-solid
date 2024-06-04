@@ -3,21 +3,26 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
 
 import { useColorMode } from "@kobalte/core";
 import type { DropdownMenuTriggerProps } from "@kobalte/core/dropdown-menu";
 import { cn } from "../libs/cn";
- 
+
 const ModeToggle = ({ ...parentProps }: { class?: string }) => {
   const { setColorMode } = useColorMode();
- 
+
   return (
     <DropdownMenu placement="bottom-end">
       <DropdownMenuTrigger
         as={(props: DropdownMenuTriggerProps) => (
-          <Button variant="ghost" size="icon" class={cn("w-9 px-0", parentProps.class)} {...props}>
+          <Button
+            variant="ghost"
+            size="icon"
+            class={cn("w-9 px-0", parentProps.class)}
+            {...props}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -52,7 +57,11 @@ const ModeToggle = ({ ...parentProps }: { class?: string }) => {
       />
       <DropdownMenuContent class="min-w-[8rem]">
         <DropdownMenuItem onSelect={() => setColorMode("light")}>
-          <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" viewBox="0 0 24 24">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="mr-2 h-4 w-4"
+            viewBox="0 0 24 24"
+          >
             <path
               fill="none"
               stroke="currentColor"
@@ -65,7 +74,11 @@ const ModeToggle = ({ ...parentProps }: { class?: string }) => {
           <span>Light</span>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => setColorMode("dark")}>
-          <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" viewBox="0 0 24 24">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="mr-2 h-4 w-4"
+            viewBox="0 0 24 24"
+          >
             <path
               fill="none"
               stroke="currentColor"
@@ -78,7 +91,11 @@ const ModeToggle = ({ ...parentProps }: { class?: string }) => {
           <span>Dark</span>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => setColorMode("system")}>
-          <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" viewBox="0 0 24 24">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="mr-2 h-4 w-4"
+            viewBox="0 0 24 24"
+          >
             <path
               fill="none"
               stroke="currentColor"
@@ -94,5 +111,5 @@ const ModeToggle = ({ ...parentProps }: { class?: string }) => {
     </DropdownMenu>
   );
 };
- 
+
 export default ModeToggle;

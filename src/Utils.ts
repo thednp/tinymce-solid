@@ -13,7 +13,7 @@ const eventAttrToEventName = <T extends string>(attrName: `on${T}`): T =>
 
 type PropLookup = <K extends keyof IAllProps>(
   key: K,
-) => IAllProps[K] | undefined;
+) => IAllProps[K];
 
 export const configHandlers2 = <H>(
   handlerLookup: PropLookup,
@@ -90,7 +90,6 @@ const normalizePluginArray = (plugins?: string | string[]): string[] => {
   return Array.isArray(plugins) ? plugins : plugins.split(" ");
 };
 
- 
 export const mergePlugins = (
   initPlugins: string | string[] | undefined,
   inputPlugins: string | string[] | undefined,
@@ -99,7 +98,7 @@ export const mergePlugins = (
 
 export const isBeforeInputEventAvailable = () =>
   window.InputEvent &&
-  typeof (InputEvent.prototype).getTargetRanges === "function";
+  typeof InputEvent.prototype.getTargetRanges === "function";
 
 export const isInDoc = (elem: Node) => {
   if (!("isConnected" in Node.prototype)) {
@@ -130,7 +129,7 @@ export const setMode = (
     } else {
       // support TinyMCE 4
       // @ts-expect-error: no point in explaining this to IE
-      (editor).setMode(mode);
+      editor.setMode(mode);
     }
   }
 };

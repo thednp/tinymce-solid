@@ -18,8 +18,15 @@
   a:not([class]) {
     @apply text-sky-600 dark:text-sky-400 underline;
   }
-  h1, h2, h3, p, ul { @apply mb-4; }
-  ul, ol {
+  h1,
+  h2,
+  h3,
+  p,
+  ul {
+    @apply mb-4;
+  }
+  ul,
+  ol {
     @apply my-6 ml-6 list-disc [&>li]:mt-2;
   }
   :root {

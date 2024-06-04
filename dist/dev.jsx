@@ -24,9 +24,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/cjs/react-is.development.js
+// node_modules/react-is/cjs/react-is.development.js
 var require_react_is_development = __commonJS({
-  "node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/cjs/react-is.development.js"(exports) {
+  "node_modules/react-is/cjs/react-is.development.js"(exports) {
     "use strict";
     if (true) {
       (function() {
@@ -179,9 +179,9 @@ var require_react_is_development = __commonJS({
   }
 });
 
-// node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/index.js
+// node_modules/react-is/index.js
 var require_react_is = __commonJS({
-  "node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/index.js"(exports, module) {
+  "node_modules/react-is/index.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -191,9 +191,9 @@ var require_react_is = __commonJS({
   }
 });
 
-// node_modules/.pnpm/object-assign@4.1.1/node_modules/object-assign/index.js
+// node_modules/object-assign/index.js
 var require_object_assign = __commonJS({
-  "node_modules/.pnpm/object-assign@4.1.1/node_modules/object-assign/index.js"(exports, module) {
+  "node_modules/object-assign/index.js"(exports, module) {
     "use strict";
     var getOwnPropertySymbols = Object.getOwnPropertySymbols;
     var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -261,26 +261,26 @@ var require_object_assign = __commonJS({
   }
 });
 
-// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js
+// node_modules/prop-types/lib/ReactPropTypesSecret.js
 var require_ReactPropTypesSecret = __commonJS({
-  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
+  "node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
     "use strict";
     var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
     module.exports = ReactPropTypesSecret;
   }
 });
 
-// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/has.js
+// node_modules/prop-types/lib/has.js
 var require_has = __commonJS({
-  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/has.js"(exports, module) {
+  "node_modules/prop-types/lib/has.js"(exports, module) {
     "use strict";
     module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
   }
 });
 
-// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/checkPropTypes.js
+// node_modules/prop-types/checkPropTypes.js
 var require_checkPropTypes = __commonJS({
-  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/checkPropTypes.js"(exports, module) {
+  "node_modules/prop-types/checkPropTypes.js"(exports, module) {
     "use strict";
     var printWarning = function() {
     };
@@ -344,9 +344,9 @@ var require_checkPropTypes = __commonJS({
   }
 });
 
-// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithTypeCheckers.js
+// node_modules/prop-types/factoryWithTypeCheckers.js
 var require_factoryWithTypeCheckers = __commonJS({
-  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
+  "node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
     "use strict";
     var ReactIs = require_react_is();
     var assign = require_object_assign();
@@ -787,9 +787,9 @@ var require_factoryWithTypeCheckers = __commonJS({
   }
 });
 
-// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js
+// node_modules/prop-types/index.js
 var require_prop_types = __commonJS({
-  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js"(exports, module) {
+  "node_modules/prop-types/index.js"(exports, module) {
     "use strict";
     if (true) {
       ReactIs = require_react_is();
@@ -1164,7 +1164,13 @@ var SolidEditor = (props) => {
   const bindHandlers = (prevProps) => {
     if (editor() !== void 0) {
       const tinyEditor = editor();
-      configHandlers(tinyEditor, prevProps, props, boundHandlers(), (key) => props[key]);
+      configHandlers(
+        tinyEditor,
+        prevProps,
+        props,
+        boundHandlers(),
+        (key) => props[key]
+      );
       const isValueControlled = (p) => p.onEditorChange !== void 0 || p.value !== void 0;
       const wasControlled = isValueControlled(prevProps);
       const nowControlled = isValueControlled(props);
@@ -1218,7 +1224,10 @@ var SolidEditor = (props) => {
         bindHandlers({});
         if (props.inline && !isTextareaOrInput(target)) {
           editor2.once("PostRender", (_evt) => {
-            editor2.setContent(getInitialValue(), { no_events: true, event_name: _evt.type });
+            editor2.setContent(getInitialValue(), {
+              no_events: true,
+              event_name: _evt.type
+            });
           });
         }
         if (props.init && isFunction(props.init.setup)) {
@@ -1255,7 +1264,9 @@ var SolidEditor = (props) => {
     if (getTinymce(view()) !== null) {
       initialise();
     } else if (Array.isArray(props.tinymceScriptSrc) && props.tinymceScriptSrc.length === 0) {
-      throw new Error("No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array.");
+      throw new Error(
+        "No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array."
+      );
     } else if (props?.elementRef?.ownerDocument) {
       const successHandler = () => {
         initialise();
@@ -1289,18 +1300,22 @@ var SolidEditor = (props) => {
       setEditor();
     }
   };
-  createEffect(on(value, () => {
-    if (value() !== currentContent()) {
-      setCurrentContent(value());
-      editor()?.setContent(value(), { no_events: true, event_name: "input" });
-    }
-  }));
-  createEffect(on(skin, () => {
-    cleanUpCallback();
-    setTimeout(() => {
-      mountCallback();
-    }, 34);
-  }));
+  createEffect(
+    on(value, () => {
+      if (value() !== currentContent()) {
+        setCurrentContent(value());
+        editor()?.setContent(value(), { no_events: true, event_name: "input" });
+      }
+    })
+  );
+  createEffect(
+    on(skin, () => {
+      cleanUpCallback();
+      setTimeout(() => {
+        mountCallback();
+      }, 34);
+    })
+  );
   onMount(mountCallback);
   onCleanup(cleanUpCallback);
   const changeEvents = () => {
@@ -1317,7 +1332,10 @@ var SolidEditor = (props) => {
       if (props.value !== void 0 && props.value !== newContent && props.rollback !== false) {
         if (!rollbackTimer()) {
           setRollbackTimer(
-            window.setTimeout(rollbackChange, typeof props.rollback === "number" ? props.rollback : 200)
+            window.setTimeout(
+              rollbackChange,
+              typeof props.rollback === "number" ? props.rollback : 200
+            )
           );
         }
       }

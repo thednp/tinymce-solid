@@ -1,22 +1,23 @@
 import { type Editor } from "tinymce";
-import SolidEditor, { type IAllProps} from "../../../src/index";
+import SolidEditor, { type IAllProps } from "../../../src/index";
 import { useColorMode } from "@kobalte/core";
 import { createEffect, createSignal } from "solid-js";
 import { useState } from "../store";
 
-const tinymceURL = import.meta.env.MODE === 'production'
-    ? './tinymce/tinymce.min.js' // the tinymce is copied to dist at build time
-    : '/tinymce/tinymce.js';
+const tinymceURL =
+  import.meta.env.MODE === "production"
+    ? "./tinymce/tinymce.min.js" // the tinymce is copied to dist at build time
+    : "/tinymce/tinymce.js";
 
 const TinyEditor = () => {
   const [content, setContent] = useState();
   const { colorMode } = useColorMode();
-  const [skin, setSkin] = createSignal<IAllProps['skin']>('oxide');
-  const [css, setCss] = createSignal<IAllProps['contentCss']>('default');
+  const [skin, setSkin] = createSignal<IAllProps["skin"]>("oxide");
+  const [css, setCss] = createSignal<IAllProps["contentCss"]>("default");
 
   createEffect(() => {
-    setSkin(() => colorMode() === 'dark' ? 'oxide-dark' : 'oxide');
-    setCss(() => colorMode() === 'dark' ? 'dark' : 'default');
+    setSkin(() => (colorMode() === "dark" ? "oxide-dark" : "oxide"));
+    setCss(() => (colorMode() === "dark" ? "dark" : "default"));
   });
 
   return (

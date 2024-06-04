@@ -11,10 +11,11 @@ const Footer = () => {
       <p>
         <a class="font-bold" href="https://github.com/thednp" target="_blank">
           thednp
-        </a> © {new Date().getFullYear()}
+        </a>{" "}
+        © {new Date().getFullYear()}
       </p>
     </footer>
-  )
-}
+  );
+};
 
 export default Footer;

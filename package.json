@@ -12,7 +12,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\" \"demo/**/*.{js,ts,json,css,tsx,jsx}\"",
+    "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\"",
     "build": "tsup",
     "build:all": "pnpm build && pnpm build:docs",
     "dev": "vite serve demo",
