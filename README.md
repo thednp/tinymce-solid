@@ -1,13 +1,13 @@
-# TinyMCE Component for SolidJS 
+# TinyMCE Component for SolidJS  ![tinymce version](https://img.shields.io/badge/tinymce-7.1.1-brightgreen)
 
 [<img width="100%" src="banner.svg" alt="TinyMCE Component for SolidJS">](https://thednp.github.io/tinymce-solid)
 
 [![ci](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml/badge.svg)](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml)
 [![Npm Version](https://img.shields.io/npm/v/tinymce-solid)](https://www.npmjs.com/package/tinymce-solid)
-[![solid-js version](https://img.shields.io/badge/solid--js-1.7.11-brightgreen)](https://solidjs.com/)
-[![typescript version](https://img.shields.io/badge/typescript-5.2.2-brightgreen)](https://www.typescriptlang.org/)
-[![prettier version](https://img.shields.io/badge/prettier-3.0.3-brightgreen)](https://prettier.io/)
-[![vite version](https://img.shields.io/badge/vite-4.4.9-brightgreen)](https://github.com/vitejs)
+[![solid-js version](https://img.shields.io/badge/solid--js-1.8.17-brightgreen)](https://solidjs.com/)
+[![typescript version](https://img.shields.io/badge/typescript-5.4.5-brightgreen)](https://www.typescriptlang.org/)
+[![prettier version](https://img.shields.io/badge/prettier-3.3.0-brightgreen)](https://prettier.io/)
+[![vite version](https://img.shields.io/badge/vite-5.2.12-brightgreen)](https://github.com/vitejs)
 [![tinyMCE](https://img.shields.io/badge/tinymce-7.1.1-brightgreen)](https://www.tiny.cloud/)
 
 ## About
