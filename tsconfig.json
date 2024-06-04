@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
@@ -14,10 +14,10 @@
     "noEmit": true,
     "types": ["vite/client", "node"],
     "isolatedModules": true,
-    "baseUrl": "/",
+    "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*",],
-      "@/*": ["demo/assets"],
+      "~/*": ["./src/*"],
+      // "@/*": ["./demo/assets"],
     }
   },
   "include": ["src"],
