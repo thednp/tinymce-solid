@@ -5,7 +5,7 @@ import { useColorMode } from "@kobalte/core";
 import { createEffect, createSignal } from "solid-js";
 
 const tinymceURL = import.meta.env.MODE === 'production'
-    ? '/tinymce/tinymce.min.js' // the tinymce is copied to dist at build time
+    ? './tinymce/tinymce.min.js' // the tinymce is copied to dist at build time
     : '/tinymce/tinymce.js';
 
 const TinyEditor = () => {
