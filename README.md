@@ -1,6 +1,6 @@
 # TinyMCE Component for SolidJS
 
-[<img width="100%" src="banner.svg" alt="TinyMCE Component for SolidJS">](https://thednp.github.io/tinymce-solid)
+[<img width="100%" src="./banner.svg" alt="TinyMCE Component for SolidJS">](https://thednp.github.io/tinymce-solid)
 
 [![ci](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml/badge.svg)](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml)
 [![Npm Version](https://img.shields.io/npm/v/tinymce-solid)](https://www.npmjs.com/package/tinymce-solid)

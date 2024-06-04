@@ -11,9 +11,7 @@ const isEventProp = (name: string): name is keyof IEventPropTypes =>
 const eventAttrToEventName = <T extends string>(attrName: `on${T}`): T =>
   attrName.substr(2) as T;
 
-type PropLookup = <K extends keyof IAllProps>(
-  key: K,
-) => IAllProps[K];
+type PropLookup = <K extends keyof IAllProps>(key: K) => IAllProps[K];
 
 export const configHandlers2 = <H>(
   handlerLookup: PropLookup,
