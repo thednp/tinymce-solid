@@ -1,8 +1,8 @@
 import { type Editor } from "tinymce";
 import SolidEditor, { type IAllProps} from "../../../src/index";
-import { useState } from "../store";
 import { useColorMode } from "@kobalte/core";
 import { createEffect, createSignal } from "solid-js";
+import { useState } from "../store";
 
 const tinymceURL = import.meta.env.MODE === 'production'
     ? './tinymce/tinymce.min.js' // the tinymce is copied to dist at build time
