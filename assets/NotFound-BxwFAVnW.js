@@ -1,0 +1,1 @@
+import{i as a,g as r,T as o,t as n}from"./index-DQttovAp.js";var l=n('<main class="container mx-auto"><h1 class=text-5xl>Page Not Found</h1><p>Please <a href=/>click here</a> to return to the homepage.');function i(){return(()=>{var e=l(),t=e.firstChild;return a(e,r(o,{children:"Not Found"}),t),e})()}export{i as default};
