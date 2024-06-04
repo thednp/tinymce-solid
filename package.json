@@ -1,8 +1,9 @@
 {
   "name": "tinymce-solid",
-  "version": "0.0.1",
-  "description": "TinyMCE for SolidJS",
+  "version": "0.0.2",
+  "description": "TinyMCE Component for SolidJS",
   "type": "module",
+  "license": "MIT",
   "homepage": "https://thednp.github.io/tinymce-solid",
   "bugs": {
     "url": "https://github.com/thednp/tinymce-solid/issues"
