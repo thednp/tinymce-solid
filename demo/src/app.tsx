@@ -1,27 +1,33 @@
-import { MetaProvider, Title } from "@solidjs/meta";
-import { Suspense, type JSX } from "solid-js";
-// import { render } from "solid-js/web";
-// import { Router, Route } from "@solidjs/router";
+import { Show } from "solid-js";
 import { ColorModeProvider, ColorModeScript } from "@kobalte/core";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import TinyEditor from "./components/TinyEditor";
+import {useState, useView} from "./store";
 import "./app.css";
-import { RouteProps } from "@solidjs/router";
-// import { routes } from "./routes";
+import { render } from "solid-js/web";
 
-const App = (props: RouteProps<'/'>) => {
+const App = () => {
+  const [view] = useView();
+  const [content] = useState();
   return (
-    <MetaProvider>
-      <Title>SolidStart - Basic</Title>
-      <ColorModeScript />
-      <ColorModeProvider>
-        <Header />
-        <Suspense>{props.children}</Suspense>
-        <Footer />
-      </ColorModeProvider>
-    </MetaProvider>
+    <>
+    <ColorModeScript />
+    <ColorModeProvider>
+    <Header />
+      <div class="container mx-auto mb-5">
+        <Show when={view() === 'home'}>
+          <div innerHTML={content()} />
+        </Show>
+        <Show when={view() === 'edit'}>
+          <TinyEditor />
+        </Show>
+      </div>
+    <Footer />
+    </ColorModeProvider>
+    </>
   );
 }
 
-export default App;
+render(() => <App />, document.getElementById("app")!);

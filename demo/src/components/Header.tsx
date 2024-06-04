@@ -1,16 +1,11 @@
-import { A, useLocation } from "@solidjs/router";
 import { Button } from "../components/ui/button";
 import ModeToggle from "../components/ModeToggle";
-import useState from "../store";
-import { Show, createEffect, createSignal, on } from "solid-js";
+import { useState, useView } from "../store";
+import { Show } from "solid-js";
 
 const Header = () => {
-  const getPath = () => useLocation().pathname;
-  const [currentPath, setCurrentPath] = createSignal(getPath());
+  const [view, setView] = useView();
   const [,,clear] = useState();
-  createEffect(on(getPath, (v) => {
-    setCurrentPath(v);
-  }))
 
   return (
     <header class="container mx-auto mb-5 border-b">
@@ -19,11 +14,11 @@ const Header = () => {
           TinyMCE Solid Component
         </h1>
 
-        <Show when={!currentPath().startsWith('/tinymce')}>
-          <Button as={A} variant="ghost" href="/tinymce">Edit</Button>
+        <Show when={view() !=='edit'}>
+          <Button variant="ghost" onclick={() => setView('edit')}>Edit</Button>
         </Show>
-        <Show when={currentPath() != '/'}>
-          <Button as={A} variant="ghost" href="/">Preview</Button>
+        <Show when={view() !== 'home'}>
+          <Button variant="ghost" onclick={() => setView('home')}>Preview</Button>
         </Show>
         <Button onclick={() => clear()} variant="ghost">Clear</Button>
 

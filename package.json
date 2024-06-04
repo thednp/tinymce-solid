@@ -29,32 +29,30 @@
     "version": "vite version"
   },
   "dependencies": {
-    "@solidjs/meta": "^0.29.4",
-    "@solidjs/router": "^0.13.5",
     "solid-js": "^1.8.17",
     "tinymce": "^7.1.1"
   },
   "devDependencies": {
-    "@kobalte/core": "^0.13.2",
+    "@kobalte/core": "^0.13.3",
     "@kobalte/utils": "^0.9.0",
-    "@types/node": "^20.14.0",
+    "@types/node": "^20.14.1",
     "@types/prop-types": "^15.7.12",
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "postcss": "^8.4.38",
+    "prettier": "^3.3.0",
+    "prop-types": "^15.8.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",
-    "vite-plugin-compression2": "^1.1.1",
-    "prop-types": "^15.8.1",
-    "prettier": "^3.3.0",
     "tsup": "^8.1.0",
     "tsup-preset-solid": "^2.2.0",
     "typescript": "^5.4.5",
-    "typescript-eslint": "^7.11.0",
-    "vite-plugin-solid": "^2.10.2",
-    "vite": "^5.2.12"
+    "typescript-eslint": "^7.12.0",
+    "vite": "^5.2.12",
+    "vite-plugin-compression2": "^1.1.1",
+    "vite-plugin-solid": "^2.10.2"
   },
   "packageManager": "pnpm@9.1.4",
   "engines": {
