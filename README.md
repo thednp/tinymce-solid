@@ -125,8 +125,8 @@ export default function App() {
 * *disabled*: **reactive** - toggles the `disabled` property of the editor
 * *value*: **reactive** - the actual content;
 * *initialValue*: **reactive** - the initial content value;
-* all other TinyMCE properties are non-reactive and should work as expected with the original TinyMCE React component.
-
+* *onEditorChange*: `(content: string, editor: Editor)` - the callback you can use to update the parent state;
+* all other TinyMCE properties are non-reactive and should work as designed for the original TinyMCE React component.
 
 
 ### Some notes

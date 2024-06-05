@@ -5,13 +5,10 @@ import { createEffect, createSignal } from "solid-js";
 import { useState } from "../store";
 import { useDisabled } from "../store";
 
-// console.log(import.meta.env)
-
 const tinymceURL = import.meta.env.BASE_URL +
   (import.meta.env.MODE === "production"
     ? "tinymce/tinymce.min.js" // the tinymce is copied to dist at build time
     : "tinymce/tinymce.js");
-// const tinymceURL = import.meta.env.BASE_URL + "tinymce/tinymce.js";
 
 const TinyEditor = () => {
   const { colorMode } = useColorMode();
@@ -34,6 +31,7 @@ const TinyEditor = () => {
       licenseKey="gpl"
       tinymceScriptSrc={tinymceURL}
       init={{
+        height:500,
         menubar: false,
         placeholder: "Type an email content here...",
         file_picker_types: "image",
