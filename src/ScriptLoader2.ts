@@ -113,6 +113,7 @@ const createDocumentScriptLoader = (doc: Document) => {
   };
 
   const deleteScripts = () => {
+    console.log("deleteScripts", lookup);
     for (const item of Object.values(lookup)) {
       const scriptTag = doc.getElementById(item.id);
       if (scriptTag != null && scriptTag.tagName === "SCRIPT") {
@@ -162,6 +163,7 @@ const createScriptLoader = () => {
   };
 
   const reinitialize = () => {
+    console.log("reinitialize - cache: ", cache);
     for (let loader = cache.pop(); loader != null; loader = cache.pop()) {
       loader.deleteScripts();
     }

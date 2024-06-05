@@ -6,6 +6,7 @@ const [state, setState] = createSignal(
     sampleContent.content,
 );
 const [view, setView] = createSignal("home");
+const [disabled, setDisabled] = createSignal(false);
 
 const setPersistentState = (newState: string) => {
   setState(newState);
@@ -24,3 +25,5 @@ export const useState = () =>
     typeof setState,
     typeof clear,
   ];
+
+export const useDisabled = () => [disabled, setDisabled] as [typeof disabled, typeof setDisabled];

@@ -1,4 +1,4 @@
-import { cn } from "../../libs/cn";
+import { cn } from "@/src/libs/cn";
 import * as DropdownMenuPrimitive from "@kobalte/core/dropdown-menu";
 import type { PolymorphicProps } from "@kobalte/core/polymorphic";
 import { mergeDefaultProps } from "@kobalte/utils";

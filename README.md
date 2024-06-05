@@ -1,6 +1,6 @@
 # TinyMCE Component for SolidJS
 
-[<img width="100%" src="./banner.svg" alt="TinyMCE Component for SolidJS">](https://thednp.github.io/tinymce-solid)
+[<img width="100%" src="https://raw.githubusercontent.com/thednp/tinymce-solid/main/banner.svg" alt="TinyMCE Component for SolidJS">](https://thednp.github.io/tinymce-solid)
 
 [![ci](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml/badge.svg)](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml)
 [![Npm Version](https://img.shields.io/npm/v/tinymce-solid)](https://www.npmjs.com/package/tinymce-solid)
@@ -117,6 +117,17 @@ export default function App() {
   );
 }
 ```
+
+### Properties
+
+* *skin*: **reactive** - change the skin of the editor
+* *contentCss*: **reactive** - change the styling of the content 
+* *disabled*: **reactive** - toggles the `disabled` property of the editor
+* *value*: **reactive** - the actual content;
+* *initialValue*: **reactive** - the initial content value;
+* all other TinyMCE properties are non-reactive and should work as expected with the original TinyMCE React component.
+
+
 
 ### Some notes
 

@@ -10,7 +10,7 @@
     "prefix": ""
   },
   "alias": {
-    "component": "@/demo/src/components",
-    "cn": "@/demo/src/libs/cn"
+    "component": "@/src/components",
+    "cn": "@/src/libs/cn"
   }
 }

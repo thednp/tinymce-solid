@@ -1,14 +1,14 @@
-import { Button } from "../components/ui/button";
+import { Button } from "@/src/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../components/ui/dropdown-menu";
+} from "@/src/components/ui/dropdown-menu";
 
 import { useColorMode } from "@kobalte/core";
 import type { DropdownMenuTriggerProps } from "@kobalte/core/dropdown-menu";
-import { cn } from "../libs/cn";
+import { cn } from "@/src/libs/cn";
 
 const ModeToggle = ({ ...parentProps }: { class?: string }) => {
   const { setColorMode } = useColorMode();

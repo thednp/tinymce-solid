@@ -27,6 +27,7 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
   const value = () => props.value || "";
   const skin = () => props.skin || "oxide";
   const contentCss = () => props.contentCss || "default";
+  const disabled = () => props.disabled || false;
   const [editor, setEditor] = createSignal<TinyMCEEditor>();
   const [currentContent, setCurrentContent] = createSignal<string>(value());
   const [rollbackTimer, setRollbackTimer] = createSignal<number>();
@@ -103,6 +104,14 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
       }
     }
   };
+  const successHandler = () => {
+    props.onScriptsLoad?.();
+    initialise();
+  };
+  const errorHandler = (err: unknown) => {
+    // console.warn(err);
+    props.onScriptsLoadError?.(err);
+  };
 
   const initialise = (attempts = 0) => {
     const target = props.elementRef;
@@ -178,8 +187,8 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
           editor.setDirty(false);
         }
         setCurrentContent(newCurrentValue);
-        const disabled = props.disabled ?? false;
-        setMode(editor, disabled ? "readonly" : "design");
+        const isDisabled = disabled() ?? false;
+        setMode(editor, isDisabled ? "readonly" : "design");
         // ensure existing init_instance_callback is called
         if (props.init && isFunction(props.init.init_instance_callback)) {
           props.init.init_instance_callback(editor);
@@ -202,23 +211,11 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
       Array.isArray(props.tinymceScriptSrc) &&
       props.tinymceScriptSrc.length === 0
     ) {
-      // props.onScriptsLoadError?.(
-      //   new Error("No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array."),
-      // );
-      throw new Error(
-        "No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array.",
+      props.onScriptsLoadError?.(
+        new Error("No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array."),
       );
     } else if (props?.elementRef?.ownerDocument) {
-      const successHandler = () => {
-        // console.log("loaded");
-        // props.onScriptsLoad?.();
-        initialise();
-      };
-      const errorHandler = (err: unknown) => {
-        // console.warn(err);
-        // props.onScriptsLoadError?.(err);
-        throw new Error(err as string);
-      };
+      console.log("loadList", getScriptSources());
 
       ScriptLoader.loadList(
         props.elementRef.ownerDocument,
@@ -259,9 +256,17 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
   createEffect(
     on(skin, () => {
       cleanUpCallback();
-      setTimeout(() => {
-        mountCallback();
-      }, 34);
+      setTimeout(mountCallback, 1)
+    }),
+  );
+
+  createEffect(
+    on(disabled, () => {
+      const tinyEditor = editor();
+      if (tinyEditor?.initialized) {
+        const isDisabled = disabled() ?? false;
+        setMode(tinyEditor, isDisabled ? "readonly" : "design");        
+      }
     }),
   );
 
@@ -373,7 +378,7 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
 
   return props.inline ? (
     <div
-      style={{ display: editor() ? "" : "none" }}
+      style={{ visibility: "hidden" }}
       ref={props.elementRef as HTMLDivElement}
       id={id()}
       data-testid={props.testid}
@@ -381,7 +386,7 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
     />
   ) : (
     <textarea
-      style={{ display: editor() ? "" : "none" }}
+      style={{ visibility: "hidden" }}
       ref={props.elementRef as HTMLTextAreaElement}
       id={id()}
       data-testid={props.testid}
