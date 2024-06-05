@@ -212,7 +212,9 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
       props.tinymceScriptSrc.length === 0
     ) {
       props.onScriptsLoadError?.(
-        new Error("No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array."),
+        new Error(
+          "No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array.",
+        ),
       );
     } else if (props?.elementRef?.ownerDocument) {
       ScriptLoader.loadList(
@@ -254,7 +256,7 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
   createEffect(
     on(skin, () => {
       cleanUpCallback();
-      setTimeout(mountCallback, 1)
+      setTimeout(mountCallback, 1);
     }),
   );
 
@@ -263,7 +265,7 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
       const tinyEditor = editor();
       if (tinyEditor?.initialized) {
         const isDisabled = disabled() ?? false;
-        setMode(tinyEditor, isDisabled ? "readonly" : "design");        
+        setMode(tinyEditor, isDisabled ? "readonly" : "design");
       }
     }),
   );

@@ -38,21 +38,21 @@
   },
   "dependencies": {
     "solid-js": "^1.8.17",
-    "tinymce": "^7.1.1"
+    "tinymce": "^7.1.2"
   },
   "devDependencies": {
     "@kobalte/core": "^0.13.3",
     "@kobalte/utils": "^0.9.0",
-    "@types/node": "^20.14.1",
+    "@types/node": "^20.14.2",
     "@types/prop-types": "^15.7.12",
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "postcss": "^8.4.38",
-    "prettier": "^3.3.0",
+    "prettier": "^3.3.1",
     "prop-types": "^15.8.1",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss": "^3.4.3",
+    "tailwindcss": "^3.4.4",
     "tailwindcss-animate": "^1.0.7",
     "tsup": "^8.1.0",
     "tsup-preset-solid": "^2.2.0",
