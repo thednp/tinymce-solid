@@ -24,18 +24,18 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/prop-types/lib/ReactPropTypesSecret.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js
 var require_ReactPropTypesSecret = __commonJS({
-  "node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
     "use strict";
     var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
     module.exports = ReactPropTypesSecret;
   }
 });
 
-// node_modules/prop-types/factoryWithThrowingShims.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithThrowingShims.js
 var require_factoryWithThrowingShims = __commonJS({
-  "node_modules/prop-types/factoryWithThrowingShims.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithThrowingShims.js"(exports, module) {
     "use strict";
     var ReactPropTypesSecret = require_ReactPropTypesSecret();
     function emptyFunction() {
@@ -89,9 +89,9 @@ var require_factoryWithThrowingShims = __commonJS({
   }
 });
 
-// node_modules/prop-types/index.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js
 var require_prop_types = __commonJS({
-  "node_modules/prop-types/index.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js"(exports, module) {
     "use strict";
     if (false) {
       ReactIs = null;
@@ -428,6 +428,7 @@ var SolidEditor = (props) => {
   const value = () => props.value || "";
   const skin = () => props.skin || "oxide";
   const contentCss = () => props.contentCss || "default";
+  const disabled = () => props.disabled || false;
   const [editor, setEditor] = createSignal();
   const [currentContent, setCurrentContent] = createSignal(value());
   const [rollbackTimer, setRollbackTimer] = createSignal();
@@ -491,6 +492,13 @@ var SolidEditor = (props) => {
       }
     }
   };
+  const successHandler = () => {
+    props.onScriptsLoad?.();
+    initialise();
+  };
+  const errorHandler = (err) => {
+    props.onScriptsLoadError?.(err);
+  };
   const initialise = (attempts = 0) => {
     const target = props.elementRef;
     if (!target) {
@@ -547,8 +555,8 @@ var SolidEditor = (props) => {
           editor2.setDirty(false);
         }
         setCurrentContent(newCurrentValue);
-        const disabled = props.disabled ?? false;
-        setMode(editor2, disabled ? "readonly" : "design");
+        const isDisabled = disabled() ?? false;
+        setMode(editor2, isDisabled ? "readonly" : "design");
         if (props.init && isFunction(props.init.init_instance_callback)) {
           props.init.init_instance_callback(editor2);
         }
@@ -566,16 +574,10 @@ var SolidEditor = (props) => {
     if (getTinymce(view()) !== null) {
       initialise();
     } else if (Array.isArray(props.tinymceScriptSrc) && props.tinymceScriptSrc.length === 0) {
-      throw new Error(
-        "No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array."
+      props.onScriptsLoadError?.(
+        new Error("No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array.")
       );
     } else if (props?.elementRef?.ownerDocument) {
-      const successHandler = () => {
-        initialise();
-      };
-      const errorHandler = (err) => {
-        throw new Error(err);
-      };
       ScriptLoader.loadList(
         props.elementRef.ownerDocument,
         getScriptSources(),
@@ -613,9 +615,16 @@ var SolidEditor = (props) => {
   createEffect(
     on(skin, () => {
       cleanUpCallback();
-      setTimeout(() => {
-        mountCallback();
-      }, 34);
+      setTimeout(mountCallback, 1);
+    })
+  );
+  createEffect(
+    on(disabled, () => {
+      const tinyEditor = editor();
+      if (tinyEditor?.initialized) {
+        const isDisabled = disabled() ?? false;
+        setMode(tinyEditor, isDisabled ? "readonly" : "design");
+      }
     })
   );
   onMount(mountCallback);
@@ -687,13 +696,13 @@ var SolidEditor = (props) => {
     }
   };
   return props.inline ? <div
-    style={{ display: editor() ? "" : "none" }}
+    style={{ visibility: "hidden" }}
     ref={props.elementRef}
     id={id()}
     data-testid={props.testid}
     tabIndex={props.tabIndex}
   /> : <textarea
-    style={{ display: editor() ? "" : "none" }}
+    style={{ visibility: "hidden" }}
     ref={props.elementRef}
     id={id()}
     data-testid={props.testid}

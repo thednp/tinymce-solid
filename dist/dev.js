@@ -27,9 +27,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/react-is/cjs/react-is.development.js
+// node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/cjs/react-is.development.js
 var require_react_is_development = __commonJS({
-  "node_modules/react-is/cjs/react-is.development.js"(exports) {
+  "node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/cjs/react-is.development.js"(exports) {
     {
       (function() {
         var hasSymbol = typeof Symbol === "function" && Symbol.for;
@@ -180,18 +180,18 @@ var require_react_is_development = __commonJS({
   }
 });
 
-// node_modules/react-is/index.js
+// node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/index.js
 var require_react_is = __commonJS({
-  "node_modules/react-is/index.js"(exports, module) {
+  "node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/index.js"(exports, module) {
     {
       module.exports = require_react_is_development();
     }
   }
 });
 
-// node_modules/object-assign/index.js
+// node_modules/.pnpm/object-assign@4.1.1/node_modules/object-assign/index.js
 var require_object_assign = __commonJS({
-  "node_modules/object-assign/index.js"(exports, module) {
+  "node_modules/.pnpm/object-assign@4.1.1/node_modules/object-assign/index.js"(exports, module) {
     var getOwnPropertySymbols = Object.getOwnPropertySymbols;
     var hasOwnProperty = Object.prototype.hasOwnProperty;
     var propIsEnumerable = Object.prototype.propertyIsEnumerable;
@@ -258,24 +258,24 @@ var require_object_assign = __commonJS({
   }
 });
 
-// node_modules/prop-types/lib/ReactPropTypesSecret.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js
 var require_ReactPropTypesSecret = __commonJS({
-  "node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
     var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
     module.exports = ReactPropTypesSecret;
   }
 });
 
-// node_modules/prop-types/lib/has.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/has.js
 var require_has = __commonJS({
-  "node_modules/prop-types/lib/has.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/has.js"(exports, module) {
     module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
   }
 });
 
-// node_modules/prop-types/checkPropTypes.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/checkPropTypes.js
 var require_checkPropTypes = __commonJS({
-  "node_modules/prop-types/checkPropTypes.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/checkPropTypes.js"(exports, module) {
     var printWarning = function() {
     };
     {
@@ -338,9 +338,9 @@ var require_checkPropTypes = __commonJS({
   }
 });
 
-// node_modules/prop-types/factoryWithTypeCheckers.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithTypeCheckers.js
 var require_factoryWithTypeCheckers = __commonJS({
-  "node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
     var ReactIs = require_react_is();
     var assign = require_object_assign();
     var ReactPropTypesSecret = require_ReactPropTypesSecret();
@@ -780,9 +780,9 @@ var require_factoryWithTypeCheckers = __commonJS({
   }
 });
 
-// node_modules/prop-types/index.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js
 var require_prop_types = __commonJS({
-  "node_modules/prop-types/index.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js"(exports, module) {
     {
       ReactIs = require_react_is();
       throwOnDirectAccess = true;
@@ -1055,6 +1055,7 @@ var createDocumentScriptLoader = (doc) => {
     }
   };
   const deleteScripts = () => {
+    console.log("deleteScripts", lookup);
     for (const item of Object.values(lookup)) {
       const scriptTag = doc.getElementById(item.id);
       if (scriptTag != null && scriptTag.tagName === "SCRIPT") {
@@ -1089,6 +1090,7 @@ var createScriptLoader = () => {
     }
   };
   const reinitialize = () => {
+    console.log("reinitialize - cache: ", cache);
     for (let loader = cache.pop(); loader != null; loader = cache.pop()) {
       loader.deleteScripts();
     }
@@ -1115,6 +1117,7 @@ var SolidEditor = (props) => {
   const value = () => props.value || "";
   const skin = () => props.skin || "oxide";
   const contentCss = () => props.contentCss || "default";
+  const disabled = () => props.disabled || false;
   const [editor, setEditor] = createSignal();
   const [currentContent, setCurrentContent] = createSignal(value());
   const [rollbackTimer, setRollbackTimer] = createSignal();
@@ -1184,6 +1187,13 @@ var SolidEditor = (props) => {
       }
     }
   };
+  const successHandler = () => {
+    props.onScriptsLoad?.();
+    initialise();
+  };
+  const errorHandler = (err) => {
+    props.onScriptsLoadError?.(err);
+  };
   const initialise = (attempts = 0) => {
     const target = props.elementRef;
     if (!target) {
@@ -1242,8 +1252,8 @@ var SolidEditor = (props) => {
           editor2.setDirty(false);
         }
         setCurrentContent(newCurrentValue);
-        const disabled = props.disabled ?? false;
-        setMode(editor2, disabled ? "readonly" : "design");
+        const isDisabled = disabled() ?? false;
+        setMode(editor2, isDisabled ? "readonly" : "design");
         if (props.init && isFunction(props.init.init_instance_callback)) {
           props.init.init_instance_callback(editor2);
         }
@@ -1261,14 +1271,9 @@ var SolidEditor = (props) => {
     if (getTinymce(view()) !== null) {
       initialise();
     } else if (Array.isArray(props.tinymceScriptSrc) && props.tinymceScriptSrc.length === 0) {
-      throw new Error("No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array.");
+      props.onScriptsLoadError?.(new Error("No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array."));
     } else if (props?.elementRef?.ownerDocument) {
-      const successHandler = () => {
-        initialise();
-      };
-      const errorHandler = (err) => {
-        throw new Error(err);
-      };
+      console.log("loadList", getScriptSources());
       ScriptLoader.loadList(props.elementRef.ownerDocument, getScriptSources(), props.scriptLoading?.delay ?? 0, successHandler, errorHandler);
     }
   };
@@ -1300,9 +1305,14 @@ var SolidEditor = (props) => {
   }));
   createEffect(on(skin, () => {
     cleanUpCallback();
-    setTimeout(() => {
-      mountCallback();
-    }, 34);
+    setTimeout(mountCallback, 1);
+  }));
+  createEffect(on(disabled, () => {
+    const tinyEditor = editor();
+    if (tinyEditor?.initialized) {
+      const isDisabled = disabled() ?? false;
+      setMode(tinyEditor, isDisabled ? "readonly" : "design");
+    }
   }));
   onMount(mountCallback);
   onCleanup(cleanUpCallback);
@@ -1371,36 +1381,34 @@ var SolidEditor = (props) => {
     var _el$ = _tmpl$();
     var _ref$ = props.elementRef;
     typeof _ref$ === "function" ? use(_ref$, _el$) : props.elementRef = _el$;
+    _el$.style.setProperty("visibility", "hidden");
     effect((_p$) => {
-      var _v$ = editor() ? "" : "none", _v$2 = id(), _v$3 = props.testid, _v$4 = props.tabIndex;
-      _v$ !== _p$.e && ((_p$.e = _v$) != null ? _el$.style.setProperty("display", _v$) : _el$.style.removeProperty("display"));
-      _v$2 !== _p$.t && setAttribute(_el$, "id", _p$.t = _v$2);
-      _v$3 !== _p$.a && setAttribute(_el$, "data-testid", _p$.a = _v$3);
-      _v$4 !== _p$.o && setAttribute(_el$, "tabindex", _p$.o = _v$4);
+      var _v$ = id(), _v$2 = props.testid, _v$3 = props.tabIndex;
+      _v$ !== _p$.e && setAttribute(_el$, "id", _p$.e = _v$);
+      _v$2 !== _p$.t && setAttribute(_el$, "data-testid", _p$.t = _v$2);
+      _v$3 !== _p$.a && setAttribute(_el$, "tabindex", _p$.a = _v$3);
       return _p$;
     }, {
       e: void 0,
       t: void 0,
-      a: void 0,
-      o: void 0
+      a: void 0
     });
     return _el$;
   })() : (() => {
     var _el$2 = _tmpl$2();
     var _ref$2 = props.elementRef;
     typeof _ref$2 === "function" ? use(_ref$2, _el$2) : props.elementRef = _el$2;
+    _el$2.style.setProperty("visibility", "hidden");
     effect((_p$) => {
-      var _v$5 = editor() ? "" : "none", _v$6 = id(), _v$7 = props.testid, _v$8 = props.tabIndex;
-      _v$5 !== _p$.e && ((_p$.e = _v$5) != null ? _el$2.style.setProperty("display", _v$5) : _el$2.style.removeProperty("display"));
-      _v$6 !== _p$.t && setAttribute(_el$2, "id", _p$.t = _v$6);
-      _v$7 !== _p$.a && setAttribute(_el$2, "data-testid", _p$.a = _v$7);
-      _v$8 !== _p$.o && setAttribute(_el$2, "tabindex", _p$.o = _v$8);
+      var _v$4 = id(), _v$5 = props.testid, _v$6 = props.tabIndex;
+      _v$4 !== _p$.e && setAttribute(_el$2, "id", _p$.e = _v$4);
+      _v$5 !== _p$.t && setAttribute(_el$2, "data-testid", _p$.t = _v$5);
+      _v$6 !== _p$.a && setAttribute(_el$2, "tabindex", _p$.a = _v$6);
       return _p$;
     }, {
       e: void 0,
       t: void 0,
-      a: void 0,
-      o: void 0
+      a: void 0
     });
     return _el$2;
   })();

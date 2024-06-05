@@ -4,7 +4,13 @@
   "description": "TinyMCE Component for SolidJS",
   "type": "module",
   "license": "MIT",
-  "keywords": ["solidjs", "tinymce", "editor", "wysiwyg", "typescript"],
+  "keywords": [
+    "solidjs",
+    "tinymce",
+    "editor",
+    "wysiwyg",
+    "typescript"
+  ],
   "homepage": "https://thednp.github.io/tinymce-solid",
   "bugs": {
     "url": "https://github.com/thednp/tinymce-solid/issues"

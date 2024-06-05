@@ -24,9 +24,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/react-is/cjs/react-is.development.js
+// node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/cjs/react-is.development.js
 var require_react_is_development = __commonJS({
-  "node_modules/react-is/cjs/react-is.development.js"(exports) {
+  "node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/cjs/react-is.development.js"(exports) {
     "use strict";
     if (true) {
       (function() {
@@ -179,9 +179,9 @@ var require_react_is_development = __commonJS({
   }
 });
 
-// node_modules/react-is/index.js
+// node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/index.js
 var require_react_is = __commonJS({
-  "node_modules/react-is/index.js"(exports, module) {
+  "node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/index.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -191,9 +191,9 @@ var require_react_is = __commonJS({
   }
 });
 
-// node_modules/object-assign/index.js
+// node_modules/.pnpm/object-assign@4.1.1/node_modules/object-assign/index.js
 var require_object_assign = __commonJS({
-  "node_modules/object-assign/index.js"(exports, module) {
+  "node_modules/.pnpm/object-assign@4.1.1/node_modules/object-assign/index.js"(exports, module) {
     "use strict";
     var getOwnPropertySymbols = Object.getOwnPropertySymbols;
     var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -261,26 +261,26 @@ var require_object_assign = __commonJS({
   }
 });
 
-// node_modules/prop-types/lib/ReactPropTypesSecret.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js
 var require_ReactPropTypesSecret = __commonJS({
-  "node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
     "use strict";
     var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
     module.exports = ReactPropTypesSecret;
   }
 });
 
-// node_modules/prop-types/lib/has.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/has.js
 var require_has = __commonJS({
-  "node_modules/prop-types/lib/has.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/has.js"(exports, module) {
     "use strict";
     module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
   }
 });
 
-// node_modules/prop-types/checkPropTypes.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/checkPropTypes.js
 var require_checkPropTypes = __commonJS({
-  "node_modules/prop-types/checkPropTypes.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/checkPropTypes.js"(exports, module) {
     "use strict";
     var printWarning = function() {
     };
@@ -344,9 +344,9 @@ var require_checkPropTypes = __commonJS({
   }
 });
 
-// node_modules/prop-types/factoryWithTypeCheckers.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithTypeCheckers.js
 var require_factoryWithTypeCheckers = __commonJS({
-  "node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
     "use strict";
     var ReactIs = require_react_is();
     var assign = require_object_assign();
@@ -787,9 +787,9 @@ var require_factoryWithTypeCheckers = __commonJS({
   }
 });
 
-// node_modules/prop-types/index.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js
 var require_prop_types = __commonJS({
-  "node_modules/prop-types/index.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js"(exports, module) {
     "use strict";
     if (true) {
       ReactIs = require_react_is();
@@ -1068,6 +1068,7 @@ var createDocumentScriptLoader = (doc) => {
     }
   };
   const deleteScripts = () => {
+    console.log("deleteScripts", lookup);
     for (const item of Object.values(lookup)) {
       const scriptTag = doc.getElementById(item.id);
       if (scriptTag != null && scriptTag.tagName === "SCRIPT") {
@@ -1102,6 +1103,7 @@ var createScriptLoader = () => {
     }
   };
   const reinitialize = () => {
+    console.log("reinitialize - cache: ", cache);
     for (let loader = cache.pop(); loader != null; loader = cache.pop()) {
       loader.deleteScripts();
     }
@@ -1126,6 +1128,7 @@ var SolidEditor = (props) => {
   const value = () => props.value || "";
   const skin = () => props.skin || "oxide";
   const contentCss = () => props.contentCss || "default";
+  const disabled = () => props.disabled || false;
   const [editor, setEditor] = createSignal();
   const [currentContent, setCurrentContent] = createSignal(value());
   const [rollbackTimer, setRollbackTimer] = createSignal();
@@ -1189,6 +1192,13 @@ var SolidEditor = (props) => {
       }
     }
   };
+  const successHandler = () => {
+    props.onScriptsLoad?.();
+    initialise();
+  };
+  const errorHandler = (err) => {
+    props.onScriptsLoadError?.(err);
+  };
   const initialise = (attempts = 0) => {
     const target = props.elementRef;
     if (!target) {
@@ -1245,8 +1255,8 @@ var SolidEditor = (props) => {
           editor2.setDirty(false);
         }
         setCurrentContent(newCurrentValue);
-        const disabled = props.disabled ?? false;
-        setMode(editor2, disabled ? "readonly" : "design");
+        const isDisabled = disabled() ?? false;
+        setMode(editor2, isDisabled ? "readonly" : "design");
         if (props.init && isFunction(props.init.init_instance_callback)) {
           props.init.init_instance_callback(editor2);
         }
@@ -1264,16 +1274,11 @@ var SolidEditor = (props) => {
     if (getTinymce(view()) !== null) {
       initialise();
     } else if (Array.isArray(props.tinymceScriptSrc) && props.tinymceScriptSrc.length === 0) {
-      throw new Error(
-        "No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array."
+      props.onScriptsLoadError?.(
+        new Error("No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array.")
       );
     } else if (props?.elementRef?.ownerDocument) {
-      const successHandler = () => {
-        initialise();
-      };
-      const errorHandler = (err) => {
-        throw new Error(err);
-      };
+      console.log("loadList", getScriptSources());
       ScriptLoader.loadList(
         props.elementRef.ownerDocument,
         getScriptSources(),
@@ -1311,9 +1316,16 @@ var SolidEditor = (props) => {
   createEffect(
     on(skin, () => {
       cleanUpCallback();
-      setTimeout(() => {
-        mountCallback();
-      }, 34);
+      setTimeout(mountCallback, 1);
+    })
+  );
+  createEffect(
+    on(disabled, () => {
+      const tinyEditor = editor();
+      if (tinyEditor?.initialized) {
+        const isDisabled = disabled() ?? false;
+        setMode(tinyEditor, isDisabled ? "readonly" : "design");
+      }
     })
   );
   onMount(mountCallback);
@@ -1385,13 +1397,13 @@ var SolidEditor = (props) => {
     }
   };
   return props.inline ? <div
-    style={{ display: editor() ? "" : "none" }}
+    style={{ visibility: "hidden" }}
     ref={props.elementRef}
     id={id()}
     data-testid={props.testid}
     tabIndex={props.tabIndex}
   /> : <textarea
-    style={{ display: editor() ? "" : "none" }}
+    style={{ visibility: "hidden" }}
     ref={props.elementRef}
     id={id()}
     data-testid={props.testid}
