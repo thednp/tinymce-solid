@@ -215,8 +215,6 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
         new Error("No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array."),
       );
     } else if (props?.elementRef?.ownerDocument) {
-      console.log("loadList", getScriptSources());
-
       ScriptLoader.loadList(
         props.elementRef.ownerDocument,
         getScriptSources(),

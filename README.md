@@ -12,7 +12,7 @@
 
 ## About
 
-This package is a wrapper around [TinyMCE](https://github.com/tinymce/tinymce) to make it easier to use in a Solid application.
+This package is a wrapper around [TinyMCE](https://github.com/tinymce/tinymce) to make it easier to use in a SolidJS / SolidStart application.
 
 - If you need detailed documentation on TinyMCE, see: [TinyMCE Documentation](https://www.tiny.cloud/docs/tinymce/7/).
 - This is a community developed package forked from the TinyMCE React, see: [Official TinyMCE React](https://github.com/tinymce/tinymce-react) for more information.

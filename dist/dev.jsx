@@ -1068,7 +1068,6 @@ var createDocumentScriptLoader = (doc) => {
     }
   };
   const deleteScripts = () => {
-    console.log("deleteScripts", lookup);
     for (const item of Object.values(lookup)) {
       const scriptTag = doc.getElementById(item.id);
       if (scriptTag != null && scriptTag.tagName === "SCRIPT") {
@@ -1103,7 +1102,6 @@ var createScriptLoader = () => {
     }
   };
   const reinitialize = () => {
-    console.log("reinitialize - cache: ", cache);
     for (let loader = cache.pop(); loader != null; loader = cache.pop()) {
       loader.deleteScripts();
     }
@@ -1278,7 +1276,6 @@ var SolidEditor = (props) => {
         new Error("No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array.")
       );
     } else if (props?.elementRef?.ownerDocument) {
-      console.log("loadList", getScriptSources());
       ScriptLoader.loadList(
         props.elementRef.ownerDocument,
         getScriptSources(),
