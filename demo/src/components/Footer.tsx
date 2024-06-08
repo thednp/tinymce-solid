@@ -9,7 +9,7 @@ const Footer = () => {
         to learn how to build SolidStart apps.
       </p>
       <p>
-        <a class="font-bold" href="https://github.com/thednp" target="_blank">
+        <a class="font-weight-900 font-stretch-125" href="https://github.com/thednp" target="_blank">
           thednp
         </a>{" "}
         © {new Date().getFullYear()}

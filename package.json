@@ -1,7 +1,7 @@
 {
   "name": "tinymce-solid",
   "version": "0.0.4",
-  "description": "TinyMCE Component for SolidJS",
+  "description": "📝 TinyMCE Component for SolidJS",
   "type": "module",
   "license": "MIT",
   "keywords": [

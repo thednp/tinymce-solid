@@ -1,9 +1,16 @@
+const plugin = require("tailwindcss/plugin");
+// const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class", '[data-kb-theme="dark"]'],
   content: ["src/**/*.{ts,tsx}", "demo/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
+    fontFamily: {
+      sans: ["Hubot Sans", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Open Sans", "Helvetica Neue", "sans-serif"],
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -77,8 +84,54 @@ module.exports = {
         "collapsible-up": "collapsible-up 0.2s ease-out",
       },
     },
+    fontVariationSettings: {
+      stretch: [75, 90, 125],
+      weight: [200, 300, 400, 500, 600, 700, 800, 900],
+      italic: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+    },
   },
   plugins: [
     require("tailwindcss-animate"),
+    plugin(function fontVariations({ addComponents, matchUtilities, theme }) {
+      const fontVariationProps = Object.entries(theme("fontVariationSettings"))
+        .map(([key, values]) => {
+          /**
+           * Generate the value for a CSS property based on the given key and value.
+           *
+           * @param {string} key - The key of the CSS property.
+           * @param {string|number} value - The value of the CSS property.
+           * @return {string} - The generated value for the CSS property.
+           */
+          const cssPropValue = (key, value) =>
+            key === "stretch"
+              ? `${value}%` // .font-stretch
+              : key === "italic"
+                ? `oblique ${value}deg` // .font-oblique
+                : value; // font-weight
+          return values.map(value => [
+            `.font-${key}-${value}`,
+            { [`font-${key.replace(/italic/g, "style")}`]: cssPropValue(key, value) },
+          ]);
+        })
+        .flat();
+
+      // console.log(Object.fromEntries(fontVariationProps));
+      addComponents(Object.fromEntries(fontVariationProps));
+
+      matchUtilities(
+        {
+          "font-weight": value => ({
+            "font-weight": value,
+          }),
+          "font-stretch": value => ({
+            "font-stretch": `${value}%`,
+          }),
+          "font-italic": value => ({
+            "font-style": `oblique ${value}deg`,
+          }),
+        },
+        { values: Object.fromEntries(fontVariationProps) },
+      );
+    }),
   ],
 };

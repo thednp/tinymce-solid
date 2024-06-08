@@ -12,8 +12,8 @@ const Header = () => {
   return (
     <header>
       <nav class="container mx-auto flex flex-row items-center py-4">
-        <h1 class="text-xl font-extrabold mb-0 mr-auto">
-          TinyMCE SolidJS Component
+        <h1 class="text-xl font-extrabold mb-0 mr-auto font-stretch-125">
+          TinyMCE <span class="font-weight-600 font-stretch-90">SolidJS Component</span>
         </h1>
 
         <Show when={view() !== "edit"}>

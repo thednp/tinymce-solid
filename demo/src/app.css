@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 @layer base {
+  @font-face {
+    font-family: "Hubot Sans";
+    src:
+      url(@/Hubot-Sans.woff2) format("woff2 supports variations"),
+      url(@/Hubot-Sans.woff2) format("woff2-variations");
+    font-display: swap;
+    font-weight: 200 900;
+    font-stretch: 75% 125%;
+  }
   h1 {
     @apply text-4xl;
   }
