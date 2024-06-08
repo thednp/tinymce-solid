@@ -24,18 +24,18 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js
+// node_modules/prop-types/lib/ReactPropTypesSecret.js
 var require_ReactPropTypesSecret = __commonJS({
-  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
+  "node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
     "use strict";
     var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
     module.exports = ReactPropTypesSecret;
   }
 });
 
-// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithThrowingShims.js
+// node_modules/prop-types/factoryWithThrowingShims.js
 var require_factoryWithThrowingShims = __commonJS({
-  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithThrowingShims.js"(exports, module) {
+  "node_modules/prop-types/factoryWithThrowingShims.js"(exports, module) {
     "use strict";
     var ReactPropTypesSecret = require_ReactPropTypesSecret();
     function emptyFunction() {
@@ -89,9 +89,9 @@ var require_factoryWithThrowingShims = __commonJS({
   }
 });
 
-// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js
+// node_modules/prop-types/index.js
 var require_prop_types = __commonJS({
-  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js"(exports, module) {
+  "node_modules/prop-types/index.js"(exports, module) {
     "use strict";
     if (false) {
       ReactIs = null;
@@ -575,7 +575,9 @@ var SolidEditor = (props) => {
       initialise();
     } else if (Array.isArray(props.tinymceScriptSrc) && props.tinymceScriptSrc.length === 0) {
       props.onScriptsLoadError?.(
-        new Error("No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array.")
+        new Error(
+          "No `tinymce` global is present but the `tinymceScriptSrc` prop was an empty array."
+        )
       );
     } else if (props?.elementRef?.ownerDocument) {
       ScriptLoader.loadList(

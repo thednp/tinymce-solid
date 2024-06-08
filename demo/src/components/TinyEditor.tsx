@@ -7,7 +7,7 @@ import { useDisabled } from "../store";
 
 const tinymceURL = import.meta.env.BASE_URL +
   (import.meta.env.MODE === "production"
-    ? "tinymce/tinymce.min.js" // the tinymce is copied to dist at build time
+    ? "tinymce/tinymce.min.js" // the tinymce is copied to assets at build time
     : "tinymce/tinymce.js");
 
 const TinyEditor = () => {
@@ -36,9 +36,9 @@ const TinyEditor = () => {
         placeholder: "Type an email content here...",
         file_picker_types: "image",
         plugins:
-          "advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table emoticons wordcount help",
+          "preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion help",
         toolbar:
-          "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons | visualblocks | removeformat code | help",
+          "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | save print | accordion accordionremove | pagebreak anchor codesample | ltr rtl | help",
       }}
       onEditorChange={(newContent: string, editor: Editor) => {
         // const newContent = editor.getContent();

@@ -36,8 +36,6 @@ jobs:
 
       - name: Build Docs
         run: pnpm build:docs
-        # env:
-        #   BASE_PATH: '/tinymce-solid'
 
       - name: Deploy pages
         uses: JamesIves/github-pages-deploy-action@v4.4.1

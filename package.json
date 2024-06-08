@@ -1,6 +1,6 @@
 {
   "name": "tinymce-solid",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "TinyMCE Component for SolidJS",
   "type": "module",
   "license": "MIT",
@@ -27,7 +27,8 @@
     "build:docs": "vite build demo --config demo/vite.config.docs.ts",
     "copy:tiny": "cp -a './node_modules/.pnpm/tinymce@7.1.1/node_modules/tinymce' './demo/public'",
     "serve:docs": "vite serve docs --port 3000",
-    "prepublishOnly": "pnpm up && npm update && pnpm format && pnpm lint && pnpm build",
+    "prepublishOnly": "pnpm up && npm update && pnpm format && pnpm lint && pnpm build && pnpm badges",
+    "badges": "npx -p dependency-version-badge update-badge solid-js tinymce typescript prettier vite",
     "lint": "pnpm lint:types && pnpm lint:code",
     "lint:code": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0",
     "lint:types": "tsc --noEmit src/**/* --jsx preserve",
@@ -58,7 +59,7 @@
     "tsup-preset-solid": "^2.2.0",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.12.0",
-    "vite": "^5.2.12",
+    "vite": "^5.2.13",
     "vite-plugin-compression2": "^1.1.1",
     "vite-plugin-solid": "^2.10.2"
   },

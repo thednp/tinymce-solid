@@ -2,6 +2,7 @@ import { Button } from "@/src/components/ui/button";
 import ModeToggle from "@/src/components/ModeToggle";
 import { useDisabled, useState, useView } from "@/src/store";
 import { Show } from "solid-js";
+import { Separator } from "./ui/separator";
 
 const Header = () => {
   const [view, setView] = useView();
@@ -9,8 +10,8 @@ const Header = () => {
   const [, , clear] = useState();
 
   return (
-    <header class="container mx-auto mb-5 border-b">
-      <nav class="flex flex-row items-center py-4">
+    <header>
+      <nav class="container mx-auto flex flex-row items-center py-4">
         <h1 class="text-xl font-extrabold mb-0 mr-auto">
           TinyMCE SolidJS Component
         </h1>
@@ -31,7 +32,7 @@ const Header = () => {
             {disabled() ? "Enable" : "Disable"}
           </Button>
         </Show>
-
+        <Separator orientation="vertical" class="!h-[1.5rem] mx-2" />
         <ModeToggle />
         <Button
           class="h-9 w-9 px-0"

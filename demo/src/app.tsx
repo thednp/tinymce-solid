@@ -1,6 +1,7 @@
 import { Show } from "solid-js";
 import { render } from "solid-js/web";
 import { ColorModeProvider, ColorModeScript } from "@kobalte/core";
+import { Separator } from "./components/ui/separator";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import TinyEditor from "./components/TinyEditor";
@@ -15,14 +16,17 @@ const App = () => {
       <ColorModeScript />
       <ColorModeProvider>
         <Header />
-        <div class="container mx-auto mb-5">
+        <Separator class="mb-5" />
+        <div class="container mx-auto py-5 my-5">
           <Show when={view() === "home"}>
             <div innerHTML={content()} />
           </Show>
           <Show when={view() === "edit"}>
+            <h2>Editor demo</h2>
             <TinyEditor />
           </Show>
         </div>
+        <Separator class="my-5" />
         <Footer />
       </ColorModeProvider>
     </>

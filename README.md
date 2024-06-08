@@ -8,15 +8,15 @@
 [![tinymce version](https://img.shields.io/badge/tinymce-7.1.2-brightgreen)](https://www.tiny.cloud/)
 [![typescript version](https://img.shields.io/badge/typescript-5.4.5-brightgreen)](https://www.typescriptlang.org/)
 [![prettier version](https://img.shields.io/badge/prettier-3.3.1-brightgreen)](https://prettier.io/)
-[![vite version](https://img.shields.io/badge/vite-5.2.12-brightgreen)](https://github.com/vitejs)
+[![vite version](https://img.shields.io/badge/vite-5.2.13-brightgreen)](https://github.com/vitejs)
 
 ## About
 
 This package is a wrapper around [TinyMCE](https://github.com/tinymce/tinymce) to make it easier to use in a SolidJS / SolidStart application.
 
 - If you need detailed documentation on TinyMCE, see: [TinyMCE Documentation](https://www.tiny.cloud/docs/tinymce/7/).
-- This is a community developed package forked from the TinyMCE React, see: [Official TinyMCE React](https://github.com/tinymce/tinymce-react) for more information.
-- For our quick demos, check out the [demo](https://thednp.github.io/tinymce-solid/).
+- This is a community developed package forked from the TinyMCE React, see: [Official TinyMCE React](https://github.com/tinymce/tinymce-react).
+- For a quick test, check out the [demo](https://thednp.github.io/tinymce-solid/).
 
 ## Quick Start Guide
 
@@ -48,8 +48,8 @@ In your usual SolidJS SPA you can use **tinymce-solid** component like this.
 
 ```tsx
 import { createSignal } from "solid-js";
-import { TinyMCE, Editor } from "tinymce";
-import { SolidEditor } from "tinymce-solid";
+import { type Editor } from "tinymce";
+import { SolidEditor as Editor } from "tinymce-solid";
 
 export default function App() {
   let editorRef!: Editor;
@@ -57,7 +57,7 @@ export default function App() {
 
   return (
     <main>
-      <SolidEditor
+      <Editor
         apiKey="your-api-key"
         value={content()}
         onInit={(_content: string, editor: Editor) => (editorRef = editor)}
@@ -87,17 +87,17 @@ When using SolidStart in SSR mode, you may want to bring the `clientOnly` loader
 ```tsx
 import { clientOnly } from "@solidjs/start";
 import { Component, createSignal } from "solid-js";
-import { TinyMCE, Editor } from "tinymce";
+import { type Editor } from "tinymce";
 import { type IAllProps } from "tinymce-solid";
 
-const SolidEditor = clientOnly<Component<IAllProps>>(() => import("tinymce-solid"));
+const Editor = clientOnly<Component<IAllProps>>(() => import("tinymce-solid"));
 
 export default function App() {
   const [content, setContent] = createSignal("");
 
   return (
     <main>
-      <SolidEditor
+      <Editor
         apiKey="your-api-key"
         value={content()}
         init={{
@@ -125,15 +125,15 @@ export default function App() {
 * *disabled*: **reactive** - toggles the `disabled` property of the editor
 * *value*: **reactive** - the actual content;
 * *initialValue*: **reactive** - the initial content value;
-* *onEditorChange*: `(content: string, editor: Editor)` - the callback you can use to update the parent state;
+* *onEditorChange*: `(content: string, editor: Editor) => void` - the callback you can use to update the parent state;
 * all other TinyMCE properties are non-reactive and should work as designed for the original TinyMCE React component.
 
 
 ### Some notes
 
-- This package will automatically load the tinymce library and its dependencies by the use of the `tinymceScriptSrc` property
-- You can make use of the dark mode via TinyMCE skins:<br />`<SolidEditor skin="oxide-dark" contentCss="dark" {...props} />`, this very demo is configured to make use of them
-- The component, like the original, allows you to hook into the TinyMCE instance via an `editorRef` reference.
+- This package will automatically load the tinymce library and its dependencies by the use of the `tinymceScriptSrc` property;
+- You can make use of the dark mode via TinyMCE skins: `skin="oxide-dark"` and `contentCss="dark"` properties, this very demo is configured to make use of them via `createEffect`;
+- Like the original React adaptation, this component allows you to hook into the TinyMCE instance via an `editorRef` reference.
 
 ## Issues
 

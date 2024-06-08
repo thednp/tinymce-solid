@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer class="container mx-auto flex flex-col lg:flex-row justify-between py-5 border-t text-sm">
+    <footer class="container mx-auto flex flex-col lg:flex-row justify-between py-5 text-sm">
       <p>
         Visit{" "}
         <a href="https://start.solidjs.com" target="_blank">
