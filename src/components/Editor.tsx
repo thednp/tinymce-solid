@@ -1,4 +1,5 @@
 import { createEffect, createSignal, on, onCleanup, onMount } from "solid-js";
+import { Dynamic } from "solid-js/web";
 import { type ScriptItem, ScriptLoader } from "../ScriptLoader2";
 import { getTinymce } from "../TinyMCE";
 import {
@@ -21,11 +22,12 @@ import {
 } from "./EditorPropTypes";
 import { Bookmark, Editor as TinyMCEEditor, EditorEvent } from "tinymce";
 
-export const SolidEditor = (props: Partial<IAllProps>) => {
+export const Editor = (props: Partial<IAllProps>) => {
   const [id] = createSignal(props.id || uuid("solid-tinymce-editor"));
   const initialValue = () => props.initialValue;
   const value = () => props.value || "";
   const skin = () => props.skin || "oxide";
+  const tagName = () => props.tagName || "div";
   const contentCss = () => props.contentCss || "default";
   const disabled = () => props.disabled || false;
   const [editor, setEditor] = createSignal<TinyMCEEditor>();
@@ -376,21 +378,14 @@ export const SolidEditor = (props: Partial<IAllProps>) => {
     }
   };
 
-  return props.inline ? (
-    <div
-      style={{ visibility: "hidden" }}
-      ref={props.elementRef as HTMLDivElement}
+  return (
+    <Dynamic
+      component={props.inline ? tagName() : "textarea"}
       id={id()}
       data-testid={props.testid}
       tabIndex={props.tabIndex}
-    />
-  ) : (
-    <textarea
-      style={{ visibility: "hidden" }}
-      ref={props.elementRef as HTMLTextAreaElement}
-      id={id()}
-      data-testid={props.testid}
-      tabIndex={props.tabIndex}
+      ref={props.elementRef}
+      {...props}
     />
   );
 };

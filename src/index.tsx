@@ -1,6 +1,6 @@
-import { SolidEditor } from "./components/SolidEditor";
+import { Editor } from "./components/Editor";
 import { type IAllProps, EditorPropTypes } from "./components/EditorPropTypes";
 
-export default SolidEditor;
+export default Editor;
 export { type IAllProps };
 export { EditorPropTypes };

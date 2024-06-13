@@ -9,7 +9,7 @@ const isEventProp = (name: string): name is keyof IEventPropTypes =>
   name in eventPropTypes;
 
 const eventAttrToEventName = <T extends string>(attrName: `on${T}`): T =>
-  attrName.substr(2) as T;
+  String(attrName.slice(2)) as T;
 
 type PropLookup = <K extends keyof IAllProps>(key: K) => IAllProps[K];
 

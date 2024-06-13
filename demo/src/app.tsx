@@ -4,7 +4,7 @@ import { ColorModeProvider, ColorModeScript } from "@kobalte/core";
 import { Separator } from "./components/ui/separator";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import TinyEditor from "./components/TinyEditor";
+import SolidEditor from "./components/SolidEditor";
 import { useState, useView } from "./store";
 import "./app.css";
 
@@ -23,7 +23,7 @@ const App = () => {
           </Show>
           <Show when={view() === "edit"}>
             <h2>Editor demo</h2>
-            <TinyEditor />
+            <SolidEditor />
           </Show>
         </div>
         <Separator class="my-5" />

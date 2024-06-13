@@ -1,3 +1,6 @@
+import { createComponent, Dynamic, mergeProps, memo } from 'solid-js/web';
+import { createSignal, createEffect, on, onMount, onCleanup } from 'solid-js';
+
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -97,7 +100,7 @@ var require_react_is_development = __commonJS({
         var Portal = REACT_PORTAL_TYPE;
         var Profiler = REACT_PROFILER_TYPE;
         var StrictMode = REACT_STRICT_MODE_TYPE;
-        var Suspense2 = REACT_SUSPENSE_TYPE;
+        var Suspense = REACT_SUSPENSE_TYPE;
         var hasWarnedAboutDeprecatedIsAsyncMode = false;
         function isAsyncMode(object2) {
           {
@@ -156,7 +159,7 @@ var require_react_is_development = __commonJS({
         exports.Portal = Portal;
         exports.Profiler = Profiler;
         exports.StrictMode = StrictMode;
-        exports.Suspense = Suspense2;
+        exports.Suspense = Suspense;
         exports.isAsyncMode = isAsyncMode;
         exports.isConcurrentMode = isConcurrentMode;
         exports.isContextConsumer = isContextConsumer;
@@ -790,581 +793,6 @@ var require_prop_types = __commonJS({
   }
 });
 
-// node_modules/solid-js/dist/solid.js
-var sharedConfig = {
-  context: void 0,
-  registry: void 0
-};
-function setHydrateContext(context) {
-  sharedConfig.context = context;
-}
-var equalFn = (a, b) => a === b;
-var signalOptions = {
-  equals: equalFn
-};
-var ERROR = null;
-var runEffects = runQueue;
-var STALE = 1;
-var PENDING = 2;
-var UNOWNED = {
-  owned: null,
-  cleanups: null,
-  context: null,
-  owner: null
-};
-var Owner = null;
-var Transition = null;
-var Scheduler = null;
-var ExternalSourceConfig = null;
-var Listener = null;
-var Updates = null;
-var Effects = null;
-var ExecCount = 0;
-function createSignal(value, options) {
-  options = options ? Object.assign({}, signalOptions, options) : signalOptions;
-  const s = {
-    value,
-    observers: null,
-    observerSlots: null,
-    comparator: options.equals || void 0
-  };
-  const setter = (value2) => {
-    if (typeof value2 === "function") {
-      if (Transition && Transition.running && Transition.sources.has(s)) value2 = value2(s.tValue);
-      else value2 = value2(s.value);
-    }
-    return writeSignal(s, value2);
-  };
-  return [readSignal.bind(s), setter];
-}
-function createRenderEffect(fn, value, options) {
-  const c = createComputation(fn, value, false, STALE);
-  if (Scheduler && Transition && Transition.running) Updates.push(c);
-  else updateComputation(c);
-}
-function createEffect(fn, value, options) {
-  runEffects = runUserEffects;
-  const c = createComputation(fn, value, false, STALE), s = SuspenseContext && useContext(SuspenseContext);
-  if (s) c.suspense = s;
-  c.user = true;
-  Effects ? Effects.push(c) : updateComputation(c);
-}
-function untrack(fn) {
-  if (!ExternalSourceConfig && Listener === null) return fn();
-  const listener = Listener;
-  Listener = null;
-  try {
-    if (ExternalSourceConfig) return ExternalSourceConfig.untrack(fn);
-    return fn();
-  } finally {
-    Listener = listener;
-  }
-}
-function on(deps, fn, options) {
-  const isArray = Array.isArray(deps);
-  let prevInput;
-  return (prevValue) => {
-    let input;
-    if (isArray) {
-      input = Array(deps.length);
-      for (let i = 0; i < deps.length; i++) input[i] = deps[i]();
-    } else input = deps();
-    const result = untrack(() => fn(input, prevInput, prevValue));
-    prevInput = input;
-    return result;
-  };
-}
-function onMount(fn) {
-  createEffect(() => untrack(fn));
-}
-function onCleanup(fn) {
-  if (Owner === null) ;
-  else if (Owner.cleanups === null) Owner.cleanups = [fn];
-  else Owner.cleanups.push(fn);
-  return fn;
-}
-function startTransition(fn) {
-  if (Transition && Transition.running) {
-    fn();
-    return Transition.done;
-  }
-  const l = Listener;
-  const o = Owner;
-  return Promise.resolve().then(() => {
-    Listener = l;
-    Owner = o;
-    let t;
-    if (Scheduler || SuspenseContext) {
-      t = Transition || (Transition = {
-        sources: /* @__PURE__ */ new Set(),
-        effects: [],
-        promises: /* @__PURE__ */ new Set(),
-        disposed: /* @__PURE__ */ new Set(),
-        queue: /* @__PURE__ */ new Set(),
-        running: true
-      });
-      t.done || (t.done = new Promise((res) => t.resolve = res));
-      t.running = true;
-    }
-    runUpdates(fn);
-    Listener = Owner = null;
-    return t ? t.done : void 0;
-  });
-}
-var [transPending, setTransPending] = /* @__PURE__ */ createSignal(false);
-function useContext(context) {
-  return Owner && Owner.context && Owner.context[context.id] !== void 0 ? Owner.context[context.id] : context.defaultValue;
-}
-var SuspenseContext;
-function readSignal() {
-  const runningTransition = Transition && Transition.running;
-  if (this.sources && (runningTransition ? this.tState : this.state)) {
-    if ((runningTransition ? this.tState : this.state) === STALE) updateComputation(this);
-    else {
-      const updates = Updates;
-      Updates = null;
-      runUpdates(() => lookUpstream(this));
-      Updates = updates;
-    }
-  }
-  if (Listener) {
-    const sSlot = this.observers ? this.observers.length : 0;
-    if (!Listener.sources) {
-      Listener.sources = [this];
-      Listener.sourceSlots = [sSlot];
-    } else {
-      Listener.sources.push(this);
-      Listener.sourceSlots.push(sSlot);
-    }
-    if (!this.observers) {
-      this.observers = [Listener];
-      this.observerSlots = [Listener.sources.length - 1];
-    } else {
-      this.observers.push(Listener);
-      this.observerSlots.push(Listener.sources.length - 1);
-    }
-  }
-  if (runningTransition && Transition.sources.has(this)) return this.tValue;
-  return this.value;
-}
-function writeSignal(node, value, isComp) {
-  let current = Transition && Transition.running && Transition.sources.has(node) ? node.tValue : node.value;
-  if (!node.comparator || !node.comparator(current, value)) {
-    if (Transition) {
-      const TransitionRunning = Transition.running;
-      if (TransitionRunning || !isComp && Transition.sources.has(node)) {
-        Transition.sources.add(node);
-        node.tValue = value;
-      }
-      if (!TransitionRunning) node.value = value;
-    } else node.value = value;
-    if (node.observers && node.observers.length) {
-      runUpdates(() => {
-        for (let i = 0; i < node.observers.length; i += 1) {
-          const o = node.observers[i];
-          const TransitionRunning = Transition && Transition.running;
-          if (TransitionRunning && Transition.disposed.has(o)) continue;
-          if (TransitionRunning ? !o.tState : !o.state) {
-            if (o.pure) Updates.push(o);
-            else Effects.push(o);
-            if (o.observers) markDownstream(o);
-          }
-          if (!TransitionRunning) o.state = STALE;
-          else o.tState = STALE;
-        }
-        if (Updates.length > 1e6) {
-          Updates = [];
-          if (false) ;
-          throw new Error();
-        }
-      });
-    }
-  }
-  return value;
-}
-function updateComputation(node) {
-  if (!node.fn) return;
-  cleanNode(node);
-  const time = ExecCount;
-  runComputation(
-    node,
-    Transition && Transition.running && Transition.sources.has(node) ? node.tValue : node.value,
-    time
-  );
-  if (Transition && !Transition.running && Transition.sources.has(node)) {
-    queueMicrotask(() => {
-      runUpdates(() => {
-        Transition && (Transition.running = true);
-        Listener = Owner = node;
-        runComputation(node, node.tValue, time);
-        Listener = Owner = null;
-      });
-    });
-  }
-}
-function runComputation(node, value, time) {
-  let nextValue;
-  const owner = Owner, listener = Listener;
-  Listener = Owner = node;
-  try {
-    nextValue = node.fn(value);
-  } catch (err) {
-    if (node.pure) {
-      if (Transition && Transition.running) {
-        node.tState = STALE;
-        node.tOwned && node.tOwned.forEach(cleanNode);
-        node.tOwned = void 0;
-      } else {
-        node.state = STALE;
-        node.owned && node.owned.forEach(cleanNode);
-        node.owned = null;
-      }
-    }
-    node.updatedAt = time + 1;
-    return handleError(err);
-  } finally {
-    Listener = listener;
-    Owner = owner;
-  }
-  if (!node.updatedAt || node.updatedAt <= time) {
-    if (node.updatedAt != null && "observers" in node) {
-      writeSignal(node, nextValue, true);
-    } else if (Transition && Transition.running && node.pure) {
-      Transition.sources.add(node);
-      node.tValue = nextValue;
-    } else node.value = nextValue;
-    node.updatedAt = time;
-  }
-}
-function createComputation(fn, init, pure, state = STALE, options) {
-  const c = {
-    fn,
-    state,
-    updatedAt: null,
-    owned: null,
-    sources: null,
-    sourceSlots: null,
-    cleanups: null,
-    value: init,
-    owner: Owner,
-    context: Owner ? Owner.context : null,
-    pure
-  };
-  if (Transition && Transition.running) {
-    c.state = 0;
-    c.tState = state;
-  }
-  if (Owner === null) ;
-  else if (Owner !== UNOWNED) {
-    if (Transition && Transition.running && Owner.pure) {
-      if (!Owner.tOwned) Owner.tOwned = [c];
-      else Owner.tOwned.push(c);
-    } else {
-      if (!Owner.owned) Owner.owned = [c];
-      else Owner.owned.push(c);
-    }
-  }
-  if (ExternalSourceConfig && c.fn) {
-    const [track, trigger] = createSignal(void 0, {
-      equals: false
-    });
-    const ordinary = ExternalSourceConfig.factory(c.fn, trigger);
-    onCleanup(() => ordinary.dispose());
-    const triggerInTransition = () => startTransition(trigger).then(() => inTransition.dispose());
-    const inTransition = ExternalSourceConfig.factory(c.fn, triggerInTransition);
-    c.fn = (x) => {
-      track();
-      return Transition && Transition.running ? inTransition.track(x) : ordinary.track(x);
-    };
-  }
-  return c;
-}
-function runTop(node) {
-  const runningTransition = Transition && Transition.running;
-  if ((runningTransition ? node.tState : node.state) === 0) return;
-  if ((runningTransition ? node.tState : node.state) === PENDING) return lookUpstream(node);
-  if (node.suspense && untrack(node.suspense.inFallback)) return node.suspense.effects.push(node);
-  const ancestors = [node];
-  while ((node = node.owner) && (!node.updatedAt || node.updatedAt < ExecCount)) {
-    if (runningTransition && Transition.disposed.has(node)) return;
-    if (runningTransition ? node.tState : node.state) ancestors.push(node);
-  }
-  for (let i = ancestors.length - 1; i >= 0; i--) {
-    node = ancestors[i];
-    if (runningTransition) {
-      let top = node, prev = ancestors[i + 1];
-      while ((top = top.owner) && top !== prev) {
-        if (Transition.disposed.has(top)) return;
-      }
-    }
-    if ((runningTransition ? node.tState : node.state) === STALE) {
-      updateComputation(node);
-    } else if ((runningTransition ? node.tState : node.state) === PENDING) {
-      const updates = Updates;
-      Updates = null;
-      runUpdates(() => lookUpstream(node, ancestors[0]));
-      Updates = updates;
-    }
-  }
-}
-function runUpdates(fn, init) {
-  if (Updates) return fn();
-  let wait = false;
-  Updates = [];
-  if (Effects) wait = true;
-  else Effects = [];
-  ExecCount++;
-  try {
-    const res = fn();
-    completeUpdates(wait);
-    return res;
-  } catch (err) {
-    if (!wait) Effects = null;
-    Updates = null;
-    handleError(err);
-  }
-}
-function completeUpdates(wait) {
-  if (Updates) {
-    if (Scheduler && Transition && Transition.running) scheduleQueue(Updates);
-    else runQueue(Updates);
-    Updates = null;
-  }
-  if (wait) return;
-  let res;
-  if (Transition) {
-    if (!Transition.promises.size && !Transition.queue.size) {
-      const sources = Transition.sources;
-      const disposed = Transition.disposed;
-      Effects.push.apply(Effects, Transition.effects);
-      res = Transition.resolve;
-      for (const e2 of Effects) {
-        "tState" in e2 && (e2.state = e2.tState);
-        delete e2.tState;
-      }
-      Transition = null;
-      runUpdates(() => {
-        for (const d of disposed) cleanNode(d);
-        for (const v of sources) {
-          v.value = v.tValue;
-          if (v.owned) {
-            for (let i = 0, len = v.owned.length; i < len; i++) cleanNode(v.owned[i]);
-          }
-          if (v.tOwned) v.owned = v.tOwned;
-          delete v.tValue;
-          delete v.tOwned;
-          v.tState = 0;
-        }
-        setTransPending(false);
-      });
-    } else if (Transition.running) {
-      Transition.running = false;
-      Transition.effects.push.apply(Transition.effects, Effects);
-      Effects = null;
-      setTransPending(true);
-      return;
-    }
-  }
-  const e = Effects;
-  Effects = null;
-  if (e.length) runUpdates(() => runEffects(e));
-  if (res) res();
-}
-function runQueue(queue) {
-  for (let i = 0; i < queue.length; i++) runTop(queue[i]);
-}
-function scheduleQueue(queue) {
-  for (let i = 0; i < queue.length; i++) {
-    const item = queue[i];
-    const tasks = Transition.queue;
-    if (!tasks.has(item)) {
-      tasks.add(item);
-      Scheduler(() => {
-        tasks.delete(item);
-        runUpdates(() => {
-          Transition.running = true;
-          runTop(item);
-        });
-        Transition && (Transition.running = false);
-      });
-    }
-  }
-}
-function runUserEffects(queue) {
-  let i, userLength = 0;
-  for (i = 0; i < queue.length; i++) {
-    const e = queue[i];
-    if (!e.user) runTop(e);
-    else queue[userLength++] = e;
-  }
-  if (sharedConfig.context) {
-    if (sharedConfig.count) {
-      sharedConfig.effects || (sharedConfig.effects = []);
-      sharedConfig.effects.push(...queue.slice(0, userLength));
-      return;
-    } else if (sharedConfig.effects) {
-      queue = [...sharedConfig.effects, ...queue];
-      userLength += sharedConfig.effects.length;
-      delete sharedConfig.effects;
-    }
-    setHydrateContext();
-  }
-  for (i = 0; i < userLength; i++) runTop(queue[i]);
-}
-function lookUpstream(node, ignore) {
-  const runningTransition = Transition && Transition.running;
-  if (runningTransition) node.tState = 0;
-  else node.state = 0;
-  for (let i = 0; i < node.sources.length; i += 1) {
-    const source = node.sources[i];
-    if (source.sources) {
-      const state = runningTransition ? source.tState : source.state;
-      if (state === STALE) {
-        if (source !== ignore && (!source.updatedAt || source.updatedAt < ExecCount))
-          runTop(source);
-      } else if (state === PENDING) lookUpstream(source, ignore);
-    }
-  }
-}
-function markDownstream(node) {
-  const runningTransition = Transition && Transition.running;
-  for (let i = 0; i < node.observers.length; i += 1) {
-    const o = node.observers[i];
-    if (runningTransition ? !o.tState : !o.state) {
-      if (runningTransition) o.tState = PENDING;
-      else o.state = PENDING;
-      if (o.pure) Updates.push(o);
-      else Effects.push(o);
-      o.observers && markDownstream(o);
-    }
-  }
-}
-function cleanNode(node) {
-  let i;
-  if (node.sources) {
-    while (node.sources.length) {
-      const source = node.sources.pop(), index = node.sourceSlots.pop(), obs = source.observers;
-      if (obs && obs.length) {
-        const n = obs.pop(), s = source.observerSlots.pop();
-        if (index < obs.length) {
-          n.sourceSlots[s] = index;
-          obs[index] = n;
-          source.observerSlots[index] = s;
-        }
-      }
-    }
-  }
-  if (Transition && Transition.running && node.pure) {
-    if (node.tOwned) {
-      for (i = node.tOwned.length - 1; i >= 0; i--) cleanNode(node.tOwned[i]);
-      delete node.tOwned;
-    }
-    reset(node, true);
-  } else if (node.owned) {
-    for (i = node.owned.length - 1; i >= 0; i--) cleanNode(node.owned[i]);
-    node.owned = null;
-  }
-  if (node.cleanups) {
-    for (i = node.cleanups.length - 1; i >= 0; i--) node.cleanups[i]();
-    node.cleanups = null;
-  }
-  if (Transition && Transition.running) node.tState = 0;
-  else node.state = 0;
-}
-function reset(node, top) {
-  if (!top) {
-    node.tState = 0;
-    Transition.disposed.add(node);
-  }
-  if (node.owned) {
-    for (let i = 0; i < node.owned.length; i++) reset(node.owned[i]);
-  }
-}
-function castError(err) {
-  if (err instanceof Error) return err;
-  return new Error(typeof err === "string" ? err : "Unknown error", {
-    cause: err
-  });
-}
-function runErrors(err, fns, owner) {
-  try {
-    for (const f of fns) f(err);
-  } catch (e) {
-    handleError(e, owner && owner.owner || null);
-  }
-}
-function handleError(err, owner = Owner) {
-  const fns = ERROR && owner && owner.context && owner.context[ERROR];
-  const error = castError(err);
-  if (!fns) throw error;
-  if (Effects)
-    Effects.push({
-      fn() {
-        runErrors(error, fns, owner);
-      },
-      state: STALE
-    });
-  else runErrors(error, fns, owner);
-}
-
-// node_modules/solid-js/web/dist/web.js
-var booleans = [
-  "allowfullscreen",
-  "async",
-  "autofocus",
-  "autoplay",
-  "checked",
-  "controls",
-  "default",
-  "disabled",
-  "formnovalidate",
-  "hidden",
-  "indeterminate",
-  "inert",
-  "ismap",
-  "loop",
-  "multiple",
-  "muted",
-  "nomodule",
-  "novalidate",
-  "open",
-  "playsinline",
-  "readonly",
-  "required",
-  "reversed",
-  "seamless",
-  "selected"
-];
-/* @__PURE__ */ new Set([
-  "className",
-  "value",
-  "readOnly",
-  "formNoValidate",
-  "isMap",
-  "noModule",
-  "playsInline",
-  ...booleans
-]);
-function template(html, isCE, isSVG) {
-  let node;
-  const create = () => {
-    const t = document.createElement("template");
-    t.innerHTML = html;
-    return t.content.firstChild;
-  };
-  const fn = () => (node || (node = create())).cloneNode(true);
-  fn.cloneNode = fn;
-  return fn;
-}
-function setAttribute(node, name, value) {
-  if (!!sharedConfig.context && node.isConnected) return;
-  if (value == null) node.removeAttribute(name);
-  else node.setAttribute(name, value);
-}
-function use(fn, element, arg) {
-  return untrack(() => fn(element, arg));
-}
-
 // src/components/EditorPropTypes.ts
 var PropTypes = __toESM(require_prop_types(), 1);
 var eventPropTypes = {
@@ -1483,7 +911,7 @@ var EditorPropTypes = {
 // src/Utils.ts
 var isFunction = (x) => typeof x === "function";
 var isEventProp = (name) => name in eventPropTypes;
-var eventAttrToEventName = (attrName) => attrName.substr(2);
+var eventAttrToEventName = (attrName) => String(attrName.slice(2));
 var configHandlers2 = (handlerLookup, on2, off, adapter, prevProps, props, boundHandlers) => {
   const prevEventKeys = Object.keys(prevProps).filter(isEventProp);
   const currEventKeys = Object.keys(props).filter(isEventProp);
@@ -1678,14 +1106,13 @@ var getTinymce = (view) => {
   return global && global.tinymce ? global.tinymce : null;
 };
 
-// src/components/SolidEditor.tsx
-var _tmpl$ = /* @__PURE__ */ template(`<div>`);
-var _tmpl$2 = /* @__PURE__ */ template(`<textarea>`);
-var SolidEditor = (props) => {
+// src/components/Editor.tsx
+var Editor = (props) => {
   const [id] = createSignal(props.id || uuid("solid-tinymce-editor"));
   const initialValue = () => props.initialValue;
   const value = () => props.value || "";
   const skin = () => props.skin || "oxide";
+  const tagName = () => props.tagName || "div";
   const contentCss = () => props.contentCss || "default";
   const disabled = () => props.disabled || false;
   const [editor, setEditor] = createSignal();
@@ -1946,45 +1373,28 @@ var SolidEditor = (props) => {
       handleBeforeInput(evt);
     }
   };
-  return props.inline ? (() => {
-    var _el$ = _tmpl$();
-    var _ref$ = props.elementRef;
-    typeof _ref$ === "function" ? use(_ref$, _el$) : props.elementRef = _el$;
-    _el$.style.setProperty("visibility", "hidden");
-    createRenderEffect((_p$) => {
-      var _v$ = id(), _v$2 = props.testid, _v$3 = props.tabIndex;
-      _v$ !== _p$.e && setAttribute(_el$, "id", _p$.e = _v$);
-      _v$2 !== _p$.t && setAttribute(_el$, "data-testid", _p$.t = _v$2);
-      _v$3 !== _p$.a && setAttribute(_el$, "tabindex", _p$.a = _v$3);
-      return _p$;
-    }, {
-      e: void 0,
-      t: void 0,
-      a: void 0
-    });
-    return _el$;
-  })() : (() => {
-    var _el$2 = _tmpl$2();
-    var _ref$2 = props.elementRef;
-    typeof _ref$2 === "function" ? use(_ref$2, _el$2) : props.elementRef = _el$2;
-    _el$2.style.setProperty("visibility", "hidden");
-    createRenderEffect((_p$) => {
-      var _v$4 = id(), _v$5 = props.testid, _v$6 = props.tabIndex;
-      _v$4 !== _p$.e && setAttribute(_el$2, "id", _p$.e = _v$4);
-      _v$5 !== _p$.t && setAttribute(_el$2, "data-testid", _p$.t = _v$5);
-      _v$6 !== _p$.a && setAttribute(_el$2, "tabindex", _p$.a = _v$6);
-      return _p$;
-    }, {
-      e: void 0,
-      t: void 0,
-      a: void 0
-    });
-    return _el$2;
-  })();
+  return createComponent(Dynamic, mergeProps({
+    get component() {
+      return memo(() => !!props.inline)() ? tagName() : "textarea";
+    },
+    get id() {
+      return id();
+    },
+    get ["data-testid"]() {
+      return props.testid;
+    },
+    get tabIndex() {
+      return props.tabIndex;
+    },
+    ref(r$) {
+      var _ref$ = props.elementRef;
+      typeof _ref$ === "function" ? _ref$(r$) : props.elementRef = r$;
+    }
+  }, props));
 };
 
 // src/index.tsx
-var src_default = SolidEditor;
+var src_default = Editor;
 /*! Bundled license information:
 
 react-is/cjs/react-is.development.js:

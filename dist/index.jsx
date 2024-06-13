@@ -105,8 +105,9 @@ var require_prop_types = __commonJS({
   }
 });
 
-// src/components/SolidEditor.tsx
+// src/components/Editor.tsx
 import { createEffect, createSignal, on, onCleanup, onMount } from "solid-js";
+import { Dynamic } from "solid-js/web";
 
 // src/components/EditorPropTypes.ts
 var PropTypes = __toESM(require_prop_types(), 1);
@@ -226,7 +227,7 @@ var EditorPropTypes = {
 // src/Utils.ts
 var isFunction = (x) => typeof x === "function";
 var isEventProp = (name) => name in eventPropTypes;
-var eventAttrToEventName = (attrName) => attrName.substr(2);
+var eventAttrToEventName = (attrName) => String(attrName.slice(2));
 var configHandlers2 = (handlerLookup, on2, off, adapter, prevProps, props, boundHandlers) => {
   const prevEventKeys = Object.keys(prevProps).filter(isEventProp);
   const currEventKeys = Object.keys(props).filter(isEventProp);
@@ -421,12 +422,13 @@ var getTinymce = (view) => {
   return global && global.tinymce ? global.tinymce : null;
 };
 
-// src/components/SolidEditor.tsx
-var SolidEditor = (props) => {
+// src/components/Editor.tsx
+var Editor = (props) => {
   const [id] = createSignal(props.id || uuid("solid-tinymce-editor"));
   const initialValue = () => props.initialValue;
   const value = () => props.value || "";
   const skin = () => props.skin || "oxide";
+  const tagName = () => props.tagName || "div";
   const contentCss = () => props.contentCss || "default";
   const disabled = () => props.disabled || false;
   const [editor, setEditor] = createSignal();
@@ -697,23 +699,18 @@ var SolidEditor = (props) => {
       handleBeforeInput(evt);
     }
   };
-  return props.inline ? <div
-    style={{ visibility: "hidden" }}
-    ref={props.elementRef}
+  return <Dynamic
+    component={props.inline ? tagName() : "textarea"}
     id={id()}
     data-testid={props.testid}
     tabIndex={props.tabIndex}
-  /> : <textarea
-    style={{ visibility: "hidden" }}
     ref={props.elementRef}
-    id={id()}
-    data-testid={props.testid}
-    tabIndex={props.tabIndex}
+    {...props}
   />;
 };
 
 // src/index.tsx
-var src_default = SolidEditor;
+var src_default = Editor;
 export {
   EditorPropTypes,
   src_default as default

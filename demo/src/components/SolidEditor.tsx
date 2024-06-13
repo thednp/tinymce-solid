@@ -1,5 +1,4 @@
-import { type Editor } from "tinymce";
-import SolidEditor, { type IAllProps } from "~/index";
+import Editor, { type IAllProps } from "~/index";
 import { useColorMode } from "@kobalte/core";
 import { createEffect, createSignal } from "solid-js";
 import { useState } from "../store";
@@ -10,7 +9,7 @@ const tinymceURL = import.meta.env.BASE_URL +
     ? "tinymce/tinymce.min.js" // the tinymce is copied to assets at build time
     : "tinymce/tinymce.js");
 
-const TinyEditor = () => {
+const SolidEditor = () => {
   const { colorMode } = useColorMode();
   const [content, setContent] = useState();
   const [disabled] = useDisabled();
@@ -23,7 +22,7 @@ const TinyEditor = () => {
   });
 
   return (
-    <SolidEditor
+    <Editor
       value={content()}
       disabled={disabled()}
       skin={skin()}
@@ -40,13 +39,11 @@ const TinyEditor = () => {
         toolbar:
           "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | save print | accordion accordionremove | pagebreak anchor codesample | ltr rtl | help",
       }}
-      onEditorChange={(newContent: string, editor: Editor) => {
-        // const newContent = editor.getContent();
-        // console.log("onEditorChange", newContent);
+      onEditorChange={(newContent: string) => {
         setContent(newContent);
       }}
     />
   );
 };
 
-export default TinyEditor;
+export default SolidEditor;

@@ -1,8 +1,8 @@
 import * as solid_js from 'solid-js';
 import * as PropTypes from 'prop-types';
-import { EditorEvent, Editor, Events, TinyMCE } from 'tinymce';
+import { EditorEvent, Editor as Editor$1, Events, TinyMCE } from 'tinymce';
 
-type EventHandler<A> = (a: EditorEvent<A>, editor: Editor) => unknown;
+type EventHandler<A> = (a: EditorEvent<A>, editor: Editor$1) => unknown;
 type EEventHandler<K extends keyof Events.EditorEventMap> = EventHandler<Events.EditorEventMap[K]>;
 interface INativeEvents {
     onBeforePaste: EEventHandler<"beforepaste">;
@@ -117,7 +117,7 @@ interface IProps {
     testid: string;
     inline: boolean;
     initialValue: string;
-    onEditorChange: (content: string, editor: Editor) => void;
+    onEditorChange: (content: string, editor: Editor$1) => void;
     value: string;
     init: InitOptions;
     tagName: string;
@@ -250,6 +250,6 @@ declare const EditorPropTypes: {
     }>>;
 };
 
-declare const SolidEditor: (props: Partial<IAllProps>) => solid_js.JSX.Element;
+declare const Editor: (props: Partial<IAllProps>) => solid_js.JSX.Element;
 
-export { EditorPropTypes, type IAllProps, SolidEditor as default };
+export { EditorPropTypes, type IAllProps, Editor as default };
