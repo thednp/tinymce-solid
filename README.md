@@ -4,11 +4,11 @@
 
 [![ci](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml/badge.svg)](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml)
 [![Npm Version](https://img.shields.io/npm/v/tinymce-solid)](https://www.npmjs.com/package/tinymce-solid)
-[![solid-js version](https://img.shields.io/badge/solid--js-1.8.18-brightgreen)](https://solidjs.com/)
-[![tinymce version](https://img.shields.io/badge/tinymce-7.2.1-brightgreen)](https://www.tiny.cloud/)
-[![typescript version](https://img.shields.io/badge/typescript-5.5.3-brightgreen)](https://www.typescriptlang.org/)
+[![solid-js version](https://img.shields.io/badge/solid--js-1.8.20-brightgreen)](https://solidjs.com/)
+[![tinymce version](https://img.shields.io/badge/tinymce-7.3.0-brightgreen)](https://www.tiny.cloud/)
+[![typescript version](https://img.shields.io/badge/typescript-5.5.4-brightgreen)](https://www.typescriptlang.org/)
 [![prettier version](https://img.shields.io/badge/prettier-3.3.3-brightgreen)](https://prettier.io/)
-[![vite version](https://img.shields.io/badge/vite-5.3.4-brightgreen)](https://github.com/vitejs)
+[![vite version](https://img.shields.io/badge/vite-5.4.0-brightgreen)](https://github.com/vitejs)
 
 ## About
 
