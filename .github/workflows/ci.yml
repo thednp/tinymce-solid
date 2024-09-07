@@ -49,8 +49,3 @@ jobs:
           branch: gh-pages
           node-version: 20.x
           folder: docs
-
-      - name: Upload coverage report to coveralls.io...
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}      
