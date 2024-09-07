@@ -400,7 +400,7 @@ export const Editor = (props: Partial<IAllProps>) => {
   };
 
   const handleBeforeInputSpecial = (evt: EditorEvent<KeyboardEvent>) => {
-      /* istanbul ignore next @preserve - this should be covered but the browser mode won't register this part */
+    /* istanbul ignore next @preserve - this should be covered but the browser mode won't register this part */
     if (
       evt.key === "Enter" ||
       evt.key === "Backspace" ||

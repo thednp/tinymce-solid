@@ -135,6 +135,7 @@ export default function App() {
 - This package will automatically load the TinyMCE library and its dependencies by the use of the `tinymceScriptSrc` property;
 - You can make use of the dark mode via TinyMCE skins: `skin="oxide-dark"` and `contentCss="dark"` properties, [the demo](https://thednp.github.io/tinymce-solid) is configured to make use of them via `createEffect`;
 - Like the original React adaptation, this component allows you to hook into the TinyMCE instance via an `editorRef` reference.
+- We've added tests powered by Vitest, with a real coverage of ~70%, that is becasue many branches cannot be covered in Vitest browser mode and playwright won't work in some Linux distributions for some reason.
 
 ## Issues
 

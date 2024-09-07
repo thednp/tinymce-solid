@@ -1420,8 +1420,13 @@ export {
   EditorPropTypes,
   src_default as default
 };
+/* istanbul ignore next @preserve - this should be covered but the browser mode won't register this part */
+/* istanbul ignore next @preserve - this here seems to be for legacy browsers, we ignore it */
 /* istanbul ignore else @preserve */
 /* istanbul ignore next @preserve */
+/* istanbul ignore next @preserve - this error is thrown on every HMR so we ignore it */
+/* istanbul ignore next @preserve - this error is thrown on every HMR so we can ignore it */
+/* istanbul ignore next @preserve - exact same reason */
 /*! Bundled license information:
 
 react-is/cjs/react-is.development.js:
