@@ -48,6 +48,7 @@
   "devDependencies": {
     "@kobalte/core": "^0.13.6",
     "@kobalte/utils": "^0.9.1",
+    "@testing-library/jest-dom": "^6.5.0",
     "@types/node": "^20.16.5",
     "@types/prop-types": "^15.7.12",
     "@vitest/browser": "^2.0.5",

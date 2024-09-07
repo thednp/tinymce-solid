@@ -21,6 +21,9 @@ importers:
       '@kobalte/utils':
         specifier: ^0.9.1
         version: 0.9.1(solid-js@1.8.22)
+      '@testing-library/jest-dom':
+        specifier: ^6.5.0
+        version: 6.5.0
       '@types/node':
         specifier: ^20.16.5
         version: 20.16.5
@@ -2571,8 +2574,7 @@ packages:
 
 snapshots:
 
-  '@adobe/css-tools@4.4.0':
-    optional: true
+  '@adobe/css-tools@4.4.0': {}
 
   '@alloc/quick-lru@5.2.0': {}
 
@@ -3253,7 +3255,6 @@ snapshots:
       dom-accessibility-api: 0.6.3
       lodash: 4.17.21
       redent: 3.0.0
-    optional: true
 
   '@testing-library/user-event@14.5.2(@testing-library/dom@10.4.0)':
     dependencies:
@@ -3606,7 +3607,6 @@ snapshots:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-    optional: true
 
   chalk@4.1.2:
     dependencies:
@@ -3677,8 +3677,7 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  css.escape@1.5.1:
-    optional: true
+  css.escape@1.5.1: {}
 
   cssesc@3.0.0: {}
 
@@ -3721,8 +3720,7 @@ snapshots:
 
   dom-accessibility-api@0.5.16: {}
 
-  dom-accessibility-api@0.6.3:
-    optional: true
+  dom-accessibility-api@0.6.3: {}
 
   eastasianwidth@0.2.0: {}
 
@@ -4067,8 +4065,7 @@ snapshots:
 
   imurmurhash@0.1.4: {}
 
-  indent-string@4.0.0:
-    optional: true
+  indent-string@4.0.0: {}
 
   inflight@1.0.6:
     dependencies:
@@ -4219,8 +4216,7 @@ snapshots:
 
   lodash.sortby@4.7.0: {}
 
-  lodash@4.17.21:
-    optional: true
+  lodash@4.17.21: {}
 
   loose-envify@1.4.0:
     dependencies:
@@ -4275,8 +4271,7 @@ snapshots:
 
   mimic-fn@4.0.0: {}
 
-  min-indent@1.0.1:
-    optional: true
+  min-indent@1.0.1: {}
 
   minimatch@3.1.2:
     dependencies:
@@ -4510,7 +4505,6 @@ snapshots:
     dependencies:
       indent-string: 4.0.0
       strip-indent: 3.0.0
-    optional: true
 
   regenerator-runtime@0.14.1: {}
 
@@ -4666,7 +4660,6 @@ snapshots:
   strip-indent@3.0.0:
     dependencies:
       min-indent: 1.0.1
-    optional: true
 
   strip-json-comments@3.1.1: {}
 
