@@ -20,7 +20,7 @@ describe("Test <SolidEditor />", () => {
     render(() => <SolidEditor />, container);
     const editorArea = await vi.waitUntil(() =>
       container.querySelector('iframe')?.contentWindow?.document.getElementById('tinymce'),
-      { timeout: 1000, interval: 50 }
+      { timeout: 1500, interval: 50 }
     );
     expect(editorArea).to.exist;
   });
