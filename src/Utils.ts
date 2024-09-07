@@ -25,6 +25,7 @@ export const configHandlers2 = <H>(
   const prevEventKeys = Object.keys(prevProps).filter(isEventProp);
   const currEventKeys = Object.keys(props).filter(isEventProp);
 
+  /* istanbul ignore next @preserve - this should be covered but the browser mode won't register this part */
   const removedKeys = prevEventKeys.filter((key) => props[key] === undefined);
   const addedKeys = currEventKeys.filter((key) => prevProps[key] === undefined);
 

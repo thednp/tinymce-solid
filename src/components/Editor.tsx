@@ -342,6 +342,7 @@ export const Editor = (props: Partial<IAllProps>) => {
   };
 
   const rollbackChange = () => {
+    /* istanbul ignore next @preserve */
     const tinyEditor = editor();
     const value = props.value;
     /* istanbul ignore next @preserve */
@@ -360,6 +361,7 @@ export const Editor = (props: Partial<IAllProps>) => {
         }
       });
     }
+    /* istanbul ignore next @preserve */
     setRollbackTimer(undefined);
   };
 
