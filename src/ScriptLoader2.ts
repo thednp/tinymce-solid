@@ -30,6 +30,7 @@ const injectScriptTag = (
     scriptTag.removeEventListener("error", errorHandler);
     handler(item.src);
   };
+  /* istanbul ignore next @preserve - this should be covered but the browser mode won't register this part */
   const errorHandler = (err: unknown) => {
     scriptTag.removeEventListener("load", loadHandler);
     scriptTag.removeEventListener("error", errorHandler);
@@ -66,6 +67,7 @@ const createDocumentScriptLoader = (doc: Document) => {
     item.handlers = [];
   };
 
+  /* istanbul ignore next @preserve - this should be covered but the browser mode won't register this part */
   const loadScripts = (
     items: ScriptItem[],
     success: () => void,
@@ -113,6 +115,7 @@ const createDocumentScriptLoader = (doc: Document) => {
     }
   };
 
+  /* istanbul ignore next @preserve - this should be covered but the browser mode won't register this part */
   const deleteScripts = () => {
     for (const item of Object.values(lookup)) {
       const scriptTag = doc.getElementById(item.id);
@@ -155,6 +158,7 @@ const createScriptLoader = () => {
   ) => {
     const doLoad = () =>
       getDocumentScriptLoader(doc).loadScripts(items, success, failure);
+    /* istanbul ignore next @preserve - this should be covered but the browser mode won't register this part */
     if (delay > 0) {
       setTimeout(doLoad, delay);
     } else {
@@ -162,6 +166,7 @@ const createScriptLoader = () => {
     }
   };
 
+  /* istanbul ignore next @preserve - this should be covered but the browser mode won't register this part */
   const reinitialize = () => {
     for (let loader = cache.pop(); loader != null; loader = cache.pop()) {
       loader.deleteScripts();

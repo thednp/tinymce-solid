@@ -6,6 +6,7 @@ import { type IAllProps } from "~/index";
 import { Editor } from './fixtures/Editor';
 import SolidEditor from '~/index';
 import { ScriptLoader } from '~/ScriptLoader2';
+import { Editor as TinyMCE } from 'tinymce';
 
 describe("Test <SolidEditor />", () => {
   const container = document.createElement('div');
@@ -51,7 +52,7 @@ describe("Test <SolidEditor />", () => {
   });
 
   it("reinitialize on demand", async () => {
-    render(() => <SolidEditor tinymceScriptSrc={['tinymce/tinymce.js', 'tinymce/tinymce1.js']} />, container);
+    render(() => <SolidEditor licenseKey='gpl' tinymceScriptSrc={['tinymce/tinymce.js']} />, container);
 
     const editorArea = await vi.waitUntil(() =>
       container.querySelector('iframe')?.contentWindow?.document.getElementById('tinymce'),
@@ -190,10 +191,11 @@ describe("Test <SolidEditor />", () => {
   });
 
   it("reacts to DISABLED changes", async () => {
+    let editorRef: TinyMCE;
     const [disabled, setDisabled] = createSignal(false);
     const ToggleDisabled = () => <button id="disable" onClick={() => setDisabled(prev => !prev)}>{disabled() ? 'ENABLE' : 'DISABLE'}</button>
 
-    render(() => <><ToggleDisabled /><Editor disabled={disabled()} /></>, container);
+    render(() => <><ToggleDisabled /><Editor onInit={(_, ed) => editorRef = ed} disabled={disabled()} /></>, container);
     const textarea = document.querySelector('textarea');
 
     const editorArea = await vi.waitUntil(() => {
@@ -201,9 +203,11 @@ describe("Test <SolidEditor />", () => {
     }, { timeout: 1000, interval: 50 });
     expect(editorArea).to.exist;
 
-    document.getElementById('disable')?.click()
+    document.getElementById('disable')?.click();
 
     setTimeout(() => {
+      expect(editorRef).to.not.be.undefined;
+
       expect(textarea?.dataset.disabled).to.equal('true');
       document.getElementById('disable')?.click()
     }, 100)

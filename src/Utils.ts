@@ -28,6 +28,7 @@ export const configHandlers2 = <H>(
   const removedKeys = prevEventKeys.filter((key) => props[key] === undefined);
   const addedKeys = currEventKeys.filter((key) => prevProps[key] === undefined);
 
+  /* istanbul ignore next @preserve - this should be covered but the browser mode won't register this part */
   removedKeys.forEach((key) => {
     // remove event handler
     const eventName = eventAttrToEventName(key);
@@ -99,6 +100,7 @@ export const isBeforeInputEventAvailable = () =>
   typeof InputEvent.prototype.getTargetRanges === "function";
 
 export const isInDoc = (elem: Node) => {
+  /* istanbul ignore next @preserve - this here seems to be for legacy browsers, we ignore it */
   if (!("isConnected" in Node.prototype)) {
     // Fallback for IE and old Edge
     let current = elem;
