@@ -23,3 +23,6 @@ coverage
 .idea
 .DS_Store
 .gitignore
+
+coverage
+test/__screenshots__

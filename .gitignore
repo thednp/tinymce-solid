@@ -33,3 +33,6 @@ gitignore
 .DS_Store
 Thumbs.db
 .npmignore
+
+coverage
+test/__screenshots__

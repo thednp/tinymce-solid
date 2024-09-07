@@ -24,9 +24,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/react-is/cjs/react-is.development.js
+// node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js
 var require_react_is_development = __commonJS({
-  "node_modules/react-is/cjs/react-is.development.js"(exports) {
+  "node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js"(exports) {
     "use strict";
     if (true) {
       (function() {
@@ -179,9 +179,9 @@ var require_react_is_development = __commonJS({
   }
 });
 
-// node_modules/react-is/index.js
+// node_modules/prop-types/node_modules/react-is/index.js
 var require_react_is = __commonJS({
-  "node_modules/react-is/index.js"(exports, module) {
+  "node_modules/prop-types/node_modules/react-is/index.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -1117,7 +1117,10 @@ var ScriptLoader = createScriptLoader();
 // src/TinyMCE.ts
 var getTinymce = (view) => {
   const global = view;
-  return global && global.tinymce ? global.tinymce : null;
+  return global && global.tinymce ? (
+    /* istanbul ignore next -- @preserve */
+    global.tinymce
+  ) : null;
 };
 
 // src/components/Editor.tsx
@@ -1134,7 +1137,8 @@ var Editor = (props) => {
   const [rollbackTimer, setRollbackTimer] = createSignal();
   const [valueCursor, setValueCursor] = createSignal();
   const [boundHandlers, setBoundHandlers] = createSignal({});
-  const view = () => props?.elementRef?.ownerDocument.defaultView ?? window;
+  const view = () => props?.elementRef?.ownerDocument.defaultView ?? /* istanbul ignore next @preserve */
+  window;
   const getInitialValue = () => {
     if (typeof initialValue() === "string") {
       return initialValue();
@@ -1398,12 +1402,15 @@ var Editor = (props) => {
     }
   };
   return <Dynamic
+    {...props}
     component={props.inline ? tagName() : "textarea"}
     id={id()}
     data-testid={props.testid}
     tabIndex={props.tabIndex}
     ref={props.elementRef}
-    {...props}
+    data-disabled={disabled()}
+    data-skin={skin()}
+    data-css={contentCss()}
   />;
 };
 
@@ -1413,6 +1420,8 @@ export {
   EditorPropTypes,
   src_default as default
 };
+/* istanbul ignore else @preserve */
+/* istanbul ignore next @preserve */
 /*! Bundled license information:
 
 react-is/cjs/react-is.development.js:

@@ -27,9 +27,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/react-is/cjs/react-is.development.js
+// node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js
 var require_react_is_development = __commonJS({
-  "node_modules/react-is/cjs/react-is.development.js"(exports) {
+  "node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js"(exports) {
     {
       (function() {
         var hasSymbol = typeof Symbol === "function" && Symbol.for;
@@ -180,9 +180,9 @@ var require_react_is_development = __commonJS({
   }
 });
 
-// node_modules/react-is/index.js
+// node_modules/prop-types/node_modules/react-is/index.js
 var require_react_is = __commonJS({
-  "node_modules/react-is/index.js"(exports, module) {
+  "node_modules/prop-types/node_modules/react-is/index.js"(exports, module) {
     {
       module.exports = require_react_is_development();
     }
@@ -1103,7 +1103,10 @@ var ScriptLoader = createScriptLoader();
 // src/TinyMCE.ts
 var getTinymce = (view) => {
   const global = view;
-  return global && global.tinymce ? global.tinymce : null;
+  return global && global.tinymce ? (
+    /* istanbul ignore next -- @preserve */
+    global.tinymce
+  ) : null;
 };
 
 // src/components/Editor.tsx
@@ -1120,7 +1123,8 @@ var Editor = (props) => {
   const [rollbackTimer, setRollbackTimer] = createSignal();
   const [valueCursor, setValueCursor] = createSignal();
   const [boundHandlers, setBoundHandlers] = createSignal({});
-  const view = () => props?.elementRef?.ownerDocument.defaultView ?? window;
+  const view = () => props?.elementRef?.ownerDocument.defaultView ?? /* istanbul ignore next @preserve */
+  window;
   const getInitialValue = () => {
     if (typeof initialValue() === "string") {
       return initialValue();
@@ -1373,7 +1377,7 @@ var Editor = (props) => {
       handleBeforeInput(evt);
     }
   };
-  return createComponent(Dynamic, mergeProps({
+  return createComponent(Dynamic, mergeProps(props, {
     get component() {
       return memo(() => !!props.inline)() ? tagName() : "textarea";
     },
@@ -1389,12 +1393,23 @@ var Editor = (props) => {
     ref(r$) {
       var _ref$ = props.elementRef;
       typeof _ref$ === "function" ? _ref$(r$) : props.elementRef = r$;
+    },
+    get ["data-disabled"]() {
+      return disabled();
+    },
+    get ["data-skin"]() {
+      return skin();
+    },
+    get ["data-css"]() {
+      return contentCss();
     }
-  }, props));
+  }));
 };
 
 // src/index.tsx
 var src_default = Editor;
+/* istanbul ignore else @preserve */
+/* istanbul ignore next @preserve */
 /*! Bundled license information:
 
 react-is/cjs/react-is.development.js:

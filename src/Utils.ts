@@ -117,7 +117,9 @@ export const setMode = (
   editor: TinyMCEEditor | undefined,
   mode: "readonly" | "design",
 ) => {
+  /* istanbul ignore else @preserve */
   if (editor !== undefined) {
+    /* istanbul ignore else @preserve */
     if (
       editor.mode != null &&
       typeof editor.mode === "object" &&

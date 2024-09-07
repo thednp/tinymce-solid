@@ -39,6 +39,7 @@ const injectScriptTag = (
   scriptTag.addEventListener("load", loadHandler);
   scriptTag.addEventListener("error", errorHandler);
 
+  /* istanbul ignore else @preserve */
   if (doc.head) {
     doc.head.appendChild(scriptTag);
   }

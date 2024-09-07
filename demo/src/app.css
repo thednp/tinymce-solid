@@ -12,32 +12,42 @@
     font-weight: 200 900;
     font-stretch: 75% 125%;
   }
+  body {
+    @apply font-sans font-normal text-base /*text-gray-700 dark:text-gray-300*/;
+  }
   h1 {
-    @apply text-4xl;
+    @apply font-stretch-125 leading-tight text-4xl;
   }
   h2 {
-    @apply text-3xl;
+    @apply font-stretch-125 leading-tight text-3xl;
   }
   h3 {
-    @apply text-2xl;
+    @apply font-stretch-125 text-2xl;
   }
   h4 {
-    @apply text-xl;
+    @apply font-stretch-125 text-xl;
+  }
+  h5 {
+    @apply font-stretch-125 text-lg;
   }
   a:not([class]) {
     @apply text-sky-600 dark:text-sky-400 underline;
   }
-  h1,
-  h2,
-  h3,
-  p,
-  ul {
+  blockquote {
+    @apply border-l-4 border-gray-300 pl-4 py-4;
+  }
+  h1, h2, h3, h3, h4, h5, b, strong {
+    @apply text-gray-900 dark:text-gray-50;
+  }
+  h1, h2, h3, h3, h4, h5, p, dl {
     @apply mb-4;
   }
-  ul,
-  ol {
-    @apply my-6 ml-6 list-disc [&>li]:mt-2;
+  ul, ol {
+    @apply my-6 ml-6 [&>li]:mt-2;
   }
+  ul { @apply list-disc; }
+  ol { @apply list-decimal; }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;

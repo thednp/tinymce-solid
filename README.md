@@ -2,13 +2,15 @@
 
 [<img width="100%" src="https://raw.githubusercontent.com/thednp/tinymce-solid/main/banner.svg" alt="TinyMCE Component for SolidJS">](https://thednp.github.io/tinymce-solid)
 
+[![Coverage Status](https://coveralls.io/repos/github/thednp/tinymce-solid/badge.svg)](https://coveralls.io/github/thednp/tinymce-solid)
 [![ci](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml/badge.svg)](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml)
 [![Npm Version](https://img.shields.io/npm/v/tinymce-solid)](https://www.npmjs.com/package/tinymce-solid)
-[![solid-js version](https://img.shields.io/badge/solid--js-1.8.20-brightgreen)](https://solidjs.com/)
+[![solid-js version](https://img.shields.io/badge/solid--js-1.8.22-brightgreen)](https://solidjs.com/)
 [![tinymce version](https://img.shields.io/badge/tinymce-7.3.0-brightgreen)](https://www.tiny.cloud/)
 [![typescript version](https://img.shields.io/badge/typescript-5.5.4-brightgreen)](https://www.typescriptlang.org/)
 [![prettier version](https://img.shields.io/badge/prettier-3.3.3-brightgreen)](https://prettier.io/)
-[![vite version](https://img.shields.io/badge/vite-5.4.0-brightgreen)](https://github.com/vitejs)
+[![vitest version](https://img.shields.io/badge/vitest-2.0.5-brightgreen)](https://vitest.dev/)
+[![vite version](https://img.shields.io/badge/vite-5.4.3-brightgreen)](https://github.com/vitejs)
 
 ## About
 
@@ -136,7 +138,7 @@ export default function App() {
 
 ## Issues
 
-Have you found an issue with tinymce-solid or do you have a feature request? Open up an [issue](https://github.com/thednp/tinymce-solid/issues) and let us know or submit a [pull request](https://github.com/thednp/tinymce-solid/pulls).
+Have you found an issue with **tinymce-solid** or do you have a feature request? Open up an [issue](https://github.com/thednp/tinymce-solid/issues) and let us know or submit a [pull request](https://github.com/thednp/tinymce-solid/pulls).
 
 _Note: For issues concerning TinyMCE please visit the [TinyMCE repository](https://github.com/tinymce/tinymce)._
 
