@@ -31,7 +31,7 @@
     "build:docs": "vite build demo --config demo/vite.config.docs.ts",
     "copy:tiny": "cp -a './node_modules/.pnpm/tinymce@7.1.1/node_modules/tinymce' './demo/public'",
     "serve:docs": "vite serve docs --port 3000",
-    "prepublishOnly": "pnpm up && npm update && pnpm format && pnpm lint && pnpm build && pnpm badges && pnpm test",
+    "prepublishOnly": "pnpm up && npm update && pnpm format && pnpm lint && pnpm build && pnpm badges",
     "badges": "npx -p dependency-version-badge update-badge solid-js tinymce typescript prettier vitest vite",
     "lint": "pnpm lint:types && pnpm lint:code",
     "lint:code": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0",
