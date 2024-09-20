@@ -1,4 +1,4 @@
-import SolidEditor, { type IAllProps } from '../../src/index'
+import SolidEditor, { type IAllProps } from '~/index'
 
 const tinymceURL = import.meta.env.BASE_URL + "tinymce/tinymce.js";
 

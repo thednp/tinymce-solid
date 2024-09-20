@@ -1,6 +1,6 @@
 import { createSignal, Show } from 'solid-js';
 import { render } from "solid-js/web";
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { type IAllProps } from "~/index";
 
 import { Editor } from './fixtures/Editor';
