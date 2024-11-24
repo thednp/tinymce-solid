@@ -28,7 +28,7 @@
     "build": "tsup",
     "build:all": "pnpm build && pnpm build:docs",
     "dev": "vite serve demo",
-    "build:docs": "vite build demo --config demo/vite.config.docs.ts",
+    "build:docs": "vite build demo --config demo/vite.config.docs.mts",
     "copy:tiny": "cp -a './node_modules/.pnpm/tinymce@7.5.1/node_modules/tinymce' './demo/public'",
     "serve:docs": "vite serve docs --port 3000",
     "prepublishOnly": "pnpm up && pnpm format && pnpm lint && pnpm build && pnpm badges",
