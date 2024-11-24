@@ -97,7 +97,7 @@ export const mergePlugins = (
   normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));
 
 export const isBeforeInputEventAvailable = () =>
-  window.InputEvent &&
+  globalThis.InputEvent &&
   typeof InputEvent.prototype.getTargetRanges === "function";
 
 export const isInDoc = (elem: Node) => {

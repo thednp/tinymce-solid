@@ -3,21 +3,21 @@ import { Dynamic } from "solid-js/web";
 import { type ScriptItem, ScriptLoader } from "../ScriptLoader2";
 import { getTinymce } from "../TinyMCE";
 import {
-  isFunction,
-  isTextareaOrInput,
-  mergePlugins,
-  uuid,
   configHandlers,
   isBeforeInputEventAvailable,
+  isFunction,
   isInDoc,
+  isTextareaOrInput,
+  mergePlugins,
   setMode,
+  uuid,
 } from "../Utils";
 import {
-  IAllProps,
-  Version,
   EditorOptions,
+  IAllProps,
   InitOptions,
   OmittedInitProps,
+  Version,
   // IProps,
 } from "./EditorPropTypes";
 import { Bookmark, Editor as TinyMCEEditor, EditorEvent } from "tinymce";
@@ -32,14 +32,14 @@ export const Editor = (props: Partial<IAllProps>) => {
   const disabled = () => props.disabled || false;
   const [editor, setEditor] = createSignal<TinyMCEEditor>();
   const [currentContent, setCurrentContent] = createSignal<string>(value());
-  const [rollbackTimer, setRollbackTimer] = createSignal<number>();
+  const [rollbackTimer, setRollbackTimer] = createSignal<NodeJS.Timeout>();
   const [valueCursor, setValueCursor] = createSignal<Bookmark>();
   const [boundHandlers, setBoundHandlers] = createSignal<
     Record<string, (event: EditorEvent<unknown>) => unknown>
   >({});
   const view = () =>
     props?.elementRef?.ownerDocument.defaultView ??
-    /* istanbul ignore next @preserve */ window;
+      /* istanbul ignore next @preserve */ window;
 
   const getInitialValue = () => {
     /* istanbul ignore else @preserve */
@@ -76,7 +76,8 @@ export const Editor = (props: Partial<IAllProps>) => {
     // fallback to the cloud when the tinymceScriptSrc is not specified
     const channel = (props.cloudChannel || "7") as Version; // `cloudChannel` is in `defaultProps`, so it's always defined.
     const apiKey = props.apiKey ? props.apiKey : "no-api-key";
-    const cloudTinyJs = `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js`;
+    const cloudTinyJs =
+      `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js`;
     return [{ src: cloudTinyJs, async, defer }];
   };
 
@@ -321,12 +322,11 @@ export const Editor = (props: Partial<IAllProps>) => {
         // start a timer and revert to the value if not applied in time
         /* istanbul ignore next @preserve */
         if (!rollbackTimer()) {
-          setRollbackTimer(
-            window.setTimeout(
-              rollbackChange,
-              typeof props.rollback === "number" ? props.rollback : 200,
-            ),
+          const newTimer = setTimeout(
+            rollbackChange,
+            typeof props.rollback === "number" ? props.rollback : 200,
           );
+          setRollbackTimer(newTimer);
         }
       }
 
@@ -355,7 +355,7 @@ export const Editor = (props: Partial<IAllProps>) => {
         if (valueCursor() && (!props.inline || tinyEditor.hasFocus())) {
           try {
             tinyEditor.selection.moveToBookmark(valueCursor()!);
-          } catch (e) {
+          } catch (_e) {
             /* ignore */
           }
         }
@@ -381,7 +381,7 @@ export const Editor = (props: Partial<IAllProps>) => {
           // possibly only in inline mode but I'm not taking chances
           // this.valueCursor = tinyEditor.selection.getBookmark(3);
           setValueCursor(tinyEditor.selection.getBookmark(3));
-        } catch (e) {
+        } catch (_e) {
           /* ignore */
         }
       }

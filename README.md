@@ -5,12 +5,11 @@
 [![Coverage Status](https://coveralls.io/repos/github/thednp/tinymce-solid/badge.svg)](https://coveralls.io/github/thednp/tinymce-solid)
 [![ci](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml/badge.svg)](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml)
 [![Npm Version](https://img.shields.io/npm/v/tinymce-solid)](https://www.npmjs.com/package/tinymce-solid)
-[![solid-js version](https://img.shields.io/badge/solid--js-1.8.22-brightgreen)](https://solidjs.com/)
-[![tinymce version](https://img.shields.io/badge/tinymce-7.3.0-brightgreen)](https://www.tiny.cloud/)
-[![typescript version](https://img.shields.io/badge/typescript-5.5.4-brightgreen)](https://www.typescriptlang.org/)
-[![prettier version](https://img.shields.io/badge/prettier-3.3.3-brightgreen)](https://prettier.io/)
-[![vitest version](https://img.shields.io/badge/vitest-2.0.5-brightgreen)](https://vitest.dev/)
-[![vite version](https://img.shields.io/badge/vite-5.4.3-brightgreen)](https://github.com/vitejs)
+[![solid-js version](https://img.shields.io/badge/solid--js-1.9.3-brightgreen)](https://solidjs.com/)
+[![tinymce version](https://img.shields.io/badge/tinymce-7.5.1-brightgreen)](https://www.tiny.cloud/)
+[![typescript version](https://img.shields.io/badge/typescript-5.7.2-brightgreen)](https://www.typescriptlang.org/)
+[![vitest version](https://img.shields.io/badge/vitest-2.1.5-brightgreen)](https://vitest.dev/)
+[![vite version](https://img.shields.io/badge/vite-5.4.11-brightgreen)](https://github.com/vitejs)
 
 ## About
 

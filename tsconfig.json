@@ -20,6 +20,6 @@
       "@/*": ["./demo/*"],
     }
   },
-  "include": ["src", "test", "demo", "vitest.config-ui.ts", "vitest.config.ts"],
+  "include": ["src", "test", "demo"],
   "exclude": ["node_modules", "dist", "experiments"]
 }

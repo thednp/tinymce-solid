@@ -24,9 +24,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js
+// node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/cjs/react-is.development.js
 var require_react_is_development = __commonJS({
-  "node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js"(exports) {
+  "node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/cjs/react-is.development.js"(exports) {
     "use strict";
     if (true) {
       (function() {
@@ -179,9 +179,9 @@ var require_react_is_development = __commonJS({
   }
 });
 
-// node_modules/prop-types/node_modules/react-is/index.js
+// node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/index.js
 var require_react_is = __commonJS({
-  "node_modules/prop-types/node_modules/react-is/index.js"(exports, module) {
+  "node_modules/.pnpm/react-is@16.13.1/node_modules/react-is/index.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -191,9 +191,9 @@ var require_react_is = __commonJS({
   }
 });
 
-// node_modules/object-assign/index.js
+// node_modules/.pnpm/object-assign@4.1.1/node_modules/object-assign/index.js
 var require_object_assign = __commonJS({
-  "node_modules/object-assign/index.js"(exports, module) {
+  "node_modules/.pnpm/object-assign@4.1.1/node_modules/object-assign/index.js"(exports, module) {
     "use strict";
     var getOwnPropertySymbols = Object.getOwnPropertySymbols;
     var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -261,26 +261,26 @@ var require_object_assign = __commonJS({
   }
 });
 
-// node_modules/prop-types/lib/ReactPropTypesSecret.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js
 var require_ReactPropTypesSecret = __commonJS({
-  "node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/ReactPropTypesSecret.js"(exports, module) {
     "use strict";
     var ReactPropTypesSecret = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
     module.exports = ReactPropTypesSecret;
   }
 });
 
-// node_modules/prop-types/lib/has.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/has.js
 var require_has = __commonJS({
-  "node_modules/prop-types/lib/has.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/lib/has.js"(exports, module) {
     "use strict";
     module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
   }
 });
 
-// node_modules/prop-types/checkPropTypes.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/checkPropTypes.js
 var require_checkPropTypes = __commonJS({
-  "node_modules/prop-types/checkPropTypes.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/checkPropTypes.js"(exports, module) {
     "use strict";
     var printWarning = function() {
     };
@@ -344,9 +344,9 @@ var require_checkPropTypes = __commonJS({
   }
 });
 
-// node_modules/prop-types/factoryWithTypeCheckers.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithTypeCheckers.js
 var require_factoryWithTypeCheckers = __commonJS({
-  "node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/factoryWithTypeCheckers.js"(exports, module) {
     "use strict";
     var ReactIs = require_react_is();
     var assign = require_object_assign();
@@ -787,9 +787,9 @@ var require_factoryWithTypeCheckers = __commonJS({
   }
 });
 
-// node_modules/prop-types/index.js
+// node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js
 var require_prop_types = __commonJS({
-  "node_modules/prop-types/index.js"(exports, module) {
+  "node_modules/.pnpm/prop-types@15.8.1/node_modules/prop-types/index.js"(exports, module) {
     "use strict";
     if (true) {
       ReactIs = require_react_is();
@@ -969,7 +969,7 @@ var normalizePluginArray = (plugins) => {
   return Array.isArray(plugins) ? plugins : plugins.split(" ");
 };
 var mergePlugins = (initPlugins, inputPlugins) => normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));
-var isBeforeInputEventAvailable = () => window.InputEvent && typeof InputEvent.prototype.getTargetRanges === "function";
+var isBeforeInputEventAvailable = () => globalThis.InputEvent && typeof InputEvent.prototype.getTargetRanges === "function";
 var isInDoc = (elem) => {
   if (!("isConnected" in Node.prototype)) {
     let current = elem;
@@ -1348,12 +1348,11 @@ var Editor = (props) => {
       const newContent = tinyEditor.getContent();
       if (props.value !== void 0 && props.value !== newContent && props.rollback !== false) {
         if (!rollbackTimer()) {
-          setRollbackTimer(
-            window.setTimeout(
-              rollbackChange,
-              typeof props.rollback === "number" ? props.rollback : 200
-            )
+          const newTimer = setTimeout(
+            rollbackChange,
+            typeof props.rollback === "number" ? props.rollback : 200
           );
+          setRollbackTimer(newTimer);
         }
       }
       if (newContent !== currentContent()) {
@@ -1373,7 +1372,7 @@ var Editor = (props) => {
         if (valueCursor() && (!props.inline || tinyEditor.hasFocus())) {
           try {
             tinyEditor.selection.moveToBookmark(valueCursor());
-          } catch (e) {
+          } catch (_e) {
           }
         }
       });
@@ -1386,7 +1385,7 @@ var Editor = (props) => {
       if (!props.inline || tinyEditor.hasFocus()) {
         try {
           setValueCursor(tinyEditor.selection.getBookmark(3));
-        } catch (e) {
+        } catch (_e) {
         }
       }
     }

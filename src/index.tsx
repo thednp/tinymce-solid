@@ -1,5 +1,5 @@
 import { Editor } from "./components/Editor";
-import { type IAllProps, EditorPropTypes } from "./components/EditorPropTypes";
+import { EditorPropTypes, type IAllProps } from "./components/EditorPropTypes";
 
 export default Editor;
 export { type IAllProps };
