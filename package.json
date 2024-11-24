@@ -21,8 +21,8 @@
   },
   "scripts": {
     "pre-test": "pnpm clean-coverage",
-    "test": "pnpm pre-test && vitest --config vitest.config.ts",
-    "test-ui": "pnpm pre-test && vitest --config vitest.config-ui.ts",
+    "test": "pnpm pre-test && vitest --config vitest.config.mts",
+    "test-ui": "pnpm pre-test && vitest --config vitest.config-ui.mts",
     "clean-coverage": "rm -rf coverage .nyc_output",
     "format": "deno fmt src",
     "build": "tsup",
