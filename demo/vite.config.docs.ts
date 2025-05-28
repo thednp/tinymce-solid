@@ -1,9 +1,14 @@
 import { defineConfig } from "vite";
 import solidPlugin from "vite-plugin-solid";
+import compression from "vite-plugin-compression2";
+// import tailwindcss from "@tailwindcss/vite";
 import path from "node:path";
 
 export default defineConfig({
+  base: "./",
   plugins: [
+    // tailwindcss(),
+    compression({ include: /\.(html|xml|css|json|js|mjs|svg|woff|woff2)$/ }),
     solidPlugin(),
     {
       name: "Replace env variables",
@@ -27,7 +32,9 @@ export default defineConfig({
     port: 3000,
   },
   build: {
-    target: "ESNext",
+    target: "esnext",
+    outDir: "../docs",
+    emptyOutDir: true,
   },
   resolve: {
     alias: {

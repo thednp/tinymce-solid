@@ -21,11 +21,12 @@ export default defineConfig({
       include: ["src/**/*.{ts,tsx}"],
     },
     browser: {
-      provider: 'preview', // or 'webdriverio'
+      provider: 'playwright', // or 'webdriverio'
       enabled: true,
-      headless: false,
-      name: 'chromium', // browser name is required
-      // enableUI: true
+      headless: true,
+      instances: [
+        { browser: 'chromium' }
+      ]
     },
-  },
+  },  
 });

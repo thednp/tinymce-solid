@@ -1,6 +1,6 @@
 import * as solid_js from 'solid-js';
 import * as PropTypes from 'prop-types';
-import { EditorEvent, Editor as Editor$1, Events, TinyMCE } from 'tinymce';
+import { Events, EditorEvent, Editor as Editor$1, TinyMCE } from 'tinymce';
 
 type EventHandler<A> = (a: EditorEvent<A>, editor: Editor$1) => unknown;
 type EEventHandler<K extends keyof Events.EditorEventMap> = EventHandler<Events.EditorEventMap[K]>;

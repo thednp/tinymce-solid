@@ -23,7 +23,7 @@ jobs:
       - name: PNPM setup
         uses: pnpm/action-setup@v3
 
-      - name: Setup Node.js v22
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
