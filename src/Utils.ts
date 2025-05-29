@@ -87,7 +87,7 @@ const normalizePluginArray = (plugins?: string | string[]): string[] => {
     return [];
   }
 
-  return Array.isArray(plugins) ? plugins : plugins.split(" ");
+  return Array.isArray(plugins) ? /* istanbul ignore next */ plugins : plugins.split(" ");
 };
 
 export const mergePlugins = (

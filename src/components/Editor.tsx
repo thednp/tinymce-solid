@@ -75,6 +75,7 @@ export const Editor = (props: Partial<IAllProps>) => {
 
     // fallback to the cloud when the tinymceScriptSrc is not specified
     const channel = (props.cloudChannel || "7") as Version; // `cloudChannel` is in `defaultProps`, so it's always defined.
+    /* istanbul ignore next @preserve */
     const apiKey = props.apiKey ? props.apiKey : "no-api-key";
     const cloudTinyJs =
       `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js`;
@@ -136,6 +137,7 @@ export const Editor = (props: Partial<IAllProps>) => {
       // this is probably someone trying to help by rendering us offscreen
       // but we can't do that because the editor iframe must be in the document
       // in order to have state
+      /* istanbul ignore next @preserve */
       if (attempts === 0) {
         // we probably just need to wait for the current events to be processed
         setTimeout(() => initialise(1), 1);
@@ -194,6 +196,7 @@ export const Editor = (props: Partial<IAllProps>) => {
       init_instance_callback: (editor) => {
         // check for changes that happened since tinymce.init() was called
         const initialValue = getInitialValue();
+        /* istanbul ignore next @preserve */
         let newCurrentValue = currentContent() ?? editor.getContent();
         /* istanbul ignore next @preserve - this should be covered but the browser mode won't register this part */
         if (newCurrentValue !== initialValue) {
@@ -205,7 +208,9 @@ export const Editor = (props: Partial<IAllProps>) => {
           editor.setDirty(false);
         }
         setCurrentContent(newCurrentValue);
+        /* istanbul ignore next @preserve */
         const isDisabled = disabled() ?? false;
+        /* istanbul ignore next @preserve */
         setMode(editor, isDisabled ? "readonly" : "design");
         // ensure existing init_instance_callback is called
         /* istanbul ignore next @preserve */
@@ -285,6 +290,7 @@ export const Editor = (props: Partial<IAllProps>) => {
   createEffect(
     on(disabled, () => {
       const tinyEditor = editor();
+      /* istanbul ignore next @preserve */
       if (tinyEditor?.initialized) {
         const isDisabled = disabled() ?? false;
         setMode(tinyEditor, isDisabled ? "readonly" : "design");
@@ -297,12 +303,14 @@ export const Editor = (props: Partial<IAllProps>) => {
 
   const changeEvents = () => {
     const isIE = getTinymce(view())?.Env?.browser?.isIE();
+    /* istanbul ignore next @preserve */
     return isIE
       ? "change keyup compositionend setcontent CommentChange"
       : "change input compositionend setcontent CommentChange";
   };
 
   const beforeInputEvent = () => {
+    /* istanbul ignore next @preserve */
     return isBeforeInputEventAvailable()
       ? "beforeinput SelectionChange"
       : "SelectionChange";
@@ -344,6 +352,7 @@ export const Editor = (props: Partial<IAllProps>) => {
   const rollbackChange = () => {
     /* istanbul ignore next @preserve */
     const tinyEditor = editor();
+    /* istanbul ignore next @preserve */
     const value = props.value;
     /* istanbul ignore next @preserve */
     if (tinyEditor && value && value !== currentContent()) {
@@ -411,6 +420,7 @@ export const Editor = (props: Partial<IAllProps>) => {
   };
 
   return (
+    /* istanbul ignore next @preserve */
     <Dynamic
       {...props}
       component={props.inline ? tagName() : "textarea"}

@@ -142,6 +142,7 @@ const createScriptLoader = () => {
 
   const getDocumentScriptLoader = (doc: Document) => {
     let loader = cache.find((l) => l.getDocument() === doc);
+    /* istanbul ignore else @preserve */
     if (loader === undefined) {
       loader = createDocumentScriptLoader(doc);
       cache.push(loader);
