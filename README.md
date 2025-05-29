@@ -6,7 +6,7 @@
 [![ci](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml/badge.svg)](https://github.com/thednp/tinymce-solid/actions/workflows/ci.yml)
 [![Npm Version](https://img.shields.io/npm/v/tinymce-solid)](https://www.npmjs.com/package/tinymce-solid)
 [![solid-js version](https://img.shields.io/badge/solid--js-1.9.7-brightgreen)](https://solidjs.com/)
-[![tinymce version](https://img.shields.io/badge/tinymce-7.9.0-brightgreen)](https://www.tiny.cloud/)
+[![tinymce version](https://img.shields.io/badge/tinymce-7.9.1-brightgreen)](https://www.tiny.cloud/)
 [![typescript version](https://img.shields.io/badge/typescript-5.8.3-brightgreen)](https://www.typescriptlang.org/)
 [![vitest version](https://img.shields.io/badge/vitest-3.1.4-brightgreen)](https://vitest.dev/)
 [![vite version](https://img.shields.io/badge/vite-6.3.5-brightgreen)](https://github.com/vitejs)

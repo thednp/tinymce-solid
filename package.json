@@ -29,7 +29,7 @@
     "build:all": "pnpm build && pnpm build:docs",
     "dev": "vite serve demo",
     "build:docs": "vite build demo --config demo/vite.config.docs.ts",
-    "copy:tiny": "cp -a './node_modules/.pnpm/tinymce@7.9.0/node_modules/tinymce' './demo/public'",
+    "copy:tiny": "cp -a './node_modules/.pnpm/tinymce@7.9.1/node_modules/tinymce' './demo/public'",
     "serve:docs": "vite serve docs --port 3000",
     "prepublishOnly": "pnpm up && pnpm format && pnpm lint && pnpm build && pnpm badges",
     "badges": "npx -p dependency-version-badge update-badge solid-js tinymce typescript vitest vite",
@@ -43,13 +43,13 @@
   },
   "dependencies": {
     "solid-js": "^1.9.7",
-    "tinymce": "^7.9.0"
+    "tinymce": "^7.9.1"
   },
   "devDependencies": {
     "@kobalte/core": "^0.13.9",
     "@kobalte/utils": "^0.9.1",
     "@testing-library/jest-dom": "^6.6.3",
-    "@types/node": "^22.15.23",
+    "@types/node": "^22.15.24",
     "@types/prop-types": "^15.7.14",
     "@vitest/browser": "^3.1.4",
     "@vitest/coverage-istanbul": "^3.1.4",

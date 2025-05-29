@@ -256,7 +256,10 @@ var normalizePluginArray = (plugins) => {
   if (typeof plugins === "undefined" || plugins === "") {
     return [];
   }
-  return Array.isArray(plugins) ? plugins : plugins.split(" ");
+  return Array.isArray(plugins) ? (
+    /* istanbul ignore next */
+    plugins
+  ) : plugins.split(" ");
 };
 var mergePlugins = (initPlugins, inputPlugins) => normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));
 var isBeforeInputEventAvailable = () => globalThis.InputEvent && typeof InputEvent.prototype.getTargetRanges === "function";
@@ -682,33 +685,36 @@ var Editor = (props) => {
       handleBeforeInput(evt);
     }
   };
-  return createComponent(Dynamic, mergeProps(props, {
-    get component() {
-      return memo(() => !!props.inline)() ? tagName() : "textarea";
-    },
-    get id() {
-      return id();
-    },
-    get ["data-testid"]() {
-      return props.testid;
-    },
-    get tabIndex() {
-      return props.tabIndex;
-    },
-    ref(r$) {
-      var _ref$ = props.elementRef;
-      typeof _ref$ === "function" ? _ref$(r$) : props.elementRef = r$;
-    },
-    get ["data-disabled"]() {
-      return disabled();
-    },
-    get ["data-skin"]() {
-      return skin();
-    },
-    get ["data-css"]() {
-      return contentCss();
-    }
-  }));
+  return (
+    /* istanbul ignore next @preserve */
+    createComponent(Dynamic, mergeProps(props, {
+      get component() {
+        return memo(() => !!props.inline)() ? tagName() : "textarea";
+      },
+      get id() {
+        return id();
+      },
+      get ["data-testid"]() {
+        return props.testid;
+      },
+      get tabIndex() {
+        return props.tabIndex;
+      },
+      ref(r$) {
+        var _ref$ = props.elementRef;
+        typeof _ref$ === "function" ? _ref$(r$) : props.elementRef = r$;
+      },
+      get ["data-disabled"]() {
+        return disabled();
+      },
+      get ["data-skin"]() {
+        return skin();
+      },
+      get ["data-css"]() {
+        return contentCss();
+      }
+    }))
+  );
 };
 
 // src/index.tsx

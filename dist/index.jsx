@@ -268,7 +268,10 @@ var normalizePluginArray = (plugins) => {
   if (typeof plugins === "undefined" || plugins === "") {
     return [];
   }
-  return Array.isArray(plugins) ? plugins : plugins.split(" ");
+  return Array.isArray(plugins) ? (
+    /* istanbul ignore next */
+    plugins
+  ) : plugins.split(" ");
 };
 var mergePlugins = (initPlugins, inputPlugins) => normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));
 var isBeforeInputEventAvailable = () => globalThis.InputEvent && typeof InputEvent.prototype.getTargetRanges === "function";
@@ -702,17 +705,20 @@ var Editor = (props) => {
       handleBeforeInput(evt);
     }
   };
-  return <Dynamic
-    {...props}
-    component={props.inline ? tagName() : "textarea"}
-    id={id()}
-    data-testid={props.testid}
-    tabIndex={props.tabIndex}
-    ref={props.elementRef}
-    data-disabled={disabled()}
-    data-skin={skin()}
-    data-css={contentCss()}
-  />;
+  return (
+    /* istanbul ignore next @preserve */
+    <Dynamic
+      {...props}
+      component={props.inline ? tagName() : "textarea"}
+      id={id()}
+      data-testid={props.testid}
+      tabIndex={props.tabIndex}
+      ref={props.elementRef}
+      data-disabled={disabled()}
+      data-skin={skin()}
+      data-css={contentCss()}
+    />
+  );
 };
 
 // src/index.tsx
